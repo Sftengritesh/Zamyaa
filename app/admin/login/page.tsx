@@ -40,7 +40,10 @@ export default function AdminLoginPage() {
     }
   };
 
-  const isDbError = error.toLowerCase().includes("database") || error.toLowerCase().includes("connection");
+  const isDbError = 
+    error === "Configuration" || 
+    error.toLowerCase().includes("database") || 
+    error.toLowerCase().includes("connection");
 
   return (
     <main 
@@ -90,21 +93,28 @@ export default function AdminLoginPage() {
               <AlertCircle size={16} className="shrink-0 mt-0.5" />
               <div>
                 <p className="font-semibold mb-1">Authentication Failed</p>
-                <p className="opacity-90 leading-relaxed">{error}</p>
+                <p className="opacity-90 leading-relaxed">
+                  {error === "Configuration" 
+                    ? "Database connection or server configuration error. See diagnostic steps below." 
+                    : error}
+                </p>
               </div>
             </div>
           )}
 
           {/* Special Helper for DB Connection Issues */}
           {error && isDbError && (
-            <div className="bg-accent/5 border border-accent/20 rounded-lg p-4 text-xs text-left mb-6 flex gap-3 items-start">
+            <div className="bg-accent/5 border border-accent/20 rounded-lg p-4 text-xs text-left mb-6 flex gap-3 items-start animate-fade-in">
               <Server size={16} className="shrink-0 mt-0.5 text-accent" />
               <div>
                 <p className="font-semibold text-accent mb-2 uppercase tracking-wider">Troubleshooting Database:</p>
-                <ul className="list-disc pl-4 space-y-1 text-muted">
-                  <li>Ensure your local IP is whitelisted under "Network Access" in MongoDB Atlas.</li>
-                  <li>Check if the credentials in <code className="bg-black/40 px-1 py-0.5 rounded border border-border">.env.local</code> are correct.</li>
-                  <li>Verify if your database user has proper readWrite roles.</li>
+                <p className="text-muted mb-2 leading-relaxed">
+                  Your local dev server returned a TLS connection failure (Alert 80), which typically means your IP is not whitelisted.
+                </p>
+                <ul className="list-disc pl-4 space-y-1.5 text-muted">
+                  <li><strong>Whitelist Current IP</strong>: Log into your <a href="https://cloud.mongodb.com" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">MongoDB Atlas Console</a>, navigate to <strong>Network Access</strong>, and add your current IP address.</li>
+                  <li><strong>Alternative</strong>: For development convenience, you can add <code className="bg-black/40 px-1 py-0.5 rounded border border-border">0.0.0.0/0</code> to allow connection from anywhere.</li>
+                  <li><strong>Check Credentials</strong>: Verify that <code className="bg-black/40 px-1 py-0.5 rounded border border-border">MONGODB_URI</code> in <code className="bg-black/40 px-1 py-0.5 rounded border border-border">.env.local</code> has correct username/password.</li>
                 </ul>
               </div>
             </div>
