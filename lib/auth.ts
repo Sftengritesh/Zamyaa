@@ -24,30 +24,35 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           throw new Error("Email and password are required");
         }
 
-        const db = await getDb();
-        const user = await db
-          .collection("users")
-          .findOne({ email: credentials.email });
+        try {
+          const db = await getDb();
+          const user = await db
+            .collection("users")
+            .findOne({ email: credentials.email });
 
-        if (!user) {
-          throw new Error("No account found with this email");
+          if (!user) {
+            throw new Error("No account found with this email");
+          }
+
+          const isValid = await bcrypt.compare(
+            credentials.password as string,
+            user.password
+          );
+
+          if (!isValid) {
+            throw new Error("Invalid password");
+          }
+
+          return {
+            id: user._id.toString(),
+            email: user.email,
+            name: user.name,
+            role: user.role || "user",
+          };
+        } catch (dbError: any) {
+          console.error("❌ Database connection error during authorize:", dbError.message || dbError);
+          throw new Error("Database connection failed. Please verify your internet connection and MongoDB Atlas IP Whitelist.");
         }
-
-        const isValid = await bcrypt.compare(
-          credentials.password as string,
-          user.password
-        );
-
-        if (!isValid) {
-          throw new Error("Invalid password");
-        }
-
-        return {
-          id: user._id.toString(),
-          email: user.email,
-          name: user.name,
-          role: user.role || "user",
-        };
       },
     }),
   ],

@@ -1,9 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const pathname = usePathname();
+
+  if (pathname?.startsWith("/studio") || pathname?.startsWith("/admin")) return null;
 
   return (
     <footer
@@ -190,17 +194,37 @@ export default function Footer() {
           }}
           className="md:flex-row md:justify-between"
         >
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "11px",
-              fontWeight: 300,
-              letterSpacing: "0.1em",
-              color: "var(--color-muted-foreground)",
-            }}
-          >
-            © {year} ZAMYAA BY JYOTI — All Rights Reserved
-          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "6px", alignItems: "inherit" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "11px",
+                fontWeight: 300,
+                letterSpacing: "0.1em",
+                color: "var(--color-muted-foreground)",
+              }}
+            >
+              © {year} ZAMYAA BY JYOTI — All Rights Reserved
+            </p>
+            <Link
+              href="/admin"
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "9px",
+                fontWeight: 500,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: "rgba(201, 168, 76, 0.4)",
+                transition: "color 0.3s ease",
+                textDecoration: "none",
+                display: "inline-block"
+              }}
+              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "var(--color-accent)")}
+              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "rgba(201, 168, 76, 0.4)")}
+            >
+              Boutique Portal
+            </Link>
+          </div>
           <p
             style={{
               fontFamily: "var(--font-display)",
