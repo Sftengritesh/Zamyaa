@@ -36,13 +36,6 @@ async function main() {
     const db = client.db(dbName);
     const usersCollection = db.collection("users");
 
-    // Check if user already exists
-    const existingUser = await usersCollection.findOne({ email: adminEmail });
-    if (existingUser) {
-      console.log(`⚠️ User with email ${adminEmail} already exists! Skipping seed.`);
-      return;
-    }
-
     console.log("🔑 Hashing password...");
     const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
@@ -54,15 +47,30 @@ async function main() {
       createdAt: new Date(),
     };
 
-    console.log("💾 Inserting admin user into database...");
-    const result = await usersCollection.insertOne(newAdmin);
-    
-    console.log("=========================================");
-    console.log("🎉 Seed Completed Successfully!");
-    console.log(`   Admin Email: ${adminEmail}`);
-    console.log(`   Admin Password: ${adminPassword}`);
-    console.log(`   ID: ${result.insertedId}`);
-    console.log("=========================================");
+    // Check if user already exists
+    const existingUser = await usersCollection.findOne({ email: adminEmail });
+
+    if (existingUser) {
+      console.log(`🔄 User already exists — updating password...`);
+      await usersCollection.updateOne(
+        { email: adminEmail },
+        { $set: { password: hashedPassword, role: "admin" } }
+      );
+      console.log("=========================================");
+      console.log("✅ Password Updated Successfully!");
+      console.log(`   Admin Email: ${adminEmail}`);
+      console.log(`   Admin Password: ${adminPassword}`);
+      console.log("=========================================");
+    } else {
+      console.log("💾 Inserting admin user into database...");
+      const result = await usersCollection.insertOne(newAdmin);
+      console.log("=========================================");
+      console.log("🎉 Seed Completed Successfully!");
+      console.log(`   Admin Email: ${adminEmail}`);
+      console.log(`   Admin Password: ${adminPassword}`);
+      console.log(`   ID: ${result.insertedId}`);
+      console.log("=========================================");
+    }
     console.log("💡 You can now use these credentials to log in at /admin/login");
 
   } catch (error) {

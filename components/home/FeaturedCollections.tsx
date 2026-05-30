@@ -145,7 +145,7 @@ export default function FeaturedCollections({ collections }: { collections: Coll
               </div>
               {/* Caption */}
               <div style={{ marginTop: "16px" }}>
-                <h3 className="group-hover:text-amber-400 transition-colors" style={{
+                <h3 className="group-hover:text-accent transition-colors" style={{
                   fontFamily: "var(--font-display)", fontSize: "clamp(20px, 2.5vw, 28px)",
                   fontWeight: 300, letterSpacing: "0.03em", color: "var(--color-foreground)", marginBottom: "6px",
                 }}>

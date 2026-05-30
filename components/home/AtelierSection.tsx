@@ -16,7 +16,7 @@ export default function AtelierSection() {
           <RevealOnScroll className="order-2 md:order-1">
             <div className="relative">
               {/* Main image — contained aspect ratio */}
-              <div className="relative overflow-hidden" style={{ aspectRatio: "3/2", maxHeight: "380px" }}>
+              <div className="relative overflow-hidden img-zoom" style={{ aspectRatio: "3/2", maxHeight: "380px" }}>
                 <Image
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUk2rJQDoMLwAix3ACU8lXOZ8G1rzlKu76GJZanLTfX9vh6ugTbFHunnHXMW9Jrlp9KrzYl_ArVVzlaAGpxdOJMyBclIXYKaXb_QRn6_8Bsx4mpdgWMnkLPtIP7CV1Tsu7O6fk3huMtxoZRF2lT2J8Bp51HJkEQXzAs771FsyH7ccX-xlwodHBxYh9BParBqg6ttfXjte1suQ-tYBfYTiBQdnpmoiAqgECMBvwAGkWPQtMXIBm1mJSNyFq7R_nOYhAK2qNt6_JGvvAPQ"
                   alt="Artisan at work"
@@ -26,7 +26,7 @@ export default function AtelierSection() {
                 />
               </div>
               {/* Small accent swatch — bottom right, safely inside parent */}
-              <div className="absolute overflow-hidden hidden md:block"
+              <div className="absolute overflow-hidden hidden md:block img-zoom"
                 style={{ bottom: "-16px", right: "-16px", width: "100px", height: "130px",
                   border: "3px solid var(--color-card)", boxShadow: "0 8px 40px rgba(0,0,0,0.5)" }}>
                 <Image

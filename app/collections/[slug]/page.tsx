@@ -123,7 +123,7 @@ export default async function CollectionPage({ params }: Props) {
                 return (
                   <RevealOnScroll key={product._id} delay={index + 1}>
                     <div className="group flex flex-col no-underline text-foreground select-none relative">
-                      <Link href="/contact" className="no-underline text-foreground block">
+                      <Link href={`/products/${product.slug}`} className="no-underline text-foreground block">
                         <div className="product-img-wrap aspect-[4/5] relative rounded-[32px_32px_10px_10px] overflow-hidden bg-card shadow-card group-hover:shadow-card-hover group-hover:translate-y-[-10px] transition-all duration-700 ease-[var(--ease-out-expo)]">
                           <OptimizedImage
                             src={product.fallbackUrl}

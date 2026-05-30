@@ -30,7 +30,7 @@ export default function HeritageSection() {
           <div className="relative overflow-hidden mb-14"
             style={{ width: "100%", height: "clamp(200px, 35vw, 480px)" }}>
             <Image
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzZBQhYaAGFT6RT9gu8G_40ZOc71klrBrI1cXVDyW3uUzchKIwtTMah3_LXyFLUNRPIxTUs1YO9ggvHdvx0dKxzprJaIcieYQotZBUnKgSBbmhHT32fQXRK6oG-IM7e0tMunqmA3bRbgmHVMi6e7NvScZLAoyt-We2BWLUgUn9xLCZrOMfM4ZkIUhiWaNH1XprLdptL1S-065F7kUGIhUcqn5fY0IYfdEPBLOPDptpW03HQi5_lxu5vX-UiH2mBRuel-8JLMTLnuFEng"
+              src="/images/Daastaan.png"
               alt="Heritage fabric"
               fill
               style={{ objectFit: "cover", objectPosition: "center 30%", filter: "brightness(0.85)" }}

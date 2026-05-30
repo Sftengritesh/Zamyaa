@@ -17,9 +17,10 @@ export default function ConsultationCTA() {
       {/* Background image with deep overlay */}
       <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
         <Image
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzZBQhYaAGFT6RT9gu8G_40ZOc71klrBrI1cXVDyW3uUzchKIwtTMah3_LXyFLUNRPIxTUs1YO9ggvHdvx0dKxzprJaIcieYQotZBUnKgSBbmhHT32fQXRK6oG-IM7e0tMunqmA3bRbgmHVMi6e7NvScZLAoyt-We2BWLUgUn9xLCZrOMfM4ZkIUhiWaNH1XprLdptL1S-065F7kUGIhUcqn5fY0IYfdEPBLOPDptpW03HQi5_lxu5vX-UiH2mBRuel-8JLMTLnuFEng"
+          src="/images/Daastaan.png"
           alt=""
           fill
+          sizes="100vw"
           style={{
             objectFit: "cover",
             objectPosition: "center 40%",
@@ -130,15 +131,15 @@ export default function ConsultationCTA() {
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
                 textDecoration: "none",
-                transition: "all 0.4s ease",
+                transition: "all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
               }}
               onMouseEnter={e => {
                 (e.currentTarget as HTMLElement).style.background = "var(--color-accent-light)";
-                (e.currentTarget as HTMLElement).style.letterSpacing = "0.25em";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
               }}
               onMouseLeave={e => {
                 (e.currentTarget as HTMLElement).style.background = "var(--color-accent)";
-                (e.currentTarget as HTMLElement).style.letterSpacing = "0.2em";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
               }}
             >
               Book Appointment
@@ -158,15 +159,17 @@ export default function ConsultationCTA() {
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
                 textDecoration: "none",
-                transition: "all 0.4s ease",
+                transition: "all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
               }}
               onMouseEnter={e => {
                 (e.currentTarget as HTMLElement).style.borderColor = "var(--color-accent)";
                 (e.currentTarget as HTMLElement).style.color = "var(--color-accent)";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
               }}
               onMouseLeave={e => {
                 (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border-strong)";
                 (e.currentTarget as HTMLElement).style.color = "var(--color-foreground)";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
               }}
             >
               Browse Collections

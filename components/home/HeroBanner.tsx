@@ -21,7 +21,7 @@ const FALLBACK_HERO = {
   description: "Handcrafted silhouettes inspired by earth and indigo skies.",
   ctaText: "Explore Collection",
   ctaLink: "/collections",
-  image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBtv7eFs1zc_8Sr9r-O0Q4YmDQFpYwIo_cXfqUivDRtqXftB23nTe5BXuKLJFYtori7D6u2QsTN-gmFDe3-A2_K3ISqA0dZ0HjQLYVLGcZNKKgX7rkLPYusqhHcIpUZ1UWNoogJ5qgsxt1QDHPMOg53b_xhWSuicERzm86-oUldM8sFJ42zbEGybaLaKh2-RW_2G463a98HGBHdxETeQn-V0wlaVHpoIMS55jql82j4yTYBjXAp7DnTlb12HNIMH1N3XWrZqhkmDxpkDg",
+  image: "/images/hero.png",
 };
 
 export default function HeroBanner({ banners }: { banners: Banner[] }) {
@@ -30,13 +30,13 @@ export default function HeroBanner({ banners }: { banners: Banner[] }) {
 
   const items = banners?.length > 0
     ? banners.map(b => ({
-        title: b.title,
-        subtitle: b.subtitle || "",
-        description: b.description || "",
-        ctaText: b.ctaText || "Explore",
-        ctaLink: b.ctaLink || "/collections",
-        image: (() => { try { return urlFor(b.image).url(); } catch { return FALLBACK_HERO.image; } })(),
-      }))
+      title: b.title,
+      subtitle: b.subtitle || "",
+      description: b.description || "",
+      ctaText: b.ctaText || "Explore",
+      ctaLink: b.ctaLink || "/collections",
+      image: (() => { try { return urlFor(b.image).url(); } catch { return FALLBACK_HERO.image; } })(),
+    }))
     : [FALLBACK_HERO];
 
   useEffect(() => {
@@ -71,18 +71,79 @@ export default function HeroBanner({ banners }: { banners: Banner[] }) {
             zIndex: i === current ? 1 : 0,
           }}
         >
-          <Image
-            src={s.image}
-            alt={s.title}
-            fill
-            priority={i === 0}
-            quality={90}
-            style={{
-              objectFit: "cover",
-              objectPosition: "center top",
-              animation: i === current ? "heroZoom 12s ease-out forwards" : "none",
-            }}
-          />
+          {/* Desktop view: 3-column vertical triptych */}
+          <div
+            className="hidden md:grid grid-cols-3 h-full w-full gap-[1px]"
+            style={{ background: "var(--color-border)" }}
+          >
+            {/* Panel 1: Left */}
+            <div className="relative overflow-hidden h-full">
+              <Image
+                src={s.image}
+                alt={`${s.title} Left Detail`}
+                fill
+                priority={i === 0}
+                quality={90}
+                sizes="(max-width: 768px) 0vw, 33vw"
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "center center",
+                  animation: i === current ? "heroZoomLeft 14s ease-out forwards" : "none",
+                }}
+              />
+            </div>
+
+            {/* Panel 2: Center */}
+            <div className="relative overflow-hidden h-full">
+              <Image
+                src={s.image}
+                alt={`${s.title} Center`}
+                fill
+                priority={i === 0}
+                quality={90}
+                sizes="(max-width: 768px) 0vw, 34vw"
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "center center",
+                  animation: i === current ? "heroZoomCenter 14s ease-out forwards" : "none",
+                }}
+              />
+            </div>
+
+            {/* Panel 3: Right */}
+            <div className="relative overflow-hidden h-full">
+              <Image
+                src={s.image}
+                alt={`${s.title} Right Detail`}
+                fill
+                priority={i === 0}
+                quality={90}
+                sizes="(max-width: 768px) 0vw, 33vw"
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "center center",
+                  animation: i === current ? "heroZoomRight 14s ease-out forwards" : "none",
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Mobile view: Single cover image */}
+          <div className="block md:hidden relative h-full w-full">
+            <Image
+              src={s.image}
+              alt={s.title}
+              fill
+              priority={i === 0}
+              quality={90}
+              sizes="100vw"
+              style={{
+                objectFit: "cover",
+                objectPosition: "center center",
+                animation: i === current ? "heroZoomCenter 12s ease-out forwards" : "none",
+              }}
+            />
+          </div>
         </div>
       ))}
 
