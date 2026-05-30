@@ -11,14 +11,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center font-body text-xs font-semibold uppercase tracking-[0.15em] border border-transparent rounded-full px-10 py-[18px] transition-all duration-500 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-accent",
+          "inline-flex items-center justify-center font-body text-xs font-semibold uppercase tracking-[0.15em] border border-transparent rounded-none px-10 py-4 transition-all duration-300 cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-accent",
           variant === "primary" && [
-            "bg-accent text-black shadow-button hover:translate-y-[-5px] hover:shadow-[0_20px_40px_oklch(0.68_0.1_70/0.45)]",
-            "active:translate-y-0 active:shadow-button",
+            "bg-accent text-background border border-accent hover:bg-transparent hover:text-accent",
           ],
           variant === "outline" && [
-            "border-border text-foreground hover:bg-accent hover:text-black hover:border-accent hover:translate-y-[-5px]",
-            "active:translate-y-0",
+            "border-border text-foreground hover:border-accent hover:text-accent hover:bg-accent/5",
           ],
           variant === "ghost" && "bg-transparent text-foreground hover:text-accent border-none px-4 py-2",
           className

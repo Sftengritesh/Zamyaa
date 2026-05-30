@@ -78,7 +78,7 @@ export default async function ProductDetailPage({ params }: Props) {
           
           {/* Images Section */}
           <RevealOnScroll className="relative select-none">
-            <div className="aspect-[4/5] relative rounded-[40px] overflow-hidden bg-card shadow-card">
+            <div className="aspect-[4/5] relative rounded-none overflow-hidden bg-card border border-border/40 shadow-sm">
               <OptimizedImage
                 src={mainImgUrl}
                 alt={product.name}
@@ -93,7 +93,7 @@ export default async function ProductDetailPage({ params }: Props) {
             {product.images && product.images.length > 1 && (
               <div className="grid grid-cols-4 gap-4 mt-6">
                 {product.images.map((img: any, i: number) => (
-                  <div key={i} className="aspect-square relative rounded-2xl overflow-hidden cursor-pointer bg-card shadow border border-border">
+                  <div key={i} className="aspect-square relative rounded-none overflow-hidden cursor-pointer bg-card shadow-sm border border-border">
                     <OptimizedImage
                       src={urlFor(img).url()}
                       alt={`${product.name} thumbnail ${i + 1}`}
@@ -106,7 +106,7 @@ export default async function ProductDetailPage({ params }: Props) {
               </div>
             )}
           </RevealOnScroll>
-
+ 
           {/* Product details */}
           <RevealOnScroll delay={1} className="flex flex-col">
             <div className="border-b border-border pb-6 mb-8">
@@ -130,12 +130,12 @@ export default async function ProductDetailPage({ params }: Props) {
                 )}
               </div>
             </div>
-
+ 
             {/* Description */}
             <p className="text-muted font-body text-base md:text-lg leading-relaxed mb-8">
               {product.description}
             </p>
-
+ 
             {/* Sizes Selection */}
             {product.sizes && product.sizes.length > 0 && (
               <div className="mb-8">
@@ -146,7 +146,7 @@ export default async function ProductDetailPage({ params }: Props) {
                   {product.sizes.map((size: string) => (
                     <button
                       key={size}
-                      className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-xs font-semibold hover:border-accent hover:text-accent transition-colors bg-transparent cursor-pointer"
+                      className="w-12 h-12 rounded-none border border-border flex items-center justify-center text-xs font-semibold hover:border-accent hover:text-accent transition-colors bg-transparent cursor-pointer"
                     >
                       {size}
                     </button>

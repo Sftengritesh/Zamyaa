@@ -15,32 +15,32 @@
   --font-body: var(--font-dm, "DM Sans", "Inter", system-ui, sans-serif);
   --font-heading: var(--font-display);
 
-  /* --- Luxury Color Palette (Dark-first) --- */
-  /* Deep charcoal background */
-  --color-background: #0e0d0c;
-  --color-foreground: #f5f0e8;
-  --color-muted: #8a8070;
-  --color-muted-foreground: #6b6055;
+  /* --- Luxury Color Palette (Light-first) --- */
+  /* Warm soft ivory linen background */
+  --color-background: #faf8f5;
+  --color-foreground: #1c1b1a;
+  --color-muted: #6b6055;
+  --color-muted-foreground: #8a8070;
 
   /* Cards & surfaces */
-  --color-card: #161412;
-  --color-card-alt: #1a1715;
-  --color-surface: #201d1a;
+  --color-card: #f5f0e8;
+  --color-card-alt: #ebe3d8;
+  --color-surface: #f0eae1;
 
-  /* Gold accent — the Zamyaa signature */
-  --color-accent: #c9a84c;
-  --color-accent-light: #dfc278;
-  --color-accent-dark: #a8872e;
-  --color-accent-muted: rgba(201, 168, 76, 0.15);
+  /* Gold accent — the Zamyaa signature (richer/darker for light mode contrast) */
+  --color-accent: #ac8c3a;
+  --color-accent-light: #c9a84c;
+  --color-accent-dark: #8a6f2b;
+  --color-accent-muted: rgba(172, 140, 58, 0.12);
 
   /* Borders */
-  --color-border: rgba(201, 168, 76, 0.12);
-  --color-border-light: rgba(245, 240, 232, 0.08);
-  --color-border-strong: rgba(201, 168, 76, 0.3);
+  --color-border: rgba(172, 140, 58, 0.16);
+  --color-border-light: rgba(28, 27, 26, 0.08);
+  --color-border-strong: rgba(172, 140, 58, 0.35);
 
   /* Status */
-  --color-success: #4a8c5c;
-  --color-error: #c0442a;
+  --color-success: #3c7d4d;
+  --color-error: #b83a21;
 
   /* --- Spacing --- */
   --spacing-section: 140px;
@@ -53,11 +53,11 @@
   --radius-lg: 8px;
   --radius-pill: 999px;
 
-  /* --- Shadows --- */
-  --shadow-card: 0 2px 40px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover: 0 8px 60px rgba(0, 0, 0, 0.6);
-  --shadow-gold: 0 0 60px rgba(201, 168, 76, 0.08);
-  --shadow-nav: 0 1px 0 rgba(201, 168, 76, 0.1);
+  /* --- Shadows (adapted for light background) --- */
+  --shadow-card: 0 4px 30px rgba(28, 27, 26, 0.04);
+  --shadow-card-hover: 0 16px 48px rgba(28, 27, 26, 0.08);
+  --shadow-gold: 0 0 60px rgba(172, 140, 58, 0.06);
+  --shadow-nav: 0 1px 0 rgba(172, 140, 58, 0.06);
 
   /* --- Transitions --- */
   --ease-luxury: cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -70,6 +70,16 @@
   --z-toast: 300;
   --z-cursor: 999;
 }
+
+/* Scrollbar and utility helpers */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 
 /* ============================================
    BASE RESET
@@ -243,7 +253,7 @@ a {
    ============================================ */
 
 .glass {
-  background: rgba(14, 13, 12, 0.6);
+  background: rgba(250, 248, 245, 0.65);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid var(--color-border-light);

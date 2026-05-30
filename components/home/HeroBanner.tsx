@@ -262,21 +262,22 @@ export default function HeroBanner({ banners }: { banners: Banner[] }) {
                 padding: "14px 30px",
                 background: "var(--color-accent)",
                 color: "#0a0908",
+                border: "1px solid var(--color-accent)",
                 fontFamily: "var(--font-body)",
                 fontSize: "11px",
                 fontWeight: 600,
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
                 textDecoration: "none",
-                transition: "all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                transition: "all 0.3s ease",
               }}
               onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.background = "var(--color-accent-light)";
-                (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
+                (e.currentTarget as HTMLElement).style.background = "transparent";
+                (e.currentTarget as HTMLElement).style.color = "var(--color-accent)";
               }}
               onMouseLeave={e => {
                 (e.currentTarget as HTMLElement).style.background = "var(--color-accent)";
-                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+                (e.currentTarget as HTMLElement).style.color = "#0a0908";
               }}
             >
               {item.ctaText}
@@ -299,15 +300,17 @@ export default function HeroBanner({ banners }: { banners: Banner[] }) {
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
                 textDecoration: "none",
-                transition: "all 0.4s ease",
+                transition: "all 0.3s ease",
               }}
               onMouseEnter={e => {
                 (e.currentTarget as HTMLElement).style.borderColor = "var(--color-accent)";
                 (e.currentTarget as HTMLElement).style.color = "var(--color-accent)";
+                (e.currentTarget as HTMLElement).style.background = "rgba(172, 140, 58, 0.15)";
               }}
               onMouseLeave={e => {
                 (e.currentTarget as HTMLElement).style.borderColor = "rgba(245, 240, 232, 0.3)";
                 (e.currentTarget as HTMLElement).style.color = "rgba(245, 240, 232, 0.85)";
+                (e.currentTarget as HTMLElement).style.background = "transparent";
               }}
             >
               Our Atelier

@@ -74,9 +74,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`} style={{ background: '#0e0d0c' }}>
+    <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`} style={{ background: '#faf8f5' }}>
       <body
-        style={{ fontFamily: 'var(--font-body, "DM Sans", sans-serif)', background: '#0e0d0c' }}
+        style={{ fontFamily: 'var(--font-body, "DM Sans", sans-serif)', background: '#faf8f5' }}
         suppressHydrationWarning
       >
         <CursorGlow />

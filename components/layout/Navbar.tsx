@@ -45,11 +45,11 @@ export default function Navbar() {
           zIndex: 100,
           transition: "all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
           background: scrolled
-            ? "rgba(10, 9, 8, 0.92)"
-            : "linear-gradient(to bottom, rgba(10, 9, 8, 0.7) 0%, transparent 100%)",
+            ? "rgba(250, 248, 245, 0.95)"
+            : "linear-gradient(to bottom, rgba(250, 248, 245, 0.8) 0%, transparent 100%)",
           backdropFilter: scrolled ? "blur(20px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(201, 168, 76, 0.1)" : "none",
+          borderBottom: scrolled ? "1px solid var(--color-border)" : "none",
         }}
       >
         <div
@@ -82,7 +82,7 @@ export default function Navbar() {
                     fontWeight: 500,
                     letterSpacing: "0.2em",
                     textTransform: "uppercase",
-                    color: pathname === link.href ? "var(--color-accent)" : "rgba(245, 240, 232, 0.85)",
+                    color: pathname === link.href ? "var(--color-accent)" : "rgba(28, 27, 26, 0.85)",
                     textDecoration: "none",
                     transition: "color 0.3s ease",
                     position: "relative",
@@ -130,7 +130,7 @@ export default function Navbar() {
                 fontWeight: 500,
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: pathname === navLinks[2].href ? "var(--color-accent)" : "rgba(245, 240, 232, 0.85)",
+                color: pathname === navLinks[2].href ? "var(--color-accent)" : "rgba(28, 27, 26, 0.85)",
                 textDecoration: "none",
                 transition: "color 0.3s ease",
               }}
@@ -141,7 +141,7 @@ export default function Navbar() {
 
             <Link
               href="/search"
-              style={{ color: "rgba(245, 240, 232, 0.7)", transition: "color 0.3s ease" }}
+              style={{ color: "rgba(28, 27, 26, 0.7)", transition: "color 0.3s ease" }}
               className="hover:text-accent"
               aria-label="Search"
             >
@@ -155,7 +155,7 @@ export default function Navbar() {
             style={{
               background: "none",
               border: "none",
-              color: "rgba(245, 240, 232, 0.85)",
+              color: "rgba(28, 27, 26, 0.85)",
               cursor: "pointer",
               padding: "4px",
               marginLeft: "auto",
@@ -180,7 +180,7 @@ export default function Navbar() {
               position: "fixed",
               inset: 0,
               zIndex: 99,
-              background: "rgba(10, 9, 8, 0.98)",
+              background: "rgba(250, 248, 245, 0.98)",
               backdropFilter: "blur(20px)",
               display: "flex",
               flexDirection: "column",
