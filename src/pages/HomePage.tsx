@@ -233,6 +233,23 @@ function ProductCard({ product }: ProductCardProps) {
               </span>
             )}
           </div>
+
+          {/* Colour swatches */}
+          {product.colors && product.colors.length > 0 && (
+            <div className="flex items-center gap-1.5 pt-1">
+              {product.colors.map((c, i) => (
+                <span
+                  key={i}
+                  title={c.name}
+                  className="w-3 h-3 rounded-full border border-black/20 shrink-0"
+                  style={{ backgroundColor: c.hex }}
+                />
+              ))}
+              <span className="text-[10px] text-[var(--color-secondary)] ml-0.5 truncate font-body">
+                {product.colors.map((c) => c.name).join(' · ')}
+              </span>
+            </div>
+          )}
         </div>
       </Link>
     </div>

@@ -99,6 +99,15 @@ export default function ProductPage() {
   const [selectedColor, setSelectedColor] = useState<string>(
     () => product?.colors[0]?.name ?? ''
   )
+
+  // Sync selected colour whenever product data or colors update
+  useEffect(() => {
+    if (product?.colors?.length) {
+      if (!product.colors.some((c) => c.name === selectedColor)) {
+        setSelectedColor(product.colors[0].name)
+      }
+    }
+  }, [product, selectedColor])
   const [quantity] = useState(1)
   const [addedError, setAddedError] = useState<string | null>(null)
 

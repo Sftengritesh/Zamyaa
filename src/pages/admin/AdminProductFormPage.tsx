@@ -205,6 +205,13 @@ export default function AdminProductFormPage() {
     setNewColorName('')
   }
 
+  // Update existing color
+  const handleUpdateColor = (index: number, field: 'name' | 'hex', val: string) => {
+    setColors((prev) =>
+      prev.map((c, i) => (i === index ? { ...c, [field]: val } : c))
+    )
+  }
+
   const handleRemoveColor = (index: number) => {
     setColors((prev) => prev.filter((_, i) => i !== index))
   }
@@ -219,6 +226,17 @@ export default function AdminProductFormPage() {
     if (!price || Number(price) <= 0) {
       setError('Please provide a valid price in INR.')
       return
+    }
+
+    // Auto-include any pending color typed in the inputs
+    let finalColors = [...colors]
+    if (newColorName.trim()) {
+      finalColors.push({ name: newColorName.trim(), hex: newColorHex })
+      setColors(finalColors)
+      setNewColorName('')
+    }
+    if (finalColors.length === 0) {
+      finalColors = [{ name: 'Default', hex: '#111111' }]
     }
 
     setSubmitting(true)
@@ -244,7 +262,7 @@ export default function AdminProductFormPage() {
       badge: badge.trim(),
       images,
       sizes,
-      colors,
+      colors: finalColors,
     }
 
     try {
@@ -619,28 +637,61 @@ export default function AdminProductFormPage() {
 
         {/* ── 5. COLOURS & SWATCHES ── */}
         <div className="bg-white p-6 lg:p-8 border border-[#e5e5e5] rounded-xs shadow-xs space-y-6">
-          <h2 className="font-display text-lg font-semibold text-[#111] pb-3 border-b border-[#f0f0f0]">
-            Colourways
-          </h2>
+          <div className="flex items-center justify-between pb-3 border-b border-[#f0f0f0]">
+            <div>
+              <h2 className="font-display text-lg font-semibold text-[#111]">
+                Garment Colourways
+              </h2>
+              <p className="text-xs text-[#777] mt-0.5">
+                Click the colour circle to pick any hex colour, or edit the colour name directly.
+              </p>
+            </div>
+            <span className="text-xs font-mono text-[#888]">
+              {colors.length} Colour{colors.length > 1 ? 's' : ''}
+            </span>
+          </div>
 
-          <div className="flex flex-wrap gap-3 items-center">
+          {/* List of Editable Colours */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {colors.map((c, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-2 pl-2 pr-3 py-1.5 border border-[#ddd] bg-[#fafafa] rounded-xs"
+                className="flex items-center gap-3 p-3 border border-[#ddd] bg-[#fafafa] rounded-xs shadow-2xs hover:border-black transition-colors"
               >
-                <span
-                  className="w-4 h-4 rounded-full border border-black/20"
-                  style={{ backgroundColor: c.hex }}
-                />
-                <span className="text-xs font-semibold">{c.name}</span>
+                {/* Live Color Picker */}
+                <div className="relative group shrink-0">
+                  <input
+                    type="color"
+                    value={c.hex}
+                    onChange={(e) => handleUpdateColor(idx, 'hex', e.target.value)}
+                    className="w-10 h-10 p-0.5 border border-[#ccc] rounded-full cursor-pointer bg-white"
+                    title="Click to pick colour"
+                  />
+                </div>
+
+                {/* Editable Name */}
+                <div className="flex-1 min-w-0">
+                  <input
+                    type="text"
+                    value={c.name}
+                    onChange={(e) => handleUpdateColor(idx, 'name', e.target.value)}
+                    placeholder="Colour Name"
+                    className="w-full text-xs font-semibold bg-transparent border-b border-transparent hover:border-[#bbb] focus:border-black outline-none py-1"
+                  />
+                  <span className="text-[10px] font-mono text-[#888] uppercase block">
+                    {c.hex}
+                  </span>
+                </div>
+
+                {/* Remove button */}
                 {colors.length > 1 && (
                   <button
                     type="button"
                     onClick={() => handleRemoveColor(idx)}
-                    className="text-[#999] hover:text-red-500 ml-1"
+                    title="Remove colour"
+                    className="text-[#999] hover:text-red-500 p-1.5 transition-colors"
                   >
-                    <X size={13} />
+                    <X size={15} />
                   </button>
                 )}
               </div>
@@ -648,27 +699,38 @@ export default function AdminProductFormPage() {
           </div>
 
           {/* Add Colourway input */}
-          <div className="flex gap-3 items-center pt-2 max-w-md">
-            <input
-              type="color"
-              value={newColorHex}
-              onChange={(e) => setNewColorHex(e.target.value)}
-              className="w-9 h-9 p-0.5 border border-[#ddd] cursor-pointer bg-white"
-            />
-            <input
-              type="text"
-              placeholder="Colour name (e.g. Royal Emerald)"
-              value={newColorName}
-              onChange={(e) => setNewColorName(e.target.value)}
-              className="flex-1 px-3 py-2 text-xs border border-[#ddd] font-body outline-none focus:border-black"
-            />
-            <button
-              type="button"
-              onClick={handleAddColor}
-              className="px-4 py-2 border border-black text-xs uppercase font-semibold hover:bg-black hover:text-white transition-colors"
-            >
-              Add
-            </button>
+          <div className="p-4 bg-[#f8f8f8] border border-dashed border-[#ccc] space-y-2 max-w-lg">
+            <span className="text-xs uppercase font-semibold text-[#555] tracking-wider block">
+              + Add Another Colour
+            </span>
+            <div className="flex gap-2 items-center">
+              <input
+                type="color"
+                value={newColorHex}
+                onChange={(e) => setNewColorHex(e.target.value)}
+                className="w-9 h-9 p-0.5 border border-[#ccc] rounded-full cursor-pointer bg-white shrink-0"
+              />
+              <input
+                type="text"
+                placeholder="Colour name (e.g. Royal Emerald)"
+                value={newColorName}
+                onChange={(e) => setNewColorName(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault()
+                    handleAddColor()
+                  }
+                }}
+                className="flex-1 px-3 py-2 text-xs border border-[#ddd] bg-white font-body outline-none focus:border-black"
+              />
+              <button
+                type="button"
+                onClick={handleAddColor}
+                className="px-4 py-2 bg-black text-white text-xs uppercase font-semibold hover:bg-[#222] transition-colors shrink-0"
+              >
+                Add
+              </button>
+            </div>
           </div>
         </div>
 
