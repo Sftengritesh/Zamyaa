@@ -5,9 +5,10 @@ import { siteImages } from '@/config/images'
 
 interface Hero3DModelProps {
   className?: string
+  heroImage?: string
 }
 
-export default function Hero3DModel({ className = '' }: Hero3DModelProps) {
+export default function Hero3DModel({ className = '', heroImage }: Hero3DModelProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null)
   const sceneRef = useRef<THREE.Scene | null>(null)
@@ -27,7 +28,7 @@ export default function Hero3DModel({ className = '' }: Hero3DModelProps) {
       id: 0,
       label: 'Full Silhouette',
       caption: 'The Gulabi & Citron Salwar Sets',
-      image: siteImages.models.heroGirls,
+      image: heroImage || siteImages.models.heroGirls,
     },
     {
       id: 1,

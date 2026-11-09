@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { api } from '@/services/api'
 import { formatPrice } from '@/data/products'
+import { useCatalogStore } from '@/store'
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<any[]>([])
@@ -43,6 +44,7 @@ export default function AdminProductsPage() {
         setProducts((prev) =>
           prev.map((p) => (p.id === id ? { ...p, ...res.data.product } : p))
         )
+        useCatalogStore.getState().fetchCatalog()
       }
     } catch (err) {
       console.error('Toggle error', err)
@@ -56,6 +58,7 @@ export default function AdminProductsPage() {
     try {
       await api.delete(`/products/${id}`)
       setProducts((prev) => prev.filter((p) => p.id !== id))
+      useCatalogStore.getState().fetchCatalog()
     } catch (err) {
       console.error('Delete error', err)
     }

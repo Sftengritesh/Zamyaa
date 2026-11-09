@@ -11,8 +11,8 @@ import {
   Star,
   Sparkles,
 } from 'lucide-react'
-import { products, collections, formatPrice } from '@/data/products'
-import { useWishlistStore, useCartStore } from '@/store'
+import { formatPrice } from '@/data/products'
+import { useWishlistStore, useCartStore, useCatalogStore } from '@/store'
 import type { Product } from '@/types'
 import Hero3DModel from '@/components/home/Hero3DModel'
 import { siteImages } from '@/config/images'
@@ -241,11 +241,17 @@ function ProductCard({ product }: ProductCardProps) {
 
 // ── Main HomePage ──
 export default function HomePage() {
+  const { products, collections, cms, fetchCatalog } = useCatalogStore()
   const [currentSlide, setCurrentSlide] = useState(0)
   const totalSlides = 3
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   injectStyle(marqueeStyle, 'zamyaa-marquee-style')
+
+  // Sync catalog from backend API so admin changes reflect immediately
+  useEffect(() => {
+    fetchCatalog()
+  }, [fetchCatalog])
 
   // Auto-advance hero carousel
   useEffect(() => {
@@ -379,7 +385,7 @@ export default function HomePage() {
 
             {/* Right column — Interactive 3D Model of the Atelier Models */}
             <div className="lg:col-span-6 relative flex flex-col justify-center min-h-[580px] lg:min-h-[720px] shadow-2xl border-l border-white/5">
-              <Hero3DModel />
+              <Hero3DModel heroImage={cms?.hero?.imageUrl} />
             </div>
           </div>
         </div>

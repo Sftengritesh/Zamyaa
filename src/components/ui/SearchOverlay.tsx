@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { Search, X } from 'lucide-react'
-import { useSearchStore } from '@/store'
+import { useSearchStore, useCatalogStore } from '@/store'
 import { Link } from 'react-router-dom'
-import { products } from '@/data/products'
 import { formatPrice } from '@/data/products'
 
 export default function SearchOverlay() {
   const { isOpen, query, setQuery, closeSearch } = useSearchStore()
+  const { products } = useCatalogStore()
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {

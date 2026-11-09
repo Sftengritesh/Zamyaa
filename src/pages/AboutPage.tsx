@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
-import { products } from '@/data/products'
+import { siteImages } from '@/config/images'
 
-const heroImage = products[0]?.images[0]?.url ?? ''
-const heroImage2 = products[1]?.images[0]?.url ?? ''
+const heroImage = siteImages.models.heroGirls
+const heroImage2 = siteImages.models.detailHues
 
 const values = [
   {

@@ -7,6 +7,7 @@ import {
   ExternalLink,
 } from 'lucide-react'
 import { api, uploadToCloudinary } from '@/services/api'
+import { useCatalogStore } from '@/store'
 
 export default function AdminCollectionsPage() {
   const [collections, setCollections] = useState<any[]>([])
@@ -110,6 +111,7 @@ export default function AdminCollectionsPage() {
       }
       setModalOpen(false)
       fetchCollections()
+      useCatalogStore.getState().fetchCatalog()
     } catch (err) {
       console.error('Error saving collection', err)
     }
@@ -120,6 +122,7 @@ export default function AdminCollectionsPage() {
     try {
       await api.delete(`/collections/${id}`)
       setCollections((prev) => prev.filter((c) => c.id !== id))
+      useCatalogStore.getState().fetchCatalog()
     } catch (err) {
       console.error(err)
     }
@@ -132,6 +135,7 @@ export default function AdminCollectionsPage() {
       setCollections((prev) =>
         prev.map((c) => (c.id === col.id ? { ...c, status: nextStatus } : c))
       )
+      useCatalogStore.getState().fetchCatalog()
     } catch (err) {
       console.error(err)
     }

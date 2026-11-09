@@ -138,17 +138,10 @@
       ],
       "images": [
         {
-          "url": "https://lh3.googleusercontent.com/aida-public/AB6AXuBfuxqZf27ins7Kdr765TAwhjxQcguh3iNl59grkP5K9Gm6ugHPnQeUaR0ZO38jDgoi1-52lBXqSe3c3u3kTnaMJ3qJi0EDLh1IzOAyPMY2CqV9pPPGyTcfsp7pfAtAGMMludLl0T1Mu72m9k795LFl7yUJywYNhH1t1RFZeSn-uzeTD0eL67QW1dodLgtFfwpxiZHHwFZs72NVMU7QB-Pyey6qCv987D63rg2O5303",
-          "alt": "Gulabi Rose Co-Ord - Look 1",
+          "url": "https://res.cloudinary.com/c8deakbl/image/upload/v1794206193/zamyaa/products/sparyp1mwtrxd55gblqw.jpg",
+          "alt": "The Gulabi Rose Silk Co-Ord Set",
+          "publicId": "zamyaa/products/sparyp1mwtrxd55gblqw",
           "isPrimary": true
-        },
-        {
-          "url": "https://lh3.googleusercontent.com/aida-public/AB6AXuAzKmtPeQxvihoBt9gfOniLLCFGYEdkatPLmxHfqY6cxbnStaW3uBoc1xvoOwUJphZByozEIUf5_wAlVnU_9vmhBSh92BcA3EcQ-R68bX6cIezwp3GAg0XagObxmUl3yWE9vUvPFptpiniX8cu6WDgn8dUXF6rdTf_WF_S-mCvV_pWyg5BNZKhiAeRfhDJwYSd25jinnaZ93IwZTV66AiIHSFdbr9yTCW6IckBBuIgC",
-          "alt": "Gulabi Rose Co-Ord - Look 2"
-        },
-        {
-          "url": "https://lh3.googleusercontent.com/aida-public/AB6AXuDtLuotM2i_ew3uFqc3FH8mq2VZVDi5lWNLvl65cN0LRYXP1i_3kJqwzAqmxF2OZhI1A9V5bwkRPtCRIJsO4mJsHlqQDyK2vd1vNzpAdmJM7GfgRbD7dGFcPWBBDAP1LBNYbWfH7BXFmqLQG1-WekN4mWFMRwAZH8aVCagHEBJqVvGiyxpfIDt8e3Pd0PxAJKz6a1d9i8LgtDkXC9jcobsuIueDuS4GpIJLpz4FA",
-          "alt": "Gulabi Rose Co-Ord - Detail"
         }
       ],
       "sizes": [
@@ -245,134 +238,7 @@
         }
       ],
       "createdAt": "2026-09-15T10:00:00Z",
-      "updatedAt": "2026-11-06T14:00:00Z"
-    },
-    {
-      "id": "p2",
-      "slug": "lantana-cape-dress",
-      "name": "Lantana Embroidered Cape Dress",
-      "subtitle": "Lantana Collection — AW2025",
-      "price": 56000,
-      "currency": "₹",
-      "collection": "Lantana",
-      "collectionSlug": "lantana",
-      "category": "Dresses & Capes",
-      "description": "An architectural masterpiece of contemporary Indian fashion. The Lantana Cape Dress features a sculptural cape overlay in handwoven Banarasi tissue silk, with delicate zardozi embellishments echoing the floral lantana motif.",
-      "fabric": "Cape: Handwoven Banarasi Tissue Silk. Inner: Pure Chanderi Silk.",
-      "care": [
-        "Dry clean only",
-        "Handle embroidery with care",
-        "Store flat in muslin"
-      ],
-      "images": [
-        {
-          "url": "https://res.cloudinary.com/c8deakbl/image/upload/v1794200009/zamyaa/products/ucuqpatyf6jj4le7ewur.jpg",
-          "alt": "Lantana Embroidered Cape Dress",
-          "publicId": "zamyaa/products/ucuqpatyf6jj4le7ewur",
-          "isPrimary": false
-        },
-        {
-          "url": "https://res.cloudinary.com/c8deakbl/image/upload/v1794200008/zamyaa/products/jo4namlfqcybgdglp7tk.jpg",
-          "alt": "Lantana Embroidered Cape Dress",
-          "publicId": "zamyaa/products/jo4namlfqcybgdglp7tk",
-          "isPrimary": false
-        },
-        {
-          "url": "https://res.cloudinary.com/c8deakbl/image/upload/v1794200009/zamyaa/products/qh6oilewulltjudvigy4.jpg",
-          "alt": "Lantana Embroidered Cape Dress",
-          "publicId": "zamyaa/products/qh6oilewulltjudvigy4",
-          "isPrimary": true
-        }
-      ],
-      "sizes": [
-        {
-          "label": "XS",
-          "available": true
-        },
-        {
-          "label": "S",
-          "available": true
-        },
-        {
-          "label": "M",
-          "available": true
-        },
-        {
-          "label": "L",
-          "available": true
-        },
-        {
-          "label": "XL",
-          "available": false
-        }
-      ],
-      "colors": [
-        {
-          "name": "Ivory Moonlight",
-          "hex": "#F8F3EA"
-        },
-        {
-          "name": "Blush Dusk",
-          "hex": "#D4A5A5"
-        },
-        {
-          "name": "Onyx",
-          "hex": "#1A1A1A"
-        }
-      ],
-      "tags": [
-        "cape",
-        "dress",
-        "banarasi",
-        "zardozi",
-        "aw2025"
-      ],
-      "sku": "ZY-LT-002",
-      "status": "active",
-      "isFeatured": true,
-      "isBestseller": true,
-      "inStock": true,
-      "badge": "New Season",
-      "inventory": [
-        {
-          "sku": "ZY-LT-002-XS",
-          "color": "Ivory Moonlight",
-          "size": "XS",
-          "stock": 4,
-          "lowStockThreshold": 2
-        },
-        {
-          "sku": "ZY-LT-002-S",
-          "color": "Ivory Moonlight",
-          "size": "S",
-          "stock": 6,
-          "lowStockThreshold": 2
-        },
-        {
-          "sku": "ZY-LT-002-M",
-          "color": "Ivory Moonlight",
-          "size": "M",
-          "stock": 10,
-          "lowStockThreshold": 3
-        },
-        {
-          "sku": "ZY-LT-002-L",
-          "color": "Ivory Moonlight",
-          "size": "L",
-          "stock": 5,
-          "lowStockThreshold": 2
-        },
-        {
-          "sku": "ZY-LT-002-XL",
-          "color": "Ivory Moonlight",
-          "size": "XL",
-          "stock": 0,
-          "lowStockThreshold": 2
-        }
-      ],
-      "createdAt": "2026-10-01T10:00:00Z",
-      "updatedAt": "2026-11-09T04:53:54.675Z",
-      "isLimitedEdition": false
+      "updatedAt": "2026-11-09T06:36:44.560Z"
     },
     {
       "id": "p3",
@@ -396,6 +262,12 @@
           "url": "https://lh3.googleusercontent.com/aida-public/AB6AXuBfuxqZf27ins7Kdr765TAwhjxQcguh3iNl59grkP5K9Gm6ugHPnQeUaR0ZO38jDgoi1-52lBXqSe3c3u3kTnaMJ3qJi0EDLh1IzOAyPMY2CqV9pPPGyTcfsp7pfAtAGMMludLl0T1Mu72m9k795LFl7yUJywYNhH1t1RFZeSn-uzeTD0eL67QW1dodLgtFfwpxiZHHwFZs72NVMU7QB-Pyey6qCv987D63rg2O5303",
           "alt": "Noor Anarkali Front",
           "isPrimary": true
+        },
+        {
+          "url": "https://res.cloudinary.com/c8deakbl/image/upload/v1794206160/zamyaa/products/zttifqb0fl5pjvz0q5x8.jpg",
+          "alt": "Noor Anarkali with Dupatta",
+          "publicId": "zamyaa/products/zttifqb0fl5pjvz0q5x8",
+          "isPrimary": false
         }
       ],
       "sizes": [
@@ -480,13 +352,15 @@
         }
       ],
       "createdAt": "2026-10-10T10:00:00Z",
-      "updatedAt": "2026-11-06T14:00:00Z"
+      "updatedAt": "2026-11-09T06:36:01.470Z",
+      "isLimitedEdition": false,
+      "badge": ""
     },
     {
       "id": "p4",
       "slug": "amber-palazzo-set",
-      "name": "Amber Fort Palazzo Co-Ord",
-      "subtitle": "Noor-e-Rang Collection",
+      "name": "Desi dastaan",
+      "subtitle": "Desi Dastaa Collection",
       "price": 29500,
       "currency": "₹",
       "collection": "Noor-e-Rang",
@@ -588,7 +462,7 @@
         }
       ],
       "createdAt": "2026-10-15T10:00:00Z",
-      "updatedAt": "2026-11-07T05:27:37.706Z",
+      "updatedAt": "2026-11-09T06:59:24.717Z",
       "isLimitedEdition": false,
       "badge": ""
     },
@@ -602,7 +476,7 @@
       "currency": "₹",
       "collection": "Lantana",
       "collectionSlug": "lantana",
-      "category": "Salwar Suits & Sets",
+      "category": "Salwar Suits",
       "description": "For the girls who love timeless elegance. A lyrical symphony in pastel lilac, tailored in breathable handloom Chanderi silk with delicate gold floral buti motifs. Features artisanal scalloped cotton lace trims along the hemline and sleeve cuffs, paired with pale lemon-yellow pleated salwar pants and an airy dual-toned shaded ombre dupatta finished with handcrafted tassels.",
       "fabric": "Handloom Chanderi Silk Kurti, Pure Mul Cotton Salwar, Shaded Chiffon Dupatta with handmade thread tassels.",
       "care": [
@@ -613,19 +487,17 @@
       ],
       "images": [
         {
-          "url": "/images/lantana/lantana-hero-models.jpg",
+          "url": "/images/models/lantana-hero-models.jpg",
           "alt": "Lantana Lilac Salwar Suit - Full Look with Ombre Dupatta",
           "isPrimary": true
         },
         {
-          "url": "/images/lantana/lantana-detail-hues.jpg",
-          "alt": "Lantana Lilac Salwar Suit - Scallop Lace Hem Detail & Soft Hues",
-          "isPrimary": false
+          "url": "/images/models/lantana-detail-hues.jpg",
+          "alt": "Lantana Lilac Salwar Suit - Scallop Lace Hem Detail & Soft Hues"
         },
         {
-          "url": "/images/lantana/lantana-shoot-grid.jpg",
-          "alt": "Lantana Campaign Shoot Lookbook & Garden Editorial",
-          "isPrimary": false
+          "url": "/images/models/lantana-shoot-grid.jpg",
+          "alt": "Lantana Campaign Shoot Lookbook & Garden Editorial"
         }
       ],
       "sizes": [
@@ -653,12 +525,21 @@
           "label": "XL",
           "available": true,
           "measurements": "Bust 40\" / Waist 34\""
+        },
+        {
+          "label": "Custom",
+          "available": true,
+          "measurements": "Tailored to client measurements"
         }
       ],
       "colors": [
         {
           "name": "Lilac & Lemon Yellow",
           "hex": "#D8B4E2"
+        },
+        {
+          "name": "Blush Rose",
+          "hex": "#EAA9BA"
         }
       ],
       "tags": [
@@ -671,7 +552,7 @@
         "lace",
         "dupatta"
       ],
-      "sku": "ZY-LT-005",
+      "sku": "ZY-LNT-05",
       "status": "active",
       "isFeatured": true,
       "isBestseller": true,
@@ -681,43 +562,41 @@
       "badge": "Signature Piece",
       "inventory": [
         {
-          "sku": "ZY-LT-005-XS",
+          "sku": "ZY-LNT-05-XS",
           "color": "Lilac & Lemon Yellow",
           "size": "XS",
-          "stock": 6,
+          "stock": 5,
           "lowStockThreshold": 2
         },
         {
-          "sku": "ZY-LT-005-S",
+          "sku": "ZY-LNT-05-S",
           "color": "Lilac & Lemon Yellow",
           "size": "S",
-          "stock": 10,
-          "lowStockThreshold": 2
-        },
-        {
-          "sku": "ZY-LT-005-M",
-          "color": "Lilac & Lemon Yellow",
-          "size": "M",
-          "stock": 12,
-          "lowStockThreshold": 3
-        },
-        {
-          "sku": "ZY-LT-005-L",
-          "color": "Lilac & Lemon Yellow",
-          "size": "L",
           "stock": 8,
           "lowStockThreshold": 2
         },
         {
-          "sku": "ZY-LT-005-XL",
+          "sku": "ZY-LNT-05-M",
+          "color": "Lilac & Lemon Yellow",
+          "size": "M",
+          "stock": 10,
+          "lowStockThreshold": 2
+        },
+        {
+          "sku": "ZY-LNT-05-L",
+          "color": "Lilac & Lemon Yellow",
+          "size": "L",
+          "stock": 6,
+          "lowStockThreshold": 2
+        },
+        {
+          "sku": "ZY-LNT-05-XL",
           "color": "Lilac & Lemon Yellow",
           "size": "XL",
           "stock": 4,
           "lowStockThreshold": 2
         }
-      ],
-      "createdAt": "2026-11-09T05:12:10.900Z",
-      "updatedAt": "2026-11-09T05:12:10.901Z"
+      ]
     },
     {
       "id": "p6",
@@ -729,7 +608,7 @@
       "currency": "₹",
       "collection": "Lantana",
       "collectionSlug": "lantana",
-      "category": "Salwar Suits & Sets",
+      "category": "Salwar Suits",
       "description": "Understated luxury in delicate buttercup yellow. Crafted in pure handloom cotton-silk with a signature scalloped sweetheart neckline and delicate micro-pearl strap detailing. Accented with contrast lilac French lace at the hem and paired with pleated lilac salwar trousers and a matching shaded ombre dupatta.",
       "fabric": "Pure Handloom Cotton-Silk Tunic, Chanderi Pleated Salwar, Shaded Chiffon Dupatta.",
       "care": [
@@ -739,19 +618,17 @@
       ],
       "images": [
         {
-          "url": "/images/lantana/lantana-detail-hues.jpg",
+          "url": "/images/models/lantana-detail-hues.jpg",
           "alt": "Lantana Citron Salwar Set - Scallop Bodice & Floral Hues",
           "isPrimary": true
         },
         {
-          "url": "/images/lantana/lantana-hero-models.jpg",
-          "alt": "Lantana Citron Salwar Set - Model View in Garden",
-          "isPrimary": false
+          "url": "/images/models/lantana-hero-models.jpg",
+          "alt": "Lantana Citron Salwar Set - Model View in Garden"
         },
         {
-          "url": "/images/lantana/lantana-shoot-grid.jpg",
-          "alt": "Lantana Atelier Shoot Details & Flower Accents",
-          "isPrimary": false
+          "url": "/images/models/lantana-shoot-grid.jpg",
+          "alt": "Lantana Atelier Shoot Details & Flower Accents"
         }
       ],
       "sizes": [
@@ -774,12 +651,20 @@
         {
           "label": "XL",
           "available": true
+        },
+        {
+          "label": "Custom",
+          "available": true
         }
       ],
       "colors": [
         {
           "name": "Citron Yellow & Lilac",
           "hex": "#FFF4BD"
+        },
+        {
+          "name": "Ivory Cream",
+          "hex": "#FAF6EE"
         }
       ],
       "tags": [
@@ -792,7 +677,7 @@
         "scallops",
         "dupatta"
       ],
-      "sku": "ZY-LT-006",
+      "sku": "ZY-LNT-06",
       "status": "active",
       "isFeatured": true,
       "isBestseller": false,
@@ -801,43 +686,147 @@
       "badge": "New Season",
       "inventory": [
         {
-          "sku": "ZY-LT-006-XS",
+          "sku": "ZY-LNT-06-XS",
           "color": "Citron Yellow & Lilac",
           "size": "XS",
-          "stock": 5,
-          "lowStockThreshold": 2
-        },
-        {
-          "sku": "ZY-LT-006-S",
-          "color": "Citron Yellow & Lilac",
-          "size": "S",
-          "stock": 8,
-          "lowStockThreshold": 2
-        },
-        {
-          "sku": "ZY-LT-006-M",
-          "color": "Citron Yellow & Lilac",
-          "size": "M",
-          "stock": 9,
-          "lowStockThreshold": 2
-        },
-        {
-          "sku": "ZY-LT-006-L",
-          "color": "Citron Yellow & Lilac",
-          "size": "L",
           "stock": 6,
           "lowStockThreshold": 2
         },
         {
-          "sku": "ZY-LT-006-XL",
+          "sku": "ZY-LNT-06-S",
           "color": "Citron Yellow & Lilac",
-          "size": "XL",
-          "stock": 3,
+          "size": "S",
+          "stock": 10,
+          "lowStockThreshold": 2
+        },
+        {
+          "sku": "ZY-LNT-06-M",
+          "color": "Citron Yellow & Lilac",
+          "size": "M",
+          "stock": 12,
+          "lowStockThreshold": 2
+        },
+        {
+          "sku": "ZY-LNT-06-L",
+          "color": "Citron Yellow & Lilac",
+          "size": "L",
+          "stock": 8,
           "lowStockThreshold": 2
         }
+      ]
+    },
+    {
+      "id": "p2",
+      "slug": "lantana-cape-dress",
+      "name": "Lantana Embroidered Cape Dress",
+      "subtitle": "Lantana Collection — AW2025",
+      "price": 56000,
+      "currency": "₹",
+      "collection": "Lantana",
+      "collectionSlug": "lantana",
+      "category": "Dresses & Capes",
+      "description": "An architectural masterpiece of contemporary Indian fashion. The Lantana Cape Dress features a sculptural cape overlay in handwoven Banarasi tissue silk, with delicate zardozi embellishments echoing the floral lantana motif. The inner slip dress is in pure Chanderi silk, ensuring an ethereal drape.",
+      "fabric": "Cape: Handwoven Banarasi Tissue Silk. Inner: Pure Chanderi Silk.",
+      "care": [
+        "Dry clean only",
+        "Handle embroidery with care",
+        "Store flat in muslin"
       ],
-      "createdAt": "2026-11-09T05:12:10.901Z",
-      "updatedAt": "2026-11-09T05:12:10.901Z"
+      "images": [
+        {
+          "url": "/images/models/lantana-shoot-grid.jpg",
+          "alt": "Lantana Cape Dress - Lookbook Montage",
+          "isPrimary": true
+        },
+        {
+          "url": "/images/models/lantana-hero-models.jpg",
+          "alt": "Lantana Cape Dress - Campaign Mood"
+        },
+        {
+          "url": "/images/models/lantana-detail-hues.jpg",
+          "alt": "Lantana Cape Dress - Textile Craftsmanship"
+        }
+      ],
+      "sizes": [
+        {
+          "label": "XS",
+          "available": true
+        },
+        {
+          "label": "S",
+          "available": true
+        },
+        {
+          "label": "M",
+          "available": true
+        },
+        {
+          "label": "L",
+          "available": true
+        },
+        {
+          "label": "XL",
+          "available": false
+        }
+      ],
+      "colors": [
+        {
+          "name": "Ivory Moonlight",
+          "hex": "#F8F3EA"
+        },
+        {
+          "name": "Blush Dusk",
+          "hex": "#D4A5A5"
+        },
+        {
+          "name": "Onyx",
+          "hex": "#1A1A1A"
+        }
+      ],
+      "tags": [
+        "cape",
+        "dress",
+        "banarasi",
+        "zardozi",
+        "aw2025"
+      ],
+      "sku": "ZY-LNT-02",
+      "status": "active",
+      "isFeatured": true,
+      "isBestseller": false,
+      "isLimitedEdition": false,
+      "inStock": true,
+      "badge": "Couture Edition",
+      "inventory": [
+        {
+          "sku": "ZY-LNT-02-XS",
+          "color": "Ivory Moonlight",
+          "size": "XS",
+          "stock": 3,
+          "lowStockThreshold": 1
+        },
+        {
+          "sku": "ZY-LNT-02-S",
+          "color": "Ivory Moonlight",
+          "size": "S",
+          "stock": 5,
+          "lowStockThreshold": 1
+        },
+        {
+          "sku": "ZY-LNT-02-M",
+          "color": "Ivory Moonlight",
+          "size": "M",
+          "stock": 4,
+          "lowStockThreshold": 1
+        },
+        {
+          "sku": "ZY-LNT-02-L",
+          "color": "Ivory Moonlight",
+          "size": "L",
+          "stock": 2,
+          "lowStockThreshold": 1
+        }
+      ]
     }
   ],
   "collections": [
@@ -876,26 +865,26 @@
     {
       "id": "c2",
       "slug": "lantana",
-      "title": "Lantana Collection",
+      "title": "Lantana",
       "subtitle": "An Architecture of Bloom — Soft Hues",
-      "description": "For the girls who love timeless elegance. Architectural tailoring and delicate artisanal scalloped lace trims reimagined through soft pastel hues, handloom Chanderi silks, and shaded ombre dupattas.",
-      "season": "Autumn-Winter 2025",
+      "description": "For the girls who love timeless elegance. Architectural tailoring and delicate scalloped lace trims reimagined through soft pastel hues, handloom Chanderi silks, and shaded ombre dupattas.",
+      "season": "Spring-Summer & Festive 2026",
       "capsule": "Edition 01/03",
-      "heroImage": "/images/lantana/lantana-hero-models.jpg",
+      "heroImage": "/images/models/lantana-hero-models.jpg",
       "status": "published",
       "displayOrder": 2,
       "metrics": [
         {
-          "label": "Artisanal Pieces",
-          "value": "12"
+          "label": "Hand-crafted pieces",
+          "value": "8"
         },
         {
-          "label": "Soft Pastel Hues",
+          "label": "Natural Zardozi",
           "value": "100%"
         },
         {
-          "label": "Heritage Weavers",
-          "value": "8"
+          "label": "Heritage Artisans",
+          "value": "12"
         }
       ],
       "productIds": [
@@ -903,7 +892,11 @@
         "p6",
         "p2"
       ],
-      "bannerImage": "/images/lantana/lantana-shoot-grid.jpg"
+      "mosaicImages": [
+        "/images/models/lantana-hero-models.jpg",
+        "/images/models/lantana-detail-hues.jpg",
+        "/images/models/lantana-shoot-grid.jpg"
+      ]
     },
     {
       "id": "c3",
@@ -1304,7 +1297,7 @@
       "primaryButtonLink": "/collections",
       "secondaryButtonText": "EXPLORE THE CAMPAIGN",
       "secondaryButtonLink": "/about",
-      "imageUrl": "https://lh3.googleusercontent.com/aida/AEtjO1XWyIphayeIEEDRBIvXf3Q7denO0MP-P24RMMwvF-ySss4RQ_IUXZRHsw8rm1qGTpc4rmecFzlBmjhk_muLTmrub6QHo0R8iCy6ucM7YaZPKrXEu0yhS4sSrwnPq_3DPMXFwkKcQiBKc_Vs6GzZlrutj5U63AdQmCjzeKEDn8qEmzRaDIbigYM69_sooev5O_LzCeCH0-KxrHF9frxC36xRIwKidpTDusJ9JilieHLxwII-i08D_Mlmcvo"
+      "imageUrl": "/images/models/lantana-hero-models.jpg"
     },
     "marqueeItems": [
       "CHANDERI SILK",
@@ -1317,6 +1310,8 @@
     ],
     "featuredCollectionSlug": "noor-e-rang",
     "newArrivalProductIds": [
+      "p6",
+      "p5",
       "p1",
       "p2",
       "p3",

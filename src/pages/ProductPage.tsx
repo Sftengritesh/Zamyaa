@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import {
   Heart,
@@ -8,8 +8,8 @@ import {
   Ruler,
   ArrowLeft,
 } from 'lucide-react'
-import { useCartStore, useWishlistStore } from '@/store'
-import { products, formatPrice } from '@/data/products'
+import { useCartStore, useWishlistStore, useCatalogStore } from '@/store'
+import { formatPrice } from '@/data/products'
 import type { Product } from '@/types'
 
 // ── Accordion Item ───────────────────────────────────────────────────────────
@@ -54,7 +54,7 @@ interface ProductCardProps {
 }
 
 function ProductCard({ product }: ProductCardProps) {
-  const img = product.images[0]
+  const img = product.images.find((i) => i.isPrimary) || product.images[0]
   return (
     <Link to={`/product/${product.slug}`} className="group block">
       <div
@@ -81,12 +81,17 @@ function ProductCard({ product }: ProductCardProps) {
 
 // ── Main Component ───────────────────────────────────────────────────────────
 export default function ProductPage() {
+  const { products, fetchCatalog } = useCatalogStore()
   const { slug } = useParams<{ slug: string }>()
   const navigate = useNavigate()
   const { addItem, openCart } = useCartStore()
   const { toggle, isWishlisted } = useWishlistStore()
 
-  const product = products.find((p) => p.slug === slug)
+  useEffect(() => {
+    fetchCatalog()
+  }, [fetchCatalog])
+
+  const product = products.find((p) => p.slug === slug || p.id === slug)
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   const [selectedSize, setSelectedSize] = useState<string>('')

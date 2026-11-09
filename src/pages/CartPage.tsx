@@ -213,15 +213,15 @@ export default function CartPage() {
                 <div className="text-[11px] text-neutral-600 space-y-1">
                   <div className="flex justify-between">
                     <span>Advance Booking (Paid Online):</span>
-                    <strong className="text-black">₹999</strong>
+                    <strong className="text-black">₹50</strong>
                   </div>
                   <div className="flex justify-between">
                     <span>Balance at Doorstep:</span>
-                    <strong className="text-black">{formatPrice(Math.max(0, total - 999))}</strong>
+                    <strong className="text-black">{formatPrice(Math.max(0, 50))}</strong>
                   </div>
                 </div>
                 <p className="text-[10px] text-neutral-500 italic pt-1 border-t border-neutral-200 leading-normal">
-                  Pay ₹999 advance to unlock COD during checkout; remainder paid in cash or UPI to courier upon arrival.
+                  Pay ₹50 advance to unlock COD during checkout; remainder paid in cash or UPI to courier upon arrival.
                 </p>
               </div>
 

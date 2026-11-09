@@ -71,3 +71,4 @@ Jyoti can also change product photos without touching any files:
 2. Log in (`admin@zamyaa.in` / `admin`)
 3. Click **Products** → **Edit** on any dress.
 4. Drag & drop photos into the Cloudinary upload box and click **Update Product**.
+

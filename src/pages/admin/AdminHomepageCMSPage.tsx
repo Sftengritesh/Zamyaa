@@ -5,6 +5,7 @@ import {
   Save,
 } from 'lucide-react'
 import { api, uploadToCloudinary } from '@/services/api'
+import { useCatalogStore } from '@/store'
 
 export default function AdminHomepageCMSPage() {
   const [loading, setLoading] = useState(true)
@@ -138,6 +139,7 @@ export default function AdminHomepageCMSPage() {
       const res = await api.put('/cms', payload)
       if (res.data.success) {
         setSavedSuccess(true)
+        useCatalogStore.getState().fetchCatalog()
         setTimeout(() => setSavedSuccess(false), 4000)
       }
     } catch (err) {

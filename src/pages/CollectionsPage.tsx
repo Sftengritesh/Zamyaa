@@ -1,14 +1,19 @@
-import { useState, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom'
 import { Eye, Sparkles, X, ChevronRight } from 'lucide-react'
-import { products, collections } from '@/data/products'
+import { useCatalogStore } from '@/store'
 import ProductCard from '@/components/ui/ProductCard'
 import { siteImages } from '@/config/images'
 
 export default function CollectionsPage() {
+  const { products, collections, fetchCatalog } = useCatalogStore()
   const { slug } = useParams<{ slug?: string }>()
   const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    fetchCatalog()
+  }, [fetchCatalog])
 
   // Support both /collections/lantana AND /collections?collection=lantana
   const activeCollectionSlug = slug || searchParams.get('collection') || 'all'

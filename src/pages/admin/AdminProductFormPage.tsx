@@ -8,6 +8,7 @@ import {
   AlertCircle,
 } from 'lucide-react'
 import { api, uploadToCloudinary, uploadMultipleToCloudinary } from '@/services/api'
+import { useCatalogStore } from '@/store'
 
 export default function AdminProductFormPage() {
   const { id } = useParams<{ id: string }>()
@@ -252,6 +253,7 @@ export default function AdminProductFormPage() {
       } else {
         await api.post('/products', payload)
       }
+      useCatalogStore.getState().fetchCatalog()
       navigate('/admin/products')
     } catch (err: any) {
       setError(err.response?.data?.message || err.message || 'Failed to save product.')

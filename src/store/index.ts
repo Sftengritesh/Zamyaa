@@ -116,3 +116,5 @@ export const useSearchStore = create<SearchStore>()((set) => ({
   closeSearch: () => set({ isOpen: false, query: '' }),
 }))
 
+export { useCatalogStore } from './catalog'
+

@@ -17,8 +17,8 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { addItem, openCart } = useCartStore()
   const wishlisted = isWishlisted(product.id)
 
-  const primaryImg = product.images[0]?.url
-  const secondaryImg = product.images[1]?.url ?? primaryImg
+  const primaryImg = product.images?.find((i) => i.isPrimary)?.url || product.images?.[0]?.url || ''
+  const secondaryImg = product.images?.find((i) => !i.isPrimary)?.url || primaryImg
 
   const handleQuickAdd = (e: React.MouseEvent, size: string) => {
     e.preventDefault()
