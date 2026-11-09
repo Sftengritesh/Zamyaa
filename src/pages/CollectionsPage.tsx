@@ -104,13 +104,13 @@ export default function CollectionsPage() {
 
   const handleCollectionChange = (newSlug: string) => {
     if (slug) {
-      if (newSlug === 'all') navigate('/collections')
-      else navigate(`/collections/${newSlug}`)
+      if (newSlug === 'all') navigate('/collections', { preventScrollReset: true })
+      else navigate(`/collections/${newSlug}`, { preventScrollReset: true })
     } else {
       const next = new URLSearchParams(searchParams)
       if (newSlug === 'all') next.delete('collection')
       else next.set('collection', newSlug)
-      setSearchParams(next)
+      setSearchParams(next, { preventScrollReset: true })
     }
   }
 
@@ -118,14 +118,14 @@ export default function CollectionsPage() {
     const next = new URLSearchParams(searchParams)
     if (cat === 'all') next.delete('category')
     else next.set('category', cat)
-    setSearchParams(next)
+    setSearchParams(next, { preventScrollReset: true })
   }
 
   const handleSortChange = (sort: string) => {
     const next = new URLSearchParams(searchParams)
     if (sort === 'featured') next.delete('sort')
     else next.set('sort', sort)
-    setSearchParams(next)
+    setSearchParams(next, { preventScrollReset: true })
   }
 
   // Active mosaic images
