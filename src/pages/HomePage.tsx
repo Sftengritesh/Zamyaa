@@ -14,6 +14,8 @@ import {
 import { products, collections, formatPrice } from '@/data/products'
 import { useWishlistStore, useCartStore } from '@/store'
 import type { Product } from '@/types'
+import Hero3DModel from '@/components/home/Hero3DModel'
+import { siteImages } from '@/config/images'
 
 // ── Marquee CSS injected once ──
 const marqueeStyle = `
@@ -269,16 +271,13 @@ export default function HomePage() {
   const lantanaProduct = products.find((p) => p.collectionSlug === 'lantana')
   const noorProduct = products.find((p) => p.collectionSlug === 'noor-e-rang')
 
-  const heroImage =
-    'https://lh3.googleusercontent.com/aida/AEtjO1XWyIphayeIEEDRBIvXf3Q7denO0MP-P24RMMwvF-ySss4RQ_IUXZRHsw8rm1qGTpc4rmecFzlBmjhk_muLTmrub6QHo0R8iCy6ucM7YaZPKrXEu0yhS4sSrwnPq_3DPMXFwkKcQiBKc_Vs6GzZlrutj5U63AdQmCjzeKEDn8qEmzRaDIbigYM69_sooev5O_LzCeCH0-KxrHF9frxC36xRIwKidpTDusJ9JilieHLxwII-i08D_Mlmcvo'
-
   const instagramImages = [
+    siteImages.models.heroGirls,
+    siteImages.models.detailHues,
+    siteImages.models.shootGrid,
     products[0]?.images[0]?.url,
-    products[0]?.images[1]?.url,
     products[1]?.images[0]?.url,
-    products[0]?.images[2]?.url,
     products[2]?.images[0]?.url,
-    products[3]?.images[0]?.url,
   ].filter(Boolean) as string[]
 
   const marqueeText =
@@ -378,19 +377,9 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right column — editorial image */}
-            <div className="lg:col-span-6 relative overflow-hidden" style={{ minHeight: '60vh' }}>
-              <img
-                src={heroImage}
-                alt="ZAMYAA by Jyoti — Autumn Winter 2025 Campaign"
-                className="w-full h-full object-cover"
-                style={{ objectPosition: 'center top' }}
-              />
-              {/* Subtle gradient overlay */}
-              <div
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(to right, var(--color-surface) 0%, transparent 15%)' }}
-              />
+            {/* Right column — Interactive 3D Model of the Atelier Models */}
+            <div className="lg:col-span-6 relative flex flex-col justify-center min-h-[580px] lg:min-h-[720px] shadow-2xl border-l border-white/5">
+              <Hero3DModel />
             </div>
           </div>
         </div>

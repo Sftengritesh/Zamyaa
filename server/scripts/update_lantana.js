@@ -170,3 +170,4 @@ if (p6Index >= 0) {
 
 fs.writeFileSync(dbFile, JSON.stringify(db, null, 2), 'utf-8')
 console.log('Successfully updated Lantana in db.json!')
+

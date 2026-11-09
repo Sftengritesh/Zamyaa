@@ -1,4 +1,5 @@
 import type { Product, Collection } from '@/types'
+import { siteImages } from '@/config/images'
 
 // ── Image URLs from Stitch and Atelier Shoot ──
 export const productImages = {
@@ -9,9 +10,9 @@ export const productImages = {
     'https://lh3.googleusercontent.com/aida-public/AB6AXuCdF7HqcZiFZ0q2Ybz8iMZ-jVAJA15jgqYE4LwVVOv1R1FVOIrFCOaRIPBGIJR6p26kd-R5Lxv9T3bfmGQg5R5fqc5mVE2WV1Hy7gOvMFzq3wqiHVKqRnI3HopWuBJ7KbJl5a7jbHqD9KtPFyQpW3UqeXjXd3jPnA47e-BCBL6Zq9h6HkJZJhDL5wR0iVfDNfXt7kX_0xT7nB22Z2BtEjPuQN3T0bZQc5Pf7P3g',
   ],
   lantana: [
-    '/images/lantana/lantana-hero-models.jpg',
-    '/images/lantana/lantana-detail-hues.jpg',
-    '/images/lantana/lantana-shoot-grid.jpg',
+    siteImages.models.heroGirls,
+    siteImages.models.detailHues,
+    siteImages.models.shootGrid,
   ],
 }
 
@@ -79,16 +80,16 @@ export const products: Product[] = [
     ],
     images: [
       {
-        url: '/images/lantana/lantana-hero-models.jpg',
+        url: siteImages.models.heroGirls,
         alt: 'Lantana Lilac Salwar Suit - Full Look with Ombre Dupatta',
         isPrimary: true,
       },
       {
-        url: '/images/lantana/lantana-detail-hues.jpg',
+        url: siteImages.models.detailHues,
         alt: 'Lantana Lilac Salwar Suit - Scallop Lace Hem Detail & Soft Hues',
       },
       {
-        url: '/images/lantana/lantana-shoot-grid.jpg',
+        url: siteImages.models.shootGrid,
         alt: 'Lantana Campaign Shoot Lookbook & Garden Editorial',
       },
     ],
@@ -130,16 +131,16 @@ export const products: Product[] = [
     ],
     images: [
       {
-        url: '/images/lantana/lantana-detail-hues.jpg',
+        url: siteImages.models.detailHues,
         alt: 'Lantana Citron Salwar Set - Scallop Bodice & Floral Hues',
         isPrimary: true,
       },
       {
-        url: '/images/lantana/lantana-hero-models.jpg',
+        url: siteImages.models.heroGirls,
         alt: 'Lantana Citron Salwar Set - Model View in Garden',
       },
       {
-        url: '/images/lantana/lantana-shoot-grid.jpg',
+        url: siteImages.models.shootGrid,
         alt: 'Lantana Atelier Shoot Details & Flower Accents',
       },
     ],
@@ -175,16 +176,16 @@ export const products: Product[] = [
     care: ['Dry clean only', 'Handle embroidery with care', 'Store flat in muslin'],
     images: [
       {
-        url: '/images/lantana/lantana-shoot-grid.jpg',
+        url: siteImages.models.shootGrid,
         alt: 'Lantana Cape Dress - Lookbook Montage',
         isPrimary: true,
       },
       {
-        url: '/images/lantana/lantana-hero-models.jpg',
+        url: siteImages.models.heroGirls,
         alt: 'Lantana Cape Dress - Campaign Mood',
       },
       {
-        url: '/images/lantana/lantana-detail-hues.jpg',
+        url: siteImages.models.detailHues,
         alt: 'Lantana Cape Dress - Textile Craftsmanship',
       },
     ],
@@ -311,11 +312,11 @@ export const collections: Collection[] = [
       'For the girls who love timeless elegance. Architectural tailoring and delicate scalloped lace trims reimagined through soft pastel hues, handloom Chanderi silks, and shaded ombre dupattas.',
     season: 'Spring-Summer & Festive 2026',
     capsule: 'Edition 01/03',
-    heroImage: '/images/lantana/lantana-hero-models.jpg',
+    heroImage: siteImages.models.heroGirls,
     mosaicImages: [
-      '/images/lantana/lantana-hero-models.jpg',
-      '/images/lantana/lantana-detail-hues.jpg',
-      '/images/lantana/lantana-shoot-grid.jpg',
+      siteImages.models.heroGirls,
+      siteImages.models.detailHues,
+      siteImages.models.shootGrid,
     ],
     products: products.filter((p) => p.collectionSlug === 'lantana'),
     metrics: [

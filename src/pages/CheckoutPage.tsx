@@ -10,6 +10,7 @@ import {
   RotateCcw,
   Sparkles,
   Lock,
+  CheckCircle2,
 } from 'lucide-react'
 import { useCartStore } from '@/store'
 import { formatPrice } from '@/data/products'
@@ -45,6 +46,13 @@ export default function CheckoutPage() {
   // Promo code
   const [promoCode, setPromoCode] = useState('')
   const [promoApplied, setPromoApplied] = useState(false)
+
+  // Cash on Delivery Advance Commitment
+  const codAdvanceAmount = 999
+  const [codAdvancePaid, setCodAdvancePaid] = useState<boolean>(false)
+  const [payingAdvance, setPayingAdvance] = useState<boolean>(false)
+  const [codAdvanceMethod, setCodAdvanceMethod] = useState<'upi' | 'card'>('upi')
+  const [codAdvanceUpi, setCodAdvanceUpi] = useState<string>('buyer@okaxis')
 
   // If cart is empty, show default preview item so the user can experience the checkout flow
   const displayItems =
@@ -83,6 +91,7 @@ export default function CheckoutPage() {
       : 495
 
   const total = subtotal + shippingCost
+  const codRemainingAmount = Math.max(0, total - codAdvanceAmount)
 
   const handleApplyPromo = (e: React.FormEvent) => {
     e.preventDefault()
@@ -91,7 +100,19 @@ export default function CheckoutPage() {
     }
   }
 
+  const handlePayCodAdvance = () => {
+    setPayingAdvance(true)
+    setTimeout(() => {
+      setPayingAdvance(false)
+      setCodAdvancePaid(true)
+    }, 1200)
+  }
+
   const handlePlaceOrder = () => {
+    if (paymentMethod === 'cod' && !codAdvancePaid) {
+      alert('Please pay the nominal ₹999 commitment advance to unlock Cash on Delivery.')
+      return
+    }
     setCurrentStep(5)
     clearCart()
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -757,34 +778,205 @@ export default function CheckoutPage() {
               )}
 
               {paymentMethod === 'cod' && (
-                <div
-                  className="p-4 border text-xs space-y-2"
-                  style={{
-                    backgroundColor: 'var(--color-surface-container-low)',
-                    borderColor: 'var(--color-outline-variant)',
-                  }}
-                >
-                  <p className="font-semibold">Cash on Delivery Available</p>
-                  <p style={{ color: 'var(--color-secondary)' }}>
-                    Please verify your phone number via SMS OTP during dispatch. Exact cash or UPI
-                    QR will be accepted by the delivery courier.
-                  </p>
+                <div className="space-y-4">
+                  {/* Advance Policy Header */}
+                  <div
+                    className="p-5 border space-y-3"
+                    style={{
+                      backgroundColor: 'var(--color-surface-container-low)',
+                      borderColor: 'var(--color-outline-variant)',
+                    }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-display text-sm font-semibold flex items-center gap-2">
+                        <Banknote size={18} /> Cash on Delivery (With ₹999 Advance Booking)
+                      </span>
+                      <span className="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 bg-neutral-200 text-neutral-800">
+                        Atelier Policy
+                      </span>
+                    </div>
+                    <p className="text-xs text-neutral-600 leading-relaxed">
+                      To prevent transit cancellations on our bespoke handcrafted silken garments, a nominal
+                      advance commitment deposit of <strong>₹{codAdvanceAmount.toLocaleString('en-IN')}</strong> is
+                      paid online now. The remaining balance will be collected in cash or UPI at your doorstep.
+                    </p>
+
+                    {/* Breakdown Calculation */}
+                    <div className="border border-neutral-200 bg-white p-3 text-xs space-y-1.5 divide-y divide-neutral-100">
+                      <div className="flex justify-between py-1">
+                        <span className="text-neutral-500">Total Garment Order Value</span>
+                        <span className="font-semibold">{formatPrice(total)}</span>
+                      </div>
+                      <div className="flex justify-between py-1 text-emerald-800 font-semibold">
+                        <span>Advance Booking Deposit (Pay Now)</span>
+                        <span>₹{codAdvanceAmount.toLocaleString('en-IN')}</span>
+                      </div>
+                      <div className="flex justify-between py-1 text-neutral-900 font-bold">
+                        <span>Remaining Balance to Pay at Doorstep</span>
+                        <span>{formatPrice(codRemainingAmount)}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Advance Payment Action Box */}
+                  {!codAdvancePaid ? (
+                    <div className="border-2 border-dashed border-amber-400 bg-amber-50/50 p-5 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="font-semibold text-xs uppercase tracking-wider text-amber-950 flex items-center gap-1.5">
+                            <Lock size={14} className="text-amber-700" />
+                            Step 1: Pay ₹999 Advance to Unlock COD
+                          </p>
+                          <p className="text-[11px] text-amber-800 mt-0.5">
+                            Instant confirmation via Google Pay, PhonePe, Paytm or Card.
+                          </p>
+                        </div>
+                        <span className="text-xs font-bold text-amber-900 bg-amber-200/80 px-2.5 py-1">
+                          ₹{codAdvanceAmount} Due
+                        </span>
+                      </div>
+
+                      {/* Payment mode switcher for advance */}
+                      <div className="flex gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setCodAdvanceMethod('upi')}
+                          className={`flex-1 py-2 px-3 text-xs font-mono uppercase tracking-wider border flex items-center justify-center gap-1.5 ${
+                            codAdvanceMethod === 'upi'
+                              ? 'bg-black text-white border-black font-semibold'
+                              : 'bg-white text-neutral-700 border-neutral-300'
+                          }`}
+                        >
+                          <Smartphone size={13} /> UPI / QR (Instant)
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setCodAdvanceMethod('card')}
+                          className={`flex-1 py-2 px-3 text-xs font-mono uppercase tracking-wider border flex items-center justify-center gap-1.5 ${
+                            codAdvanceMethod === 'card'
+                              ? 'bg-black text-white border-black font-semibold'
+                              : 'bg-white text-neutral-700 border-neutral-300'
+                          }`}
+                        >
+                          <CreditCard size={13} /> Debit / Credit Card
+                        </button>
+                      </div>
+
+                      {codAdvanceMethod === 'upi' ? (
+                        <div className="space-y-3">
+                          <div>
+                            <label className="block text-[11px] uppercase tracking-wider font-semibold text-neutral-700 mb-1">
+                              Your UPI ID (VPA)
+                            </label>
+                            <input
+                              type="text"
+                              value={codAdvanceUpi}
+                              onChange={(e) => setCodAdvanceUpi(e.target.value)}
+                              placeholder="e.g. yourname@okaxis"
+                              className="w-full px-3 py-2 text-xs border border-neutral-300 bg-white font-mono focus:border-black outline-none"
+                            />
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={handlePayCodAdvance}
+                              disabled={payingAdvance}
+                              className="flex-1 py-3 bg-neutral-900 hover:bg-black text-white text-xs font-mono uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-sm disabled:opacity-50"
+                            >
+                              {payingAdvance ? (
+                                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                              ) : (
+                                <Smartphone size={14} className="text-emerald-400" />
+                              )}
+                              <span>
+                                {payingAdvance ? 'Verifying ₹999 Payment...' : 'Pay ₹999 Advance via UPI'}
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="space-y-3">
+                          <input
+                            type="text"
+                            placeholder="Card Number •••• •••• •••• 8823"
+                            defaultValue="4111 •••• •••• 8823"
+                            className="w-full px-3 py-2 text-xs border border-neutral-300 bg-white font-mono"
+                          />
+                          <button
+                            type="button"
+                            onClick={handlePayCodAdvance}
+                            disabled={payingAdvance}
+                            className="w-full py-3 bg-neutral-900 hover:bg-black text-white text-xs font-mono uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-sm disabled:opacity-50"
+                          >
+                            {payingAdvance ? (
+                              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            ) : (
+                              <CreditCard size={14} className="text-emerald-400" />
+                            )}
+                            <span>
+                              {payingAdvance ? 'Charging ₹999 Advance...' : 'Charge ₹999 to Card'}
+                            </span>
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    /* Confirmed Advance Box */
+                    <div className="border border-emerald-500/40 bg-emerald-50 p-4 text-emerald-900 space-y-2 animate-in fade-in">
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5 text-emerald-800">
+                          <CheckCircle2 size={16} className="text-emerald-600" />
+                          Advance Commitment Deposit Paid (₹999)
+                        </span>
+                        <span className="text-[10px] font-mono uppercase bg-emerald-200/80 px-2 py-0.5 text-emerald-900">
+                          Txn: ZY-ADV-88492
+                        </span>
+                      </div>
+                      <p className="text-xs text-emerald-700">
+                        Cash on Delivery is now unlocked! Please click the confirmation button below to finalize
+                        your order. You will pay the remaining <strong>{formatPrice(codRemainingAmount)}</strong> upon arrival.
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
 
               {/* Action Button */}
               <div className="pt-8">
-                <button
-                  type="button"
-                  onClick={handlePlaceOrder}
-                  className="w-full py-4 text-xs tracking-[0.22em] uppercase font-semibold font-body transition-opacity hover:opacity-90 shadow-md"
-                  style={{
-                    backgroundColor: 'var(--color-primary)',
-                    color: 'var(--color-on-primary)',
-                  }}
-                >
-                  PLACE ORDER · {formatPrice(total)}
-                </button>
+                {paymentMethod === 'cod' ? (
+                  !codAdvancePaid ? (
+                    <button
+                      type="button"
+                      onClick={handlePayCodAdvance}
+                      disabled={payingAdvance}
+                      className="w-full py-4 text-xs tracking-[0.22em] uppercase font-semibold font-body border border-amber-600/40 bg-amber-50 text-amber-900 hover:bg-amber-100 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
+                    >
+                      <Lock size={15} className="text-amber-700" />
+                      {payingAdvance ? 'Verifying ₹999 Advance...' : 'Pay ₹999 Advance Above to Unlock Cash on Delivery'}
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={handlePlaceOrder}
+                      className="w-full py-4 text-xs tracking-[0.22em] uppercase font-semibold font-body bg-black text-white hover:bg-neutral-800 flex items-center justify-center gap-2 transition-all shadow-md animate-in pulse"
+                    >
+                      <CheckCircle2 size={16} className="text-emerald-400" />
+                      CONFIRM CASH ON DELIVERY (PAY REMAINING {formatPrice(codRemainingAmount)} AT DOORSTEP) →
+                    </button>
+                  )
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handlePlaceOrder}
+                    className="w-full py-4 text-xs tracking-[0.22em] uppercase font-semibold font-body transition-opacity hover:opacity-90 shadow-md"
+                    style={{
+                      backgroundColor: 'var(--color-primary)',
+                      color: 'var(--color-on-primary)',
+                    }}
+                  >
+                    PLACE ORDER · {formatPrice(total)}
+                  </button>
+                )}
                 <p
                   className="text-center text-[0.6875rem] mt-3"
                   style={{ color: 'var(--color-secondary)' }}

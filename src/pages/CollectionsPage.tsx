@@ -3,6 +3,7 @@ import { useParams, useSearchParams, useNavigate } from 'react-router-dom'
 import { Eye, Sparkles, X, ChevronRight } from 'lucide-react'
 import { products, collections } from '@/data/products'
 import ProductCard from '@/components/ui/ProductCard'
+import { siteImages } from '@/config/images'
 
 export default function CollectionsPage() {
   const { slug } = useParams<{ slug?: string }>()
@@ -82,9 +83,9 @@ export default function CollectionsPage() {
 
   // Active mosaic images
   const mosaicImages = currentCollection?.mosaicImages || [
-    '/images/lantana/lantana-hero-models.jpg',
-    '/images/lantana/lantana-detail-hues.jpg',
-    '/images/lantana/lantana-shoot-grid.jpg',
+    siteImages.models.heroGirls,
+    siteImages.models.detailHues,
+    siteImages.models.shootGrid,
   ]
 
   return (
@@ -495,7 +496,7 @@ export default function CollectionsPage() {
             <div
               onClick={() =>
                 setSelectedImage({
-                  url: '/images/lantana/lantana-hero-models.jpg',
+                  url: siteImages.models.heroGirls,
                   title: 'The Timeless Elegance Campaign',
                   subtitle: 'Dual silhouettes in soft lilac & butter-yellow with shaded ombre dupattas.',
                 })
@@ -504,7 +505,7 @@ export default function CollectionsPage() {
             >
               <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
                 <img
-                  src="/images/lantana/lantana-hero-models.jpg"
+                  src={siteImages.models.heroGirls}
                   alt="Lantana Hero Models"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
@@ -534,7 +535,7 @@ export default function CollectionsPage() {
             <div
               onClick={() =>
                 setSelectedImage({
-                  url: '/images/lantana/lantana-detail-hues.jpg',
+                  url: siteImages.models.detailHues,
                   title: 'Soft Hues & Scalloped Lace Detail',
                   subtitle: 'Artisanal scalloped French lace hemline and hand-pleated salwar pants.',
                 })
@@ -543,7 +544,7 @@ export default function CollectionsPage() {
             >
               <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
                 <img
-                  src="/images/lantana/lantana-detail-hues.jpg"
+                  src={siteImages.models.detailHues}
                   alt="Soft Hues Detail"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
@@ -573,7 +574,7 @@ export default function CollectionsPage() {
             <div
               onClick={() =>
                 setSelectedImage({
-                  url: '/images/lantana/lantana-shoot-grid.jpg',
+                  url: siteImages.models.shootGrid,
                   title: 'Atelier Shoot Contact Sheet',
                   subtitle: '32-frame archival contact sheet documenting the outdoor garden lookbook.',
                 })
@@ -582,7 +583,7 @@ export default function CollectionsPage() {
             >
               <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
                 <img
-                  src="/images/lantana/lantana-shoot-grid.jpg"
+                  src={siteImages.models.shootGrid}
                   alt="Lantana Shoot Grid"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />

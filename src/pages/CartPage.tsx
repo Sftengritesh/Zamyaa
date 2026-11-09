@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ShoppingBag, ArrowRight, Trash2, ArrowLeft, Sparkles, Truck } from 'lucide-react'
+import { ShoppingBag, ArrowRight, Trash2, ArrowLeft, Sparkles, Truck, Banknote } from 'lucide-react'
 import { useCartStore } from '@/store'
 import { formatPrice } from '@/data/products'
 
@@ -198,6 +198,31 @@ export default function CartPage() {
               <div className="flex justify-between text-base font-bold">
                 <span>Estimated Total</span>
                 <span className="font-display text-xl">{formatPrice(total)}</span>
+              </div>
+
+              {/* Cash on Delivery Advance Commitment Notice */}
+              <div className="bg-neutral-50 border border-neutral-200 p-4 text-xs space-y-2">
+                <div className="flex items-center justify-between font-semibold text-neutral-900">
+                  <span className="flex items-center gap-1.5">
+                    <Banknote size={15} className="text-neutral-700" /> Cash on Delivery (COD)
+                  </span>
+                  <span className="text-[10px] font-mono uppercase bg-neutral-200 px-2 py-0.5 text-neutral-800">
+                    Advance Option
+                  </span>
+                </div>
+                <div className="text-[11px] text-neutral-600 space-y-1">
+                  <div className="flex justify-between">
+                    <span>Advance Booking (Paid Online):</span>
+                    <strong className="text-black">₹999</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Balance at Doorstep:</span>
+                    <strong className="text-black">{formatPrice(Math.max(0, total - 999))}</strong>
+                  </div>
+                </div>
+                <p className="text-[10px] text-neutral-500 italic pt-1 border-t border-neutral-200 leading-normal">
+                  Pay ₹999 advance to unlock COD during checkout; remainder paid in cash or UPI to courier upon arrival.
+                </p>
               </div>
 
               <Link
