@@ -31,11 +31,8 @@ export default function CollectionsPage() {
 
   const categories = [
     { label: 'All Pieces', value: 'all' },
-    { label: 'Salwar Suits & Sets', value: 'salwar-suit' },
-    { label: 'Co-Ord Sets', value: 'co-ord' },
-    { label: 'Dresses & Capes', value: 'dress' },
-    { label: 'Anarkalis', value: 'anarkali' },
-    { label: 'Palazzo Sets', value: 'palazzo' },
+    { label: 'Farshi Suit-Set', value: 'farshi-suit-set' },
+    { label: 'Skirt Top', value: 'skirt-top' },
   ]
 
   const filteredProducts = useMemo(() => {
@@ -46,9 +43,14 @@ export default function CollectionsPage() {
     }
 
     if (activeCategory !== 'all') {
-      list = list.filter((p) =>
-        p.tags.some((t) => t.toLowerCase().includes(activeCategory.toLowerCase()))
-      )
+      list = list.filter((p) => {
+        const pCat = p.category?.toLowerCase().replace(/[^a-z0-9]/g, '')
+        const activeCat = activeCategory.toLowerCase().replace(/[^a-z0-9]/g, '')
+        return (
+          pCat === activeCat ||
+          p.tags?.some((t) => t.toLowerCase().replace(/[^a-z0-9]/g, '') === activeCat)
+        )
+      })
     }
 
     if (sortBy === 'price-low') {
@@ -58,7 +60,7 @@ export default function CollectionsPage() {
     }
 
     return list
-  }, [activeCollectionSlug, activeCategory, sortBy])
+  }, [products, activeCollectionSlug, activeCategory, sortBy])
 
   const handleCollectionChange = (newSlug: string) => {
     if (slug) {
@@ -363,6 +365,11 @@ export default function CollectionsPage() {
               >
                 {c.slug === 'lantana' && <Sparkles size={12} className="text-amber-300" />}
                 {c.title}
+                {c.isOld && (
+                  <span className="text-[9px] px-1.5 py-0.5 rounded uppercase font-mono tracking-wider opacity-70 bg-black/10 dark:bg-white/10">
+                    Old / Archive
+                  </span>
+                )}
               </button>
             ))}
           </div>

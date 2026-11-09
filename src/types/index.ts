@@ -9,6 +9,7 @@ export interface Product {
   currency: string
   collection: string
   collectionSlug: string
+  category: string
   description: string
   fabric: string
   care: string[]
@@ -20,6 +21,11 @@ export interface Product {
   limitedCount?: number
   inStock: boolean
   badge?: string
+  sku?: string
+  status?: 'active' | 'draft' | 'archived'
+  isFeatured?: boolean
+  isBestseller?: boolean
+  inventory?: any[]
 }
 
 export interface ProductImage {
@@ -54,6 +60,9 @@ export interface Collection {
   mosaicImages?: string[]
   products: Product[]
   metrics?: { label: string; value: string }[]
+  productIds?: string[]
+  isOld?: boolean
+  status?: 'published' | 'draft' | 'archived'
 }
 
 // Cart types

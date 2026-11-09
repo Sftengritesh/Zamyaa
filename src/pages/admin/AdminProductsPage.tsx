@@ -122,11 +122,15 @@ export default function AdminProductsPage() {
             className="px-3 py-2 border border-[#ddd] text-xs uppercase font-semibold font-body outline-none focus:border-black bg-transparent"
           >
             <option value="all">All Collections</option>
-            <option value="noor-e-rang">Noor-e-Rang</option>
-            <option value="lantana">Lantana</option>
-            <option value="boho-flare">Boho Flare</option>
-            <option value="affaire">Affaire</option>
+            <option value="neel-pushp">Neel Pushp</option>
+            <option value="sunehri-dhoop">Sunehri Dhoop</option>
             <option value="desi-dastaan">Desi Dastaan</option>
+            <option value="noor-e-rang">Noor-e-Rang</option>
+            <option value="the-boho-flare-affair">The Boho Flare Affair</option>
+            <option value="lantana">Lantana</option>
+            <option value="zarrin">Zarrin</option>
+            <option value="gulabi-noor">Gulabi Noor (Old)</option>
+            <option value="neel-o-mitti">Neel-o-Mitti (Old)</option>
           </select>
 
           <select

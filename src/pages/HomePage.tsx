@@ -464,6 +464,98 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── SECTION 3.5: The Two Signature Categories ── */}
+      <section className="py-20 lg:py-24 border-b border-black/5" style={{ background: 'var(--color-surface)' }}>
+        <div className="max-w-screen-xl mx-auto px-6 lg:px-12">
+          <div className="text-center max-w-xl mx-auto mb-14">
+            <p className="font-body text-xs font-semibold tracking-[0.3em] uppercase mb-3" style={{ color: 'var(--color-secondary)' }}>
+              Curated Silhouettes
+            </p>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold" style={{ color: 'var(--color-on-surface)' }}>
+              Two Signature Categories
+            </h2>
+            <p className="font-body text-sm mt-3" style={{ color: 'var(--color-secondary)' }}>
+              Bespoke craftsmanship distilled into two timeless silhouettes for the discerning muse.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+            {/* Category 1: Farshi Suit-Set */}
+            <Link
+              to="/collections?category=farshi-suit-set"
+              className="group relative overflow-hidden block aspect-[4/5] bg-neutral-900 text-white shadow-xl"
+            >
+              <img
+                src="/images/models/lantana-hero-models.jpg"
+                alt="Farshi Suit-Set"
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105 opacity-90"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-8 left-8 right-8">
+                <span className="text-[10px] tracking-[0.25em] uppercase font-mono text-amber-200 block mb-2">
+                  Atelier Silhouette · 01
+                </span>
+                <h3 className="font-display text-3xl sm:text-4xl font-normal mb-2 text-white">
+                  Farshi Suit-Set
+                </h3>
+                <p className="font-body text-xs text-neutral-300 max-w-md mb-5 leading-relaxed">
+                  Sweeping, architectural farshi trousers tailored with pure handloom Chanderi silk kurtis and artisan dupattas.
+                </p>
+                <span className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold border-b border-white pb-1 group-hover:gap-3 transition-all">
+                  Shop Farshi Suits <ArrowRight size={14} />
+                </span>
+              </div>
+            </Link>
+
+            {/* Category 2: Skirt Top */}
+            <Link
+              to="/collections?category=skirt-top"
+              className="group relative overflow-hidden block aspect-[4/5] bg-neutral-900 text-white shadow-xl"
+            >
+              <img
+                src="/images/models/lantana-detail-hues.jpg"
+                alt="Skirt Top"
+                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 opacity-90"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-8 left-8 right-8">
+                <span className="text-[10px] tracking-[0.25em] uppercase font-mono text-amber-200 block mb-2">
+                  Atelier Silhouette · 02
+                </span>
+                <h3 className="font-display text-3xl sm:text-4xl font-normal mb-2 text-white">
+                  Skirt Top
+                </h3>
+                <p className="font-body text-xs text-neutral-300 max-w-md mb-5 leading-relaxed">
+                  Sculpted corsets, sweetheart bodices, and billowing handwoven skirts adorned with artisanal lace.
+                </p>
+                <span className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold border-b border-white pb-1 group-hover:gap-3 transition-all">
+                  Shop Skirt Tops <ArrowRight size={14} />
+                </span>
+              </div>
+            </Link>
+          </div>
+
+          {/* Quick Collection Switcher Ribbon */}
+          <div className="mt-16 pt-10 border-t border-black/10">
+            <p className="text-center font-mono text-[11px] uppercase tracking-widest text-neutral-500 mb-6">
+              Explore Our 7 Curated Capsules & Archival Editions
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-2.5">
+              {collections.map((c) => (
+                <Link
+                  key={c.slug}
+                  to={`/collections/${c.slug}`}
+                  className="px-4 py-2 text-xs uppercase tracking-wider font-semibold border border-neutral-300 hover:border-black hover:bg-black hover:text-white transition-all rounded-full flex items-center gap-1.5"
+                >
+                  {c.title}
+                  {c.isOld && <span className="text-[9px] opacity-60 font-mono">(Archive)</span>}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── SECTION 4: Featured Collection — Noor-e-Rang ── */}
       {noorCollection && (
         <section className="py-20 lg:py-28">

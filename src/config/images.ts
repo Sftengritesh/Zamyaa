@@ -3,59 +3,113 @@
  * ZAMYAA BY JYOTI — CENTRALIZED IMAGE ASSET CONFIGURATION
  * ============================================================================
  * 
- * To change ANY photo on the entire website:
- * 1. OPTION A (Easiest): Replace the file inside `public/images/models/` with your new image.
- * 2. OPTION B: Simply paste your new image URL or path in this file below!
+ * TO CHANGE ANY PHOTO ON THE ENTIRE WEBSITE:
+ * 1. OPTION A: Replace images inside `public/images/models/` or add new images to `public/images/`.
+ * 2. OPTION B: Simply paste your new Cloudinary or local image URL directly into this file!
  * 
  * All pages (Homepage 3D Hero, Collections, Product Pages, Lookbooks) automatically update.
  */
 
+// Common photos
+const defaultHero = '/images/models/lantana-hero-models.jpg'
+const defaultDetail = '/images/models/lantana-detail-hues.jpg'
+const defaultShootGrid = '/images/models/lantana-shoot-grid.jpg'
+
 export const siteImages = {
-  // ── 3D MODEL & HERO GIRLS (The 3 Photos from Atelier Shoot) ──
+  // ── 3D MODEL & HERO GIRLS (From Atelier Shoot) ──
   models: {
-    // 1. Two models in lilac & yellow salwar suits ("Timeless Elegance")
-    heroGirls: '/images/models/lantana-hero-models.jpg',
-    
-    // 2. Close-up detail of scalloped French lace hem & pleated salwar ("Soft Hues")
-    detailHues: '/images/models/lantana-detail-hues.jpg',
-    
-    // 3. 32-shot garden photoshoot contact sheet & moodboard
-    shootGrid: '/images/models/lantana-shoot-grid.jpg',
+    // 1. Two models in pastel salwar suits ("For the girls who love timeless elegance")
+    heroGirls: defaultHero,
+    // 2. Scalloped French lace hem & pleated salwar closeup ("Soft hues")
+    detailHues: defaultDetail,
+    // 3. Garden photoshoot 30-shot contact sheet & moodboard
+    shootGrid: defaultShootGrid,
   },
 
-  // ── HOMEPAGE HERO & CAMPAIGN ──
+  // ── HOMEPAGE HERO & 3D MODEL ──
   homepage: {
-    // 3D Model primary texture
-    hero3DModel: '/images/models/lantana-hero-models.jpg',
-    hero3DDetail: '/images/models/lantana-detail-hues.jpg',
-    hero3DLookbook: '/images/models/lantana-shoot-grid.jpg',
-    
-    // Fallback static banner
-    heroBanner: '/images/models/lantana-hero-models.jpg',
-    
-    // Editorial Feature Banner
-    editorialFeature: '/images/models/lantana-shoot-grid.jpg',
+    hero3DModel: defaultHero,
+    hero3DDetail: defaultDetail,
+    hero3DLookbook: defaultShootGrid,
+    heroBanner: defaultHero,
+    editorialFeature: defaultShootGrid,
   },
 
-  // ── SIGNATURE COLLECTIONS ──
+  // ── THE TWO EXCLUSIVE CATEGORIES ──
+  categories: {
+    // 1. Farshi Suit-Set
+    farshiSuitSet: defaultHero,
+    // 2. Skirt Top
+    skirtTop: defaultDetail,
+  },
+
+  // ── SIGNATURE COLLECTIONS (7 Active + 2 Old) ──
   collections: {
-    lantana: {
-      hero: '/images/models/lantana-hero-models.jpg',
-      mosaic: [
-        '/images/models/lantana-hero-models.jpg',
-        '/images/models/lantana-detail-hues.jpg',
-        '/images/models/lantana-shoot-grid.jpg',
-      ],
-      banner: '/images/models/lantana-shoot-grid.jpg',
+    // 1. Neel Pushp
+    neelPushp: {
+      hero: defaultHero,
+      mosaic: [defaultHero, defaultDetail, defaultShootGrid],
     },
-    noorERang: {
-      hero: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBfuxqZf27ins7Kdr765TAwhjxQcguh3iNl59grkP5K9Gm6ugHPnQeUaR0ZO38jDgoi1-52lBXqSe3c3u3kTnaMJ3qJi0EDLh1IzOAyPMY2CqV9pPPGyTcfsp7pfAtAGMMludLl0T1Mu72m9k795LFl7yUJywYNhH1t1RFZeSn-uzeTD0eL67QW1dodLgtFfwpxiZHHwFZs72NVMU7QB-Pyey6qCv987D63rg2O5303',
+
+    // 2. Sunehri Dhoop
+    sunehriDhoop: {
+      hero: defaultDetail,
+      mosaic: [defaultDetail, defaultHero, defaultShootGrid],
+    },
+
+    // 3. Desi Dastaan
+    desiDastaan: {
+      hero: 'https://res.cloudinary.com/c8deakbl/image/upload/v1794029107/zamyaa/products/kro6zhda0mlzo6qwdsvh.jpg',
       mosaic: [
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuBfuxqZf27ins7Kdr765TAwhjxQcguh3iNl59grkP5K9Gm6ugHPnQeUaR0ZO38jDgoi1-52lBXqSe3c3u3kTnaMJ3qJi0EDLh1IzOAyPMY2CqV9pPPGyTcfsp7pfAtAGMMludLl0T1Mu72m9k795LFl7yUJywYNhH1t1RFZeSn-uzeTD0eL67QW1dodLgtFfwpxiZHHwFZs72NVMU7QB-Pyey6qCv987D63rg2O5303',
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuAzKmtPeQxvihoBt9gfOniLLCFGYEdkatPLmxHfqY6cxbnStaW3uBoc1xvoOwUJphZByozEIUf5_wAlVnU_9vmhBSh92BcA3EcQ-R68bX6cIezwp3GAg0XagObxmUl3yWE9vUvPFptpiniX8cu6WDgn8dUXF6rdTf_WF_S-mCvV_pWyg5BNZKhiAeRfhDJwYSd25jinnaZ93IwZTV66AiIHSFdbr9yTCW6IckBBuIgC',
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuDtLuotM2i_ew3uFqc3FH8mq2VZVDi5lWNLvl65cN0LRYXP1i_3kJqwzAqmxF2OZhI1A9V5bwkRPtCRIJsO4mJsHlqQDyK2vd1vNzpAdmJM7GfgRbD7dGFcPWBBDAP1LBNYbWfH7BXFmqLQG1-WekN4mWFMRwAZH8aVCagHEBJqVvGiyxpfIDt8e3Pd0PxAJKz6a1d9i8LgtDkXC9jcobsuIueDuS4GpIJLpz4FA',
+        'https://res.cloudinary.com/c8deakbl/image/upload/v1794029107/zamyaa/products/kro6zhda0mlzo6qwdsvh.jpg',
+        defaultDetail,
+        defaultShootGrid,
       ],
+    },
+
+    // 4. Noor-e-Rang
+    noorERang: {
+      hero: 'https://res.cloudinary.com/c8deakbl/image/upload/v1794206193/zamyaa/products/sparyp1mwtrxd55gblqw.jpg',
+      mosaic: [
+        'https://res.cloudinary.com/c8deakbl/image/upload/v1794206193/zamyaa/products/sparyp1mwtrxd55gblqw.jpg',
+        'https://res.cloudinary.com/c8deakbl/image/upload/v1794206160/zamyaa/products/zttifqb0fl5pjvz0q5x8.jpg',
+        defaultShootGrid,
+      ],
+    },
+
+    // 5. The Boho Flare Affair
+    theBohoFlareAffair: {
+      hero: defaultShootGrid,
+      mosaic: [defaultShootGrid, defaultHero, defaultDetail],
+    },
+
+    // 6. Lantana
+    lantana: {
+      hero: defaultHero,
+      mosaic: [defaultHero, defaultDetail, defaultShootGrid],
+    },
+
+    // 7. Zarrin
+    zarrin: {
+      hero: defaultDetail,
+      mosaic: [defaultDetail, defaultHero, defaultShootGrid],
+    },
+
+    // ── OLD COLLECTIONS (ARCHIVE) ──
+    // 8. Gulabi Noor (Old)
+    gulabiNoor: {
+      hero: 'https://res.cloudinary.com/c8deakbl/image/upload/v1794206193/zamyaa/products/sparyp1mwtrxd55gblqw.jpg',
+      mosaic: [
+        'https://res.cloudinary.com/c8deakbl/image/upload/v1794206193/zamyaa/products/sparyp1mwtrxd55gblqw.jpg',
+        defaultDetail,
+        defaultShootGrid,
+      ],
+    },
+
+    // 9. Neel-o-Mitti (Old)
+    neelOMitti: {
+      hero: defaultHero,
+      mosaic: [defaultHero, defaultDetail, defaultShootGrid],
     },
   },
 } as const
-

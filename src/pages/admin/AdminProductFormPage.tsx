@@ -25,9 +25,9 @@ export default function AdminProductFormPage() {
   const [subtitle, setSubtitle] = useState('')
   const [price, setPrice] = useState<number | ''>('')
   const [originalPrice, setOriginalPrice] = useState<number | ''>('')
-  const [collection, setCollection] = useState('Noor-e-Rang')
-  const [collectionSlug, setCollectionSlug] = useState('noor-e-rang')
-  const [category, setCategory] = useState('Co-Ord Sets')
+  const [collection, setCollection] = useState('Lantana')
+  const [collectionSlug, setCollectionSlug] = useState('lantana')
+  const [category, setCategory] = useState('Farshi Suit-Set')
   const [description, setDescription] = useState('')
   const [fabric, setFabric] = useState('')
   const [care, setCare] = useState<string[]>(['Dry clean only', 'Store in breathable muslin bag'])
@@ -77,9 +77,9 @@ export default function AdminProductFormPage() {
             setSubtitle(p.subtitle || '')
             setPrice(p.price || '')
             setOriginalPrice(p.originalPrice || '')
-            setCollection(p.collection || 'Noor-e-Rang')
-            setCollectionSlug(p.collectionSlug || 'noor-e-rang')
-            setCategory(p.category || 'Co-Ord Sets')
+            setCollection(p.collection || 'Lantana')
+            setCollectionSlug(p.collectionSlug || 'lantana')
+            setCategory(p.category || 'Farshi Suit-Set')
             setDescription(p.description || '')
             setFabric(p.fabric || '')
             setCare(p.care?.length ? p.care : ['Dry clean only'])
@@ -457,29 +457,29 @@ export default function AdminProductFormPage() {
                 onChange={(e) => handleCollectionSelect(e.target.value)}
                 className="w-full px-4 py-2.5 text-xs border border-[#ddd] font-body outline-none focus:border-black bg-transparent uppercase font-semibold"
               >
-                <option value="Noor-e-Rang">Noor-e-Rang</option>
-                <option value="Lantana Collection">Lantana Collection</option>
-                <option value="Boho Flare">Boho Flare</option>
-                <option value="Affaire">Affaire</option>
+                <option value="Neel Pushp">Neel Pushp</option>
+                <option value="Sunehri Dhoop">Sunehri Dhoop</option>
                 <option value="Desi Dastaan">Desi Dastaan</option>
+                <option value="Noor-e-Rang">Noor-e-Rang</option>
+                <option value="The Boho Flare Affair">The Boho Flare Affair</option>
+                <option value="Lantana">Lantana</option>
+                <option value="Zarrin">Zarrin</option>
+                <option value="Gulabi Noor">Gulabi Noor (Old)</option>
+                <option value="Neel-o-Mitti">Neel-o-Mitti (Old)</option>
               </select>
             </div>
 
             <div>
               <label className="block text-xs uppercase tracking-wider font-semibold text-[#444] mb-2">
-                Category
+                Category (Exclusive 2 Categories)
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full px-4 py-2.5 text-xs border border-[#ddd] font-body outline-none focus:border-black bg-transparent uppercase font-semibold"
               >
-                <option value="Co-Ord Sets">Co-Ord Sets</option>
-                <option value="Dresses & Capes">Dresses & Capes</option>
-                <option value="Anarkalis">Anarkalis</option>
-                <option value="Palazzo Sets">Palazzo Sets</option>
-                <option value="Sarees & Drapes">Sarees & Drapes</option>
-                <option value="Bridal Couture">Bridal Couture</option>
+                <option value="Farshi Suit-Set">Farshi Suit-Set</option>
+                <option value="Skirt Top">Skirt Top</option>
               </select>
             </div>
 

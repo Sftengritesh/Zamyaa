@@ -1,13 +1,15 @@
 import type { Product, Collection } from '@/types'
 import { siteImages } from '@/config/images'
 
-// ── Image URLs from Stitch and Atelier Shoot ──
+export function formatPrice(price: number, currency = '₹'): string {
+  return `${currency}${price.toLocaleString('en-IN')}`
+}
+
 export const productImages = {
   gulabi: [
-    'https://lh3.googleusercontent.com/aida-public/AB6AXuBfuxqZf27ins7Kdr765TAwhjxQcguh3iNl59grkP5K9Gm6ugHPnQeUaR0ZO38jDgoi1-52lBXqSe3c3u3kTnaMJ3qJi0EDLh1IzOAyPMY2CqV9pPPGyTcfsp7pfAtAGMMludLl0T1Mu72m9k795LFl7yUJywYNhH1t1RFZeSn-uzeTD0eL67QW1dodLgtFfwpxiZHHwFZs72NVMU7QB-Pyey6qCv987D63rg2O5303',
-    'https://lh3.googleusercontent.com/aida-public/AB6AXuAzKmtPeQxvihoBt9gfOniLLCFGYEdkatPLmxHfqY6cxbnStaW3uBoc1xvoOwUJphZByozEIUf5_wAlVnU_9vmhBSh92BcA3EcQ-R68bX6cIezwp3GAg0XagObxmUl3yWE9vUvPFptpiniX8cu6WDgn8dUXF6rdTf_WF_S-mCvV_pWyg5BNZKhiAeRfhDJwYSd25jinnaZ93IwZTV66AiIHSFdbr9yTCW6IckBBuIgC',
-    'https://lh3.googleusercontent.com/aida-public/AB6AXuDtLuotM2i_ew3uFqc3FH8mq2VZVDi5lWNLvl65cN0LRYXP1i_3kJqwzAqmxF2OZhI1A9V5bwkRPtCRIJsO4mJsHlqQDyK2vd1vNzpAdmJM7GfgRbD7dGFcPWBBDAP1LBNYbWfH7BXFmqLQG1-WekN4mWFMRwAZH8aVCagHEBJqVvGiyxpfIDt8e3Pd0PxAJKz6a1d9i8LgtDkXC9jcobsuIueDuS4GpIJLpz4FA',
-    'https://lh3.googleusercontent.com/aida-public/AB6AXuCdF7HqcZiFZ0q2Ybz8iMZ-jVAJA15jgqYE4LwVVOv1R1FVOIrFCOaRIPBGIJR6p26kd-R5Lxv9T3bfmGQg5R5fqc5mVE2WV1Hy7gOvMFzq3wqiHVKqRnI3HopWuBJ7KbJl5a7jbHqD9KtPFyQpW3UqeXjXd3jPnA47e-BCBL6Zq9h6HkJZJhDL5wR0iVfDNfXt7kX_0xT7nB22Z2BtEjPuQN3T0bZQc5Pf7P3g',
+    'https://res.cloudinary.com/c8deakbl/image/upload/v1794206193/zamyaa/products/sparyp1mwtrxd55gblqw.jpg',
+    'https://res.cloudinary.com/c8deakbl/image/upload/v1794206160/zamyaa/products/zttifqb0fl5pjvz0q5x8.jpg',
+    siteImages.models.shootGrid,
   ],
   lantana: [
     siteImages.models.heroGirls,
@@ -18,315 +20,1736 @@ export const productImages = {
 
 export const products: Product[] = [
   {
-    id: 'p1',
-    slug: 'gulabi-rose-silk-co-ord',
-    name: 'The Gulabi Rose Silk Co-Ord Set',
-    subtitle: 'Noor-e-Rang Collection',
-    price: 48500,
-    originalPrice: 62000,
-    currency: '₹',
-    collection: 'Noor-e-Rang',
-    collectionSlug: 'noor-e-rang',
-    description:
-      "An opulent co-ordinate set in hand-woven Chanderi silk, dyed in a rich Gulabi rose shade inspired by the rose gardens of Jaipur's Amber Fort. The asymmetric tunic features intricate antique gota patti embroidery along the hemline, while the wide-leg palazzo trousers flow with architectural grace. Each piece is a limited-edition creation made by master artisans in Rajasthan.",
-    fabric: 'Hand-woven Chanderi Silk, 100% Mulberry. Lining: Pure cotton muslin.',
-    care: [
-      'Dry clean only',
-      'Store in breathable muslin bag',
-      'Keep away from direct sunlight',
-      'Handle embroidery with care',
+    "id": "p5",
+    "slug": "lantana-lilac-farshi-suit-set",
+    "name": "The Lantana Gul-e-Bahar Lilac Farshi Suit-Set",
+    "subtitle": "Lantana Pret — Soft Hues Edition",
+    "price": 34500,
+    "originalPrice": 42000,
+    "currency": "₹",
+    "collection": "Lantana",
+    "collectionSlug": "lantana",
+    "category": "Farshi Suit-Set",
+    "description": "For the girls who love timeless elegance. A lyrical Farshi suit-set in pastel lilac, tailored in breathable handloom Chanderi silk with delicate gold floral butis. Features artisanal scalloped cotton lace trims along the hemline, flowing wide farshi trousers, and a dual-toned shaded ombre dupatta with handcrafted tassels.",
+    "fabric": "Handloom Chanderi Silk Kurti, Pure Mul Cotton Farshi Trousers, Shaded Chiffon Dupatta with handmade thread tassels.",
+    "care": [
+      "Dry clean only",
+      "Store flat in pure muslin cover",
+      "Steam iron with reverse protection",
+      "Do not bleach"
     ],
-    images: productImages.gulabi.map((url, i) => ({
-      url,
-      alt: `Gulabi Rose Co-Ord - Look ${i + 1}`,
-      isPrimary: i === 0,
-    })),
-    sizes: [
-      { label: 'XS', available: true, measurements: 'Bust 32" / Waist 26"' },
-      { label: 'S', available: true, measurements: 'Bust 34" / Waist 28"' },
-      { label: 'M', available: true, measurements: 'Bust 36" / Waist 30"' },
-      { label: 'L', available: false, measurements: 'Bust 38" / Waist 32"' },
-      { label: 'XL', available: true, measurements: 'Bust 40" / Waist 34"' },
+    "images": [
+      {
+        "url": "/images/models/lantana-hero-models.jpg",
+        "alt": "Lantana Lilac Farshi Suit-Set - Timeless Elegance",
+        "isPrimary": true
+      },
+      {
+        "url": "/images/models/lantana-detail-hues.jpg",
+        "alt": "Lantana Lilac Farshi Suit-Set - Scalloped Hem Detail"
+      },
+      {
+        "url": "/images/models/lantana-shoot-grid.jpg",
+        "alt": "Lantana Campaign Shoot Lookbook Grid"
+      }
     ],
-    colors: [
-      { name: 'Gulabi Rose', hex: '#E8617A' },
-      { name: 'Ivory Pearl', hex: '#F5F0E8' },
-      { name: 'Midnight Navy', hex: '#1C2951' },
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true,
+        "measurements": "Bust 32\" / Waist 26\""
+      },
+      {
+        "label": "S",
+        "available": true,
+        "measurements": "Bust 34\" / Waist 28\""
+      },
+      {
+        "label": "M",
+        "available": true,
+        "measurements": "Bust 36\" / Waist 30\""
+      },
+      {
+        "label": "L",
+        "available": true,
+        "measurements": "Bust 38\" / Waist 32\""
+      },
+      {
+        "label": "XL",
+        "available": true,
+        "measurements": "Bust 40\" / Waist 34\""
+      },
+      {
+        "label": "Custom",
+        "available": true,
+        "measurements": "Tailored to client measurements"
+      }
     ],
-    tags: ['co-ord', 'silk', 'chanderi', 'gota-patti', 'rajasthan', 'limited-edition'],
-    isLimitedEdition: true,
-    limitedCount: 60,
-    inStock: true,
-    badge: 'Limited — 60 Pieces',
+    "colors": [
+      {
+        "name": "Lilac & Lemon Yellow",
+        "hex": "#D8B4E2"
+      },
+      {
+        "name": "Blush Rose",
+        "hex": "#EAA9BA"
+      }
+    ],
+    "tags": [
+      "farshi-suit-set",
+      "lantana",
+      "chanderi",
+      "pastel",
+      "soft-hues",
+      "lace",
+      "dupatta"
+    ],
+    "sku": "ZY-LNT-05",
+    "status": "active",
+    "isFeatured": true,
+    "isBestseller": true,
+    "isLimitedEdition": true,
+    "limitedCount": 45,
+    "inStock": true,
+    "badge": "Signature Piece",
+    "inventory": [
+      {
+        "sku": "ZY-LNT-05-XS",
+        "color": "Lilac & Lemon Yellow",
+        "size": "XS",
+        "stock": 5,
+        "lowStockThreshold": 2
+      },
+      {
+        "sku": "ZY-LNT-05-S",
+        "color": "Lilac & Lemon Yellow",
+        "size": "S",
+        "stock": 8,
+        "lowStockThreshold": 2
+      },
+      {
+        "sku": "ZY-LNT-05-M",
+        "color": "Lilac & Lemon Yellow",
+        "size": "M",
+        "stock": 10,
+        "lowStockThreshold": 2
+      },
+      {
+        "sku": "ZY-LNT-05-L",
+        "color": "Lilac & Lemon Yellow",
+        "size": "L",
+        "stock": 6,
+        "lowStockThreshold": 2
+      },
+      {
+        "sku": "ZY-LNT-05-XL",
+        "color": "Lilac & Lemon Yellow",
+        "size": "XL",
+        "stock": 4,
+        "lowStockThreshold": 2
+      }
+    ]
   },
   {
-    id: 'p5',
-    slug: 'lantana-lilac-salwar-suit',
-    name: 'The Lantana Gul-e-Bahar Lilac Salwar Suit',
-    subtitle: 'Lantana Pret — Soft Hues Edition',
-    price: 34500,
-    originalPrice: 42000,
-    currency: '₹',
-    collection: 'Lantana',
-    collectionSlug: 'lantana',
-    description:
-      'For the girls who love timeless elegance. A lyrical symphony in pastel lilac, tailored in breathable handloom Chanderi silk with delicate gold floral buti motifs. Features artisanal scalloped cotton lace trims along the hemline and sleeve cuffs, paired with pale lemon-yellow pleated salwar pants and an airy dual-toned shaded ombre dupatta finished with handcrafted tassels.',
-    fabric: 'Handloom Chanderi Silk Kurti, Pure Mul Cotton Salwar, Shaded Chiffon Dupatta with handmade thread tassels.',
-    care: [
-      'Dry clean only',
-      'Store flat in pure muslin cover',
-      'Steam iron with reverse protection',
-      'Do not bleach',
+    "id": "p6",
+    "slug": "lantana-citron-skirt-top",
+    "name": "The Lantana Zari Citron Skirt Top Set",
+    "subtitle": "Lantana Pret — Soft Hues Edition",
+    "price": 32000,
+    "originalPrice": 38000,
+    "currency": "₹",
+    "collection": "Lantana",
+    "collectionSlug": "lantana",
+    "category": "Skirt Top",
+    "description": "Understated luxury in delicate buttercup yellow. Crafted in pure handloom cotton-silk with a signature scalloped sweetheart bodice top and micro-pearl strap detailing, paired with a voluminous flared lilac silk skirt and shaded ombre dupatta.",
+    "fabric": "Pure Handloom Cotton-Silk Bodice Top, Flared Chanderi Skirt, Shaded Chiffon Dupatta.",
+    "care": [
+      "Dry clean only",
+      "Store in breathable cotton bag",
+      "Low steam iron on reverse side"
     ],
-    images: [
+    "images": [
       {
-        url: siteImages.models.heroGirls,
-        alt: 'Lantana Lilac Salwar Suit - Full Look with Ombre Dupatta',
-        isPrimary: true,
+        "url": "/images/models/lantana-detail-hues.jpg",
+        "alt": "Lantana Citron Skirt Top - Soft Hues Detail",
+        "isPrimary": true
       },
       {
-        url: siteImages.models.detailHues,
-        alt: 'Lantana Lilac Salwar Suit - Scallop Lace Hem Detail & Soft Hues',
+        "url": "/images/models/lantana-hero-models.jpg",
+        "alt": "Lantana Citron Skirt Top - Full Ensemble"
       },
       {
-        url: siteImages.models.shootGrid,
-        alt: 'Lantana Campaign Shoot Lookbook & Garden Editorial',
+        "url": "/images/models/lantana-shoot-grid.jpg",
+        "alt": "Lantana Atelier Shoot Details"
+      }
+    ],
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true
       },
+      {
+        "label": "S",
+        "available": true
+      },
+      {
+        "label": "M",
+        "available": true
+      },
+      {
+        "label": "L",
+        "available": true
+      },
+      {
+        "label": "XL",
+        "available": true
+      },
+      {
+        "label": "Custom",
+        "available": true
+      }
     ],
-    sizes: [
-      { label: 'XS', available: true, measurements: 'Bust 32" / Waist 26"' },
-      { label: 'S', available: true, measurements: 'Bust 34" / Waist 28"' },
-      { label: 'M', available: true, measurements: 'Bust 36" / Waist 30"' },
-      { label: 'L', available: true, measurements: 'Bust 38" / Waist 32"' },
-      { label: 'XL', available: true, measurements: 'Bust 40" / Waist 34"' },
-      { label: 'Custom', available: true, measurements: 'Tailored to client measurements' },
+    "colors": [
+      {
+        "name": "Citron Yellow & Lilac",
+        "hex": "#FFF4BD"
+      },
+      {
+        "name": "Ivory Cream",
+        "hex": "#FAF6EE"
+      }
     ],
-    colors: [
-      { name: 'Lilac & Lemon Yellow', hex: '#D8B4E2' },
-      { name: 'Blush Rose', hex: '#EAA9BA' },
+    "tags": [
+      "skirt-top",
+      "lantana",
+      "cotton-silk",
+      "pastel",
+      "soft-hues",
+      "scallops"
     ],
-    tags: ['salwar-suit', 'lantana', 'co-ord', 'chanderi', 'pastel', 'soft-hues', 'lace', 'dupatta'],
-    isLimitedEdition: true,
-    limitedCount: 45,
-    inStock: true,
-    badge: 'Signature Piece',
+    "sku": "ZY-LNT-06",
+    "status": "active",
+    "isFeatured": true,
+    "isBestseller": false,
+    "isLimitedEdition": false,
+    "inStock": true,
+    "badge": "New Season",
+    "inventory": [
+      {
+        "sku": "ZY-LNT-06-XS",
+        "color": "Citron Yellow & Lilac",
+        "size": "XS",
+        "stock": 6,
+        "lowStockThreshold": 2
+      },
+      {
+        "sku": "ZY-LNT-06-S",
+        "color": "Citron Yellow & Lilac",
+        "size": "S",
+        "stock": 10,
+        "lowStockThreshold": 2
+      },
+      {
+        "sku": "ZY-LNT-06-M",
+        "color": "Citron Yellow & Lilac",
+        "size": "M",
+        "stock": 12,
+        "lowStockThreshold": 2
+      },
+      {
+        "sku": "ZY-LNT-06-L",
+        "color": "Citron Yellow & Lilac",
+        "size": "L",
+        "stock": 8,
+        "lowStockThreshold": 2
+      }
+    ]
   },
   {
-    id: 'p6',
-    slug: 'lantana-citron-salwar-set',
-    name: 'The Lantana Zari Citron Salwar Set',
-    subtitle: 'Lantana Pret — Soft Hues Edition',
-    price: 32000,
-    originalPrice: 38000,
-    currency: '₹',
-    collection: 'Lantana',
-    collectionSlug: 'lantana',
-    description:
-      'Understated luxury in delicate buttercup yellow. Crafted in pure handloom cotton-silk with a signature scalloped sweetheart neckline and delicate micro-pearl strap detailing. Accented with contrast lilac French lace at the hem and paired with pleated lilac salwar trousers and a matching shaded ombre dupatta.',
-    fabric: 'Pure Handloom Cotton-Silk Tunic, Chanderi Pleated Salwar, Shaded Chiffon Dupatta.',
-    care: [
-      'Dry clean only',
-      'Store in breathable cotton bag',
-      'Low steam iron on reverse side',
+    "id": "p-np-1",
+    "slug": "neel-pushp-royal-indigo-farshi-suit-set",
+    "name": "Neel Pushp Royal Indigo Farshi Suit-Set",
+    "subtitle": "Neel Pushp Capsule",
+    "price": 42000,
+    "originalPrice": 49000,
+    "currency": "₹",
+    "collection": "Neel Pushp",
+    "collectionSlug": "neel-pushp",
+    "category": "Farshi Suit-Set",
+    "description": "An architectural Farshi suit-set immersed in royal indigo hues. Features handwoven Chanderi silk with antique silver marodi zardozi embroidery and trailing flared farshi trousers.",
+    "fabric": "Pure Handloom Chanderi Silk with 100% Cotton Muslin lining.",
+    "care": [
+      "Dry clean only",
+      "Keep in protective muslin"
     ],
-    images: [
+    "images": [
       {
-        url: siteImages.models.detailHues,
-        alt: 'Lantana Citron Salwar Set - Scallop Bodice & Floral Hues',
-        isPrimary: true,
+        "url": "/images/models/lantana-hero-models.jpg",
+        "alt": "Neel Pushp Farshi Suit-Set - Full Look",
+        "isPrimary": true
       },
       {
-        url: siteImages.models.heroGirls,
-        alt: 'Lantana Citron Salwar Set - Model View in Garden',
+        "url": "/images/models/lantana-detail-hues.jpg",
+        "alt": "Neel Pushp Farshi Suit-Set - Neckline & Border"
+      }
+    ],
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true
       },
       {
-        url: siteImages.models.shootGrid,
-        alt: 'Lantana Atelier Shoot Details & Flower Accents',
+        "label": "S",
+        "available": true
       },
+      {
+        "label": "M",
+        "available": true
+      },
+      {
+        "label": "L",
+        "available": true
+      },
+      {
+        "label": "XL",
+        "available": true
+      },
+      {
+        "label": "Custom",
+        "available": true
+      }
     ],
-    sizes: [
-      { label: 'XS', available: true },
-      { label: 'S', available: true },
-      { label: 'M', available: true },
-      { label: 'L', available: true },
-      { label: 'XL', available: true },
-      { label: 'Custom', available: true },
+    "colors": [
+      {
+        "name": "Royal Indigo",
+        "hex": "#1F2A44"
+      },
+      {
+        "name": "Midnight Azure",
+        "hex": "#0B1C33"
+      }
     ],
-    colors: [
-      { name: 'Citron Yellow & Lilac', hex: '#FFF4BD' },
-      { name: 'Ivory Cream', hex: '#FAF6EE' },
+    "tags": [
+      "farshi-suit-set",
+      "neel-pushp",
+      "indigo",
+      "silk",
+      "zari"
     ],
-    tags: ['salwar-suit', 'lantana', 'co-ord', 'cotton-silk', 'pastel', 'soft-hues', 'scallops', 'dupatta'],
-    isLimitedEdition: false,
-    inStock: true,
-    badge: 'New Season',
+    "sku": "ZY-NP-01",
+    "status": "active",
+    "isFeatured": true,
+    "isBestseller": true,
+    "isLimitedEdition": false,
+    "inStock": true,
+    "badge": "Exclusive Drop",
+    "inventory": [
+      {
+        "sku": "ZY-NP-01-S",
+        "color": "Royal Indigo",
+        "size": "S",
+        "stock": 7,
+        "lowStockThreshold": 2
+      },
+      {
+        "sku": "ZY-NP-01-M",
+        "color": "Royal Indigo",
+        "size": "M",
+        "stock": 9,
+        "lowStockThreshold": 2
+      }
+    ]
   },
   {
-    id: 'p2',
-    slug: 'lantana-cape-dress',
-    name: 'Lantana Embroidered Cape Dress',
-    subtitle: 'Lantana Collection — AW2025',
-    price: 56000,
-    currency: '₹',
-    collection: 'Lantana',
-    collectionSlug: 'lantana',
-    description:
-      'An architectural masterpiece of contemporary Indian fashion. The Lantana Cape Dress features a sculptural cape overlay in handwoven Banarasi tissue silk, with delicate zardozi embellishments echoing the floral lantana motif. The inner slip dress is in pure Chanderi silk, ensuring an ethereal drape.',
-    fabric: 'Cape: Handwoven Banarasi Tissue Silk. Inner: Pure Chanderi Silk.',
-    care: ['Dry clean only', 'Handle embroidery with care', 'Store flat in muslin'],
-    images: [
+    "id": "p-np-2",
+    "slug": "neel-pushp-organza-skirt-top",
+    "name": "Neel Pushp Flared Organza Skirt & Corset Top",
+    "subtitle": "Neel Pushp Capsule",
+    "price": 38000,
+    "originalPrice": 45000,
+    "currency": "₹",
+    "collection": "Neel Pushp",
+    "collectionSlug": "neel-pushp",
+    "category": "Skirt Top",
+    "description": "A contemporary skirt and top set crafted in airy organza with structured boned corset bodice and botanical floral buti hand-embroidery.",
+    "fabric": "Silk Organza Skirt, Raw Silk Corset Top.",
+    "care": [
+      "Dry clean only"
+    ],
+    "images": [
       {
-        url: siteImages.models.shootGrid,
-        alt: 'Lantana Cape Dress - Lookbook Montage',
-        isPrimary: true,
+        "url": "/images/models/lantana-detail-hues.jpg",
+        "alt": "Neel Pushp Skirt Top - Detail",
+        "isPrimary": true
       },
       {
-        url: siteImages.models.heroGirls,
-        alt: 'Lantana Cape Dress - Campaign Mood',
+        "url": "/images/models/lantana-shoot-grid.jpg",
+        "alt": "Neel Pushp Skirt Top - Editorial"
+      }
+    ],
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true
       },
       {
-        url: siteImages.models.detailHues,
-        alt: 'Lantana Cape Dress - Textile Craftsmanship',
+        "label": "S",
+        "available": true
       },
+      {
+        "label": "M",
+        "available": true
+      },
+      {
+        "label": "L",
+        "available": true
+      },
+      {
+        "label": "XL",
+        "available": true
+      }
     ],
-    sizes: [
-      { label: 'XS', available: true },
-      { label: 'S', available: true },
-      { label: 'M', available: true },
-      { label: 'L', available: true },
-      { label: 'XL', available: false },
+    "colors": [
+      {
+        "name": "Powder Blue & Indigo",
+        "hex": "#6A8CAF"
+      }
     ],
-    colors: [
-      { name: 'Ivory Moonlight', hex: '#F8F3EA' },
-      { name: 'Blush Dusk', hex: '#D4A5A5' },
-      { name: 'Onyx', hex: '#1A1A1A' },
+    "tags": [
+      "skirt-top",
+      "neel-pushp",
+      "organza",
+      "corset"
     ],
-    tags: ['cape', 'dress', 'banarasi', 'zardozi', 'aw2025'],
-    isLimitedEdition: false,
-    inStock: true,
-    badge: 'Couture Edition',
+    "sku": "ZY-NP-02",
+    "status": "active",
+    "isFeatured": true,
+    "isBestseller": false,
+    "isLimitedEdition": true,
+    "limitedCount": 30,
+    "inStock": true,
+    "badge": "Limited Edition",
+    "inventory": [
+      {
+        "sku": "ZY-NP-02-M",
+        "color": "Powder Blue & Indigo",
+        "size": "M",
+        "stock": 5,
+        "lowStockThreshold": 1
+      }
+    ]
   },
   {
-    id: 'p3',
-    slug: 'noor-anarkali-set',
-    name: 'Noor Anarkali with Dupatta',
-    subtitle: 'Noor-e-Rang Collection',
-    price: 38500,
-    currency: '₹',
-    collection: 'Noor-e-Rang',
-    collectionSlug: 'noor-e-rang',
-    description:
-      "The Noor Anarkali is a sweeping floor-length silhouette in pure georgette, hand-embroidered with delicate chikankari florals in ivory thread. Paired with a tissue silk dupatta with antique zari border. A timeless piece that bridges the grandeur of Lucknow's artisanal tradition with modern minimal dressing.",
-    fabric: 'Pure Georgette Crepe. Embroidery: Hand Chikankari. Dupatta: Tissue Silk with Zari.',
-    care: ['Dry clean only', 'Press reverse side only', 'Store in provided muslin cover'],
-    images: [
+    "id": "p-sd-1",
+    "slug": "sunehri-dhoop-golden-zari-farshi-suit-set",
+    "name": "Sunehri Dhoop Golden Zari Farshi Suit-Set",
+    "subtitle": "Sunehri Dhoop Collection",
+    "price": 46000,
+    "originalPrice": 54000,
+    "currency": "₹",
+    "collection": "Sunehri Dhoop",
+    "collectionSlug": "sunehri-dhoop",
+    "category": "Farshi Suit-Set",
+    "description": "Sunlit grandeur rendered in golden handloom tissue silk. Trailing Farshi pants with antique zari borders and an asymmetric tunic with gota patti.",
+    "fabric": "Banarasi Gold Tissue Silk Kurti, Chanderi Farshi Trousers.",
+    "care": [
+      "Dry clean only",
+      "Store in muslin wrap"
+    ],
+    "images": [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBfuxqZf27ins7Kdr765TAwhjxQcguh3iNl59grkP5K9Gm6ugHPnQeUaR0ZO38jDgoi1-52lBXqSe3c3u3kTnaMJ3qJi0EDLh1IzOAyPMY2CqV9pPPGyTcfsp7pfAtAGMMludLl0T1Mu72m9k795LFl7yUJywYNhH1t1RFZeSn-uzeTD0eL67QW1dodLgtFfwpxiZHHwFZs72NVMU7QB-Pyey6qCv987D63rg2O5303',
-        alt: 'Noor Anarkali Front',
-        isPrimary: true,
+        "url": "/images/models/lantana-detail-hues.jpg",
+        "alt": "Sunehri Dhoop Farshi Suit-Set - Gold Detail",
+        "isPrimary": true
       },
+      {
+        "url": "/images/models/lantana-hero-models.jpg",
+        "alt": "Sunehri Dhoop Farshi Suit-Set - Full Look"
+      }
     ],
-    sizes: [
-      { label: 'XS', available: true },
-      { label: 'S', available: true },
-      { label: 'M', available: false },
-      { label: 'L', available: true },
-      { label: 'XL', available: true },
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true
+      },
+      {
+        "label": "S",
+        "available": true
+      },
+      {
+        "label": "M",
+        "available": true
+      },
+      {
+        "label": "L",
+        "available": true
+      },
+      {
+        "label": "XL",
+        "available": true
+      },
+      {
+        "label": "Custom",
+        "available": true
+      }
     ],
-    colors: [
-      { name: 'Ivory', hex: '#F5F0E8' },
-      { name: 'Sage Green', hex: '#7B9B7B' },
-      { name: 'Coral Blush', hex: '#E8846A' },
+    "colors": [
+      {
+        "name": "Warm Amber Gold",
+        "hex": "#E5A93C"
+      }
     ],
-    tags: ['anarkali', 'chikankari', 'georgette', 'lucknow', 'dupatta'],
-    isLimitedEdition: false,
-    inStock: true,
+    "tags": [
+      "farshi-suit-set",
+      "sunehri-dhoop",
+      "gold",
+      "tissue",
+      "embroidery"
+    ],
+    "sku": "ZY-SD-01",
+    "status": "active",
+    "isFeatured": true,
+    "isBestseller": true,
+    "isLimitedEdition": false,
+    "inStock": true,
+    "badge": "Atelier Favorite",
+    "inventory": [
+      {
+        "sku": "ZY-SD-01-S",
+        "color": "Warm Amber Gold",
+        "size": "S",
+        "stock": 6,
+        "lowStockThreshold": 2
+      },
+      {
+        "sku": "ZY-SD-01-M",
+        "color": "Warm Amber Gold",
+        "size": "M",
+        "stock": 8,
+        "lowStockThreshold": 2
+      }
+    ]
   },
   {
-    id: 'p4',
-    slug: 'amber-palazzo-set',
-    name: 'Amber Fort Palazzo Co-Ord',
-    subtitle: 'Noor-e-Rang Collection',
-    price: 29500,
-    currency: '₹',
-    collection: 'Noor-e-Rang',
-    collectionSlug: 'noor-e-rang',
-    description:
-      "Inspired by the sunlit sandstone of Amber Fort, this palazzo co-ord set captures Jaipur's imperial warmth. Wide-leg palazzo pants in handloom cotton-silk blend with block-printed kurta featuring traditional Rajasthani motifs, re-imagined in a contemporary minimal palette.",
-    fabric: 'Handloom Cotton-Silk Blend. Block Print: Natural Dyes.',
-    care: ['Hand wash cold', 'Dry in shade', 'Iron at medium heat on reverse'],
-    images: [
+    "id": "p-sd-2",
+    "slug": "sunehri-dhoop-tissue-skirt-top",
+    "name": "Sunehri Dhoop Sunlit Tissue Skirt & Blouse Top",
+    "subtitle": "Sunehri Dhoop Collection",
+    "price": 39500,
+    "originalPrice": 47000,
+    "currency": "₹",
+    "collection": "Sunehri Dhoop",
+    "collectionSlug": "sunehri-dhoop",
+    "category": "Skirt Top",
+    "description": "A luminous festive skirt and cropped blouse top ensemble crafted with pleated metallic tissue and antique floral embroidery.",
+    "fabric": "Handloom Tissue Silk Skirt with Raw Silk Blouse Top.",
+    "care": [
+      "Dry clean only"
+    ],
+    "images": [
       {
-        url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCdF7HqcZiFZ0q2Ybz8iMZ-jVAJA15jgqYE4LwVVOv1R1FVOIrFCOaRIPBGIJR6p26kd-R5Lxv9T3bfmGQg5R5fqc5mVE2WV1Hy7gOvMFzq3wqiHVKqRnI3HopWuBJ7KbJl5a7jbHqD9KtPFyQpW3UqeXjXd3jPnA47e-BCBL6Zq9h6HkJZJhDL5wR0iVfDNfXt7kX_0xT7nB22Z2BtEjPuQN3T0bZQc5Pf7P3g',
-        alt: 'Amber Palazzo Set',
-        isPrimary: true,
+        "url": "/images/models/lantana-shoot-grid.jpg",
+        "alt": "Sunehri Dhoop Skirt Top - Ensemble",
+        "isPrimary": true
       },
+      {
+        "url": "/images/models/lantana-hero-models.jpg",
+        "alt": "Sunehri Dhoop Skirt Top - Studio View"
+      }
     ],
-    sizes: [
-      { label: 'XS', available: true },
-      { label: 'S', available: true },
-      { label: 'M', available: true },
-      { label: 'L', available: true },
-      { label: 'XL', available: true },
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true
+      },
+      {
+        "label": "S",
+        "available": true
+      },
+      {
+        "label": "M",
+        "available": true
+      },
+      {
+        "label": "L",
+        "available": true
+      }
     ],
-    colors: [
-      { name: 'Amber Dusk', hex: '#D4845A' },
-      { name: 'Indigo', hex: '#2C3E7A' },
-      { name: 'Natural Ecru', hex: '#EDE8D8' },
+    "colors": [
+      {
+        "name": "Sunlit Ochre",
+        "hex": "#DFA13D"
+      }
     ],
-    tags: ['palazzo', 'block-print', 'co-ord', 'rajasthan', 'cotton-silk'],
-    isLimitedEdition: false,
-    inStock: true,
+    "tags": [
+      "skirt-top",
+      "sunehri-dhoop",
+      "tissue",
+      "amber",
+      "festive"
+    ],
+    "sku": "ZY-SD-02",
+    "status": "active",
+    "isFeatured": false,
+    "isBestseller": false,
+    "isLimitedEdition": false,
+    "inStock": true,
+    "inventory": [
+      {
+        "sku": "ZY-SD-02-M",
+        "color": "Sunlit Ochre",
+        "size": "M",
+        "stock": 5,
+        "lowStockThreshold": 2
+      }
+    ]
   },
+  {
+    "id": "p4",
+    "slug": "desi-dastaan-farshi-suit-set",
+    "name": "Desi Dastaan Amber Farshi Suit-Set",
+    "subtitle": "Desi Dastaan Heirloom Edition",
+    "price": 36500,
+    "originalPrice": 44000,
+    "currency": "₹",
+    "collection": "Desi Dastaan",
+    "collectionSlug": "desi-dastaan",
+    "category": "Farshi Suit-Set",
+    "description": "Inspired by the grand courts of Awadh, this farshi suit-set blends natural hand-block prints with opulent handloom cotton-silk and wide flowing farshi trousers.",
+    "fabric": "Handloom Cotton-Silk Blend. Block Print: Natural Dyes.",
+    "care": [
+      "Hand wash cold",
+      "Dry in shade",
+      "Iron on reverse"
+    ],
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/c8deakbl/image/upload/v1794029107/zamyaa/products/kro6zhda0mlzo6qwdsvh.jpg",
+        "alt": "Desi Dastaan Farshi Suit-Set",
+        "isPrimary": true
+      },
+      {
+        "url": "/images/models/lantana-detail-hues.jpg",
+        "alt": "Desi Dastaan Farshi Suit-Set - Hem Detail"
+      }
+    ],
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true
+      },
+      {
+        "label": "S",
+        "available": true
+      },
+      {
+        "label": "M",
+        "available": true
+      },
+      {
+        "label": "L",
+        "available": true
+      },
+      {
+        "label": "XL",
+        "available": true
+      },
+      {
+        "label": "Custom",
+        "available": true
+      }
+    ],
+    "colors": [
+      {
+        "name": "Amber Sandstone",
+        "hex": "#D4845A"
+      },
+      {
+        "name": "Indigo Dusk",
+        "hex": "#2C3E7A"
+      }
+    ],
+    "tags": [
+      "farshi-suit-set",
+      "desi-dastaan",
+      "handloom",
+      "heirloom"
+    ],
+    "sku": "ZY-DD-01",
+    "status": "active",
+    "isFeatured": true,
+    "isBestseller": false,
+    "isLimitedEdition": false,
+    "inStock": true,
+    "badge": "Heirloom Craft",
+    "inventory": [
+      {
+        "sku": "ZY-DD-01-S",
+        "color": "Amber Sandstone",
+        "size": "S",
+        "stock": 8,
+        "lowStockThreshold": 2
+      },
+      {
+        "sku": "ZY-DD-01-M",
+        "color": "Amber Sandstone",
+        "size": "M",
+        "stock": 11,
+        "lowStockThreshold": 2
+      }
+    ]
+  },
+  {
+    "id": "p-dd-2",
+    "slug": "desi-dastaan-heritage-skirt-top",
+    "name": "Desi Dastaan Heritage Brocade Skirt & Velvet Top",
+    "subtitle": "Desi Dastaan Heirloom Edition",
+    "price": 44000,
+    "originalPrice": 52000,
+    "currency": "₹",
+    "collection": "Desi Dastaan",
+    "collectionSlug": "desi-dastaan",
+    "category": "Skirt Top",
+    "description": "A regal skirt and top set celebrating Indian heritage weaves: Varanasi silk brocade skirt paired with a hand-embroidered velvet jewel-neck top.",
+    "fabric": "Varanasi Silk Brocade Skirt, Pure Silk Velvet Top.",
+    "care": [
+      "Dry clean only"
+    ],
+    "images": [
+      {
+        "url": "/images/models/lantana-shoot-grid.jpg",
+        "alt": "Desi Dastaan Skirt Top - Ensemble",
+        "isPrimary": true
+      },
+      {
+        "url": "/images/models/lantana-hero-models.jpg",
+        "alt": "Desi Dastaan Skirt Top - Model"
+      }
+    ],
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true
+      },
+      {
+        "label": "S",
+        "available": true
+      },
+      {
+        "label": "M",
+        "available": true
+      },
+      {
+        "label": "L",
+        "available": true
+      }
+    ],
+    "colors": [
+      {
+        "name": "Heritage Maroon & Gold",
+        "hex": "#7E192D"
+      }
+    ],
+    "tags": [
+      "skirt-top",
+      "desi-dastaan",
+      "brocade",
+      "velvet"
+    ],
+    "sku": "ZY-DD-02",
+    "status": "active",
+    "isFeatured": false,
+    "isBestseller": false,
+    "isLimitedEdition": true,
+    "limitedCount": 25,
+    "inStock": true,
+    "inventory": [
+      {
+        "sku": "ZY-DD-02-M",
+        "color": "Heritage Maroon & Gold",
+        "size": "M",
+        "stock": 4,
+        "lowStockThreshold": 1
+      }
+    ]
+  },
+  {
+    "id": "p1",
+    "slug": "noor-e-rang-rose-farshi-suit-set",
+    "name": "The Gulabi Rose Farshi Suit-Set",
+    "subtitle": "Noor-e-Rang Collection",
+    "price": 48500,
+    "originalPrice": 62000,
+    "currency": "₹",
+    "collection": "Noor-e-Rang",
+    "collectionSlug": "noor-e-rang",
+    "category": "Farshi Suit-Set",
+    "description": "An opulent Farshi suit-set in hand-woven Chanderi silk, dyed in a rich Gulabi rose shade inspired by Jaipur courts. The tunic features antique gota patti embroidery with sweeping farshi trousers.",
+    "fabric": "Hand-woven Chanderi Silk, 100% Mulberry. Lining: Pure cotton muslin.",
+    "care": [
+      "Dry clean only",
+      "Store in breathable muslin bag",
+      "Handle embroidery with care"
+    ],
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/c8deakbl/image/upload/v1794206193/zamyaa/products/sparyp1mwtrxd55gblqw.jpg",
+        "alt": "Gulabi Rose Farshi Suit-Set - Primary",
+        "isPrimary": true
+      },
+      {
+        "url": "/images/models/lantana-detail-hues.jpg",
+        "alt": "Gulabi Rose Farshi Suit-Set - Scallop & Gota Detail"
+      }
+    ],
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true,
+        "measurements": "Bust 32\" / Waist 26\""
+      },
+      {
+        "label": "S",
+        "available": true,
+        "measurements": "Bust 34\" / Waist 28\""
+      },
+      {
+        "label": "M",
+        "available": true,
+        "measurements": "Bust 36\" / Waist 30\""
+      },
+      {
+        "label": "L",
+        "available": true,
+        "measurements": "Bust 38\" / Waist 32\""
+      },
+      {
+        "label": "XL",
+        "available": true,
+        "measurements": "Bust 40\" / Waist 34\""
+      }
+    ],
+    "colors": [
+      {
+        "name": "Gulabi Rose",
+        "hex": "#E8617A"
+      },
+      {
+        "name": "Ivory Pearl",
+        "hex": "#F5F0E8"
+      }
+    ],
+    "tags": [
+      "farshi-suit-set",
+      "noor-e-rang",
+      "chanderi",
+      "gota-patti",
+      "rajasthan"
+    ],
+    "sku": "ZY-NR-01",
+    "status": "active",
+    "isFeatured": true,
+    "isBestseller": true,
+    "isLimitedEdition": true,
+    "limitedCount": 60,
+    "inStock": true,
+    "badge": "Limited Edition",
+    "inventory": [
+      {
+        "sku": "ZY-NR-01-S",
+        "color": "Gulabi Rose",
+        "size": "S",
+        "stock": 10,
+        "lowStockThreshold": 2
+      },
+      {
+        "sku": "ZY-NR-01-M",
+        "color": "Gulabi Rose",
+        "size": "M",
+        "stock": 12,
+        "lowStockThreshold": 2
+      }
+    ]
+  },
+  {
+    "id": "p3",
+    "slug": "noor-e-rang-chanderi-skirt-top",
+    "name": "Noor Chanderi Flared Skirt & Peplum Top",
+    "subtitle": "Noor-e-Rang Collection",
+    "price": 38500,
+    "originalPrice": 46000,
+    "currency": "₹",
+    "collection": "Noor-e-Rang",
+    "collectionSlug": "noor-e-rang",
+    "category": "Skirt Top",
+    "description": "A sweeping flared skirt in pure georgette crepe hand-embroidered with Lucknowi chikankari florals, paired with a fitted peplum silk top and tissue dupatta.",
+    "fabric": "Pure Georgette Crepe Skirt, Chanderi Silk Peplum Top.",
+    "care": [
+      "Dry clean only",
+      "Keep wrapped in tissue"
+    ],
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/c8deakbl/image/upload/v1794206160/zamyaa/products/zttifqb0fl5pjvz0q5x8.jpg",
+        "alt": "Noor Skirt Top - Front",
+        "isPrimary": true
+      },
+      {
+        "url": "/images/models/lantana-hero-models.jpg",
+        "alt": "Noor Skirt Top - Detail"
+      }
+    ],
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true
+      },
+      {
+        "label": "S",
+        "available": true
+      },
+      {
+        "label": "M",
+        "available": true
+      },
+      {
+        "label": "L",
+        "available": true
+      },
+      {
+        "label": "XL",
+        "available": true
+      }
+    ],
+    "colors": [
+      {
+        "name": "Ivory & Pale Gold",
+        "hex": "#FDFBF7"
+      }
+    ],
+    "tags": [
+      "skirt-top",
+      "noor-e-rang",
+      "chikankari",
+      "chanderi"
+    ],
+    "sku": "ZY-NR-02",
+    "status": "active",
+    "isFeatured": true,
+    "isBestseller": false,
+    "isLimitedEdition": false,
+    "inStock": true,
+    "inventory": [
+      {
+        "sku": "ZY-NR-02-M",
+        "color": "Ivory & Pale Gold",
+        "size": "M",
+        "stock": 7,
+        "lowStockThreshold": 2
+      }
+    ]
+  },
+  {
+    "id": "p-bfa-1",
+    "slug": "boho-flare-crushed-silk-farshi-suit-set",
+    "name": "The Boho Flare Affair Crushed Silk Farshi Suit-Set",
+    "subtitle": "The Boho Flare Affair Capsule",
+    "price": 35000,
+    "originalPrice": 42000,
+    "currency": "₹",
+    "collection": "The Boho Flare Affair",
+    "collectionSlug": "the-boho-flare-affair",
+    "category": "Farshi Suit-Set",
+    "description": "Free-spirited elegance meets imperial cuts. Fluid Farshi suit-set crafted with natural crushed mulberry silk, scalloped cotton lace borders, and relaxed artisanal drape.",
+    "fabric": "Crushed Mulberry Silk Kurti & Farshi Pants.",
+    "care": [
+      "Gentle dry clean only"
+    ],
+    "images": [
+      {
+        "url": "/images/models/lantana-hero-models.jpg",
+        "alt": "The Boho Flare Affair Farshi Suit-Set",
+        "isPrimary": true
+      },
+      {
+        "url": "/images/models/lantana-shoot-grid.jpg",
+        "alt": "The Boho Flare Affair Farshi Suit-Set - Lookbook"
+      }
+    ],
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true
+      },
+      {
+        "label": "S",
+        "available": true
+      },
+      {
+        "label": "M",
+        "available": true
+      },
+      {
+        "label": "L",
+        "available": true
+      },
+      {
+        "label": "XL",
+        "available": true
+      }
+    ],
+    "colors": [
+      {
+        "name": "Terracotta Rust",
+        "hex": "#C2634B"
+      }
+    ],
+    "tags": [
+      "farshi-suit-set",
+      "the-boho-flare-affair",
+      "boho",
+      "crushed-silk"
+    ],
+    "sku": "ZY-BFA-01",
+    "status": "active",
+    "isFeatured": true,
+    "isBestseller": false,
+    "isLimitedEdition": false,
+    "inStock": true,
+    "badge": "Boho Luxe",
+    "inventory": [
+      {
+        "sku": "ZY-BFA-01-S",
+        "color": "Terracotta Rust",
+        "size": "S",
+        "stock": 8,
+        "lowStockThreshold": 2
+      },
+      {
+        "sku": "ZY-BFA-01-M",
+        "color": "Terracotta Rust",
+        "size": "M",
+        "stock": 10,
+        "lowStockThreshold": 2
+      }
+    ]
+  },
+  {
+    "id": "p-bfa-2",
+    "slug": "boho-flare-tiered-skirt-top",
+    "name": "The Boho Flare Tiered Georgette Skirt & Crop Top",
+    "subtitle": "The Boho Flare Affair Capsule",
+    "price": 31500,
+    "originalPrice": 38000,
+    "currency": "₹",
+    "collection": "The Boho Flare Affair",
+    "collectionSlug": "the-boho-flare-affair",
+    "category": "Skirt Top",
+    "description": "Multi-tiered cascading georgette skirt finished with micro-scalloped lace and paired with a hand-smocked square-neck crop top.",
+    "fabric": "Pure Georgette Skirt, Hand-spun Cotton-Silk Top.",
+    "care": [
+      "Dry clean recommended"
+    ],
+    "images": [
+      {
+        "url": "/images/models/lantana-shoot-grid.jpg",
+        "alt": "The Boho Flare Skirt Top - Mood",
+        "isPrimary": true
+      },
+      {
+        "url": "/images/models/lantana-detail-hues.jpg",
+        "alt": "The Boho Flare Skirt Top - Detail"
+      }
+    ],
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true
+      },
+      {
+        "label": "S",
+        "available": true
+      },
+      {
+        "label": "M",
+        "available": true
+      },
+      {
+        "label": "L",
+        "available": true
+      }
+    ],
+    "colors": [
+      {
+        "name": "Olive Sage",
+        "hex": "#8A9A78"
+      }
+    ],
+    "tags": [
+      "skirt-top",
+      "the-boho-flare-affair",
+      "tiered",
+      "georgette"
+    ],
+    "sku": "ZY-BFA-02",
+    "status": "active",
+    "isFeatured": false,
+    "isBestseller": false,
+    "isLimitedEdition": false,
+    "inStock": true,
+    "inventory": [
+      {
+        "sku": "ZY-BFA-02-M",
+        "color": "Olive Sage",
+        "size": "M",
+        "stock": 6,
+        "lowStockThreshold": 2
+      }
+    ]
+  },
+  {
+    "id": "p-zar-1",
+    "slug": "zarrin-imperial-mukaish-farshi-suit-set",
+    "name": "Zarrin Imperial Mukaish Farshi Suit-Set",
+    "subtitle": "Zarrin Couture Capsule",
+    "price": 58000,
+    "originalPrice": 68000,
+    "currency": "₹",
+    "collection": "Zarrin",
+    "collectionSlug": "zarrin",
+    "category": "Farshi Suit-Set",
+    "description": "Pure ceremonial splendour. Densely embellished with hand-hammered gold mukaish dots and antique dabka zardozi over royal metallic tissue silk, finished with sweeping farshi trousers.",
+    "fabric": "Pure Metallic Tissue Silk, Mulberry Silk Lining.",
+    "care": [
+      "Specialist dry clean only"
+    ],
+    "images": [
+      {
+        "url": "/images/models/lantana-detail-hues.jpg",
+        "alt": "Zarrin Mukaish Farshi Suit-Set - Gold Splendour",
+        "isPrimary": true
+      },
+      {
+        "url": "/images/models/lantana-hero-models.jpg",
+        "alt": "Zarrin Mukaish Farshi Suit-Set - Model"
+      }
+    ],
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true
+      },
+      {
+        "label": "S",
+        "available": true
+      },
+      {
+        "label": "M",
+        "available": true
+      },
+      {
+        "label": "L",
+        "available": true
+      },
+      {
+        "label": "XL",
+        "available": true
+      },
+      {
+        "label": "Custom",
+        "available": true
+      }
+    ],
+    "colors": [
+      {
+        "name": "Champagne Gold",
+        "hex": "#E2CA92"
+      }
+    ],
+    "tags": [
+      "farshi-suit-set",
+      "zarrin",
+      "mukaish",
+      "couture",
+      "gold"
+    ],
+    "sku": "ZY-ZAR-01",
+    "status": "active",
+    "isFeatured": true,
+    "isBestseller": true,
+    "isLimitedEdition": true,
+    "limitedCount": 20,
+    "inStock": true,
+    "badge": "Couture Piece",
+    "inventory": [
+      {
+        "sku": "ZY-ZAR-01-S",
+        "color": "Champagne Gold",
+        "size": "S",
+        "stock": 3,
+        "lowStockThreshold": 1
+      },
+      {
+        "sku": "ZY-ZAR-01-M",
+        "color": "Champagne Gold",
+        "size": "M",
+        "stock": 5,
+        "lowStockThreshold": 1
+      }
+    ]
+  },
+  {
+    "id": "p-zar-2",
+    "slug": "zarrin-metallic-tissue-skirt-top",
+    "name": "Zarrin Metallic Tissue Flared Skirt & Corset Top",
+    "subtitle": "Zarrin Couture Capsule",
+    "price": 52000,
+    "originalPrice": 61000,
+    "currency": "₹",
+    "collection": "Zarrin",
+    "collectionSlug": "zarrin",
+    "category": "Skirt Top",
+    "description": "An architectural evening couture skirt and top set sculpted in metallic tissue with hand-fastened badla metal embroidery and boned corset bodice.",
+    "fabric": "Metallic Tissue Skirt, Sculpted Silk Corset Top.",
+    "care": [
+      "Specialist dry clean only"
+    ],
+    "images": [
+      {
+        "url": "/images/models/lantana-shoot-grid.jpg",
+        "alt": "Zarrin Skirt Top - Runway View",
+        "isPrimary": true
+      },
+      {
+        "url": "/images/models/lantana-hero-models.jpg",
+        "alt": "Zarrin Skirt Top - Detail"
+      }
+    ],
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true
+      },
+      {
+        "label": "S",
+        "available": true
+      },
+      {
+        "label": "M",
+        "available": true
+      },
+      {
+        "label": "L",
+        "available": true
+      }
+    ],
+    "colors": [
+      {
+        "name": "Liquid Silver & Gold",
+        "hex": "#D1CEBD"
+      }
+    ],
+    "tags": [
+      "skirt-top",
+      "zarrin",
+      "tissue",
+      "corset",
+      "metallic"
+    ],
+    "sku": "ZY-ZAR-02",
+    "status": "active",
+    "isFeatured": false,
+    "isBestseller": false,
+    "isLimitedEdition": true,
+    "limitedCount": 25,
+    "inStock": true,
+    "inventory": [
+      {
+        "sku": "ZY-ZAR-02-M",
+        "color": "Liquid Silver & Gold",
+        "size": "M",
+        "stock": 4,
+        "lowStockThreshold": 1
+      }
+    ]
+  },
+  {
+    "id": "p-gn-1",
+    "slug": "gulabi-noor-archival-farshi-suit-set",
+    "name": "Gulabi Noor Archival Farshi Suit-Set",
+    "subtitle": "Archival Heritage Series",
+    "price": 41000,
+    "originalPrice": 48000,
+    "currency": "₹",
+    "collection": "Gulabi Noor",
+    "collectionSlug": "gulabi-noor",
+    "category": "Farshi Suit-Set",
+    "description": "Archival inaugural edition Farshi suit-set from the founding 2024 atelier vaults. Pure handloom Chanderi silk with signature rose petal embroidery.",
+    "fabric": "Archival Chanderi Silk Kurti and Mul Farshi Trousers.",
+    "care": [
+      "Dry clean only"
+    ],
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/c8deakbl/image/upload/v1794206193/zamyaa/products/sparyp1mwtrxd55gblqw.jpg",
+        "alt": "Gulabi Noor Archival Piece",
+        "isPrimary": true
+      },
+      {
+        "url": "/images/models/lantana-hero-models.jpg",
+        "alt": "Gulabi Noor Lookbook"
+      }
+    ],
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true
+      },
+      {
+        "label": "S",
+        "available": true
+      },
+      {
+        "label": "M",
+        "available": true
+      },
+      {
+        "label": "L",
+        "available": true
+      }
+    ],
+    "colors": [
+      {
+        "name": "Vintage Rose",
+        "hex": "#D87A89"
+      }
+    ],
+    "tags": [
+      "farshi-suit-set",
+      "gulabi-noor",
+      "archival",
+      "rose"
+    ],
+    "sku": "ZY-GN-01",
+    "status": "active",
+    "isFeatured": false,
+    "isBestseller": false,
+    "isLimitedEdition": true,
+    "limitedCount": 15,
+    "inStock": true,
+    "badge": "Archive Vault",
+    "inventory": [
+      {
+        "sku": "ZY-GN-01-M",
+        "color": "Vintage Rose",
+        "size": "M",
+        "stock": 3,
+        "lowStockThreshold": 1
+      }
+    ]
+  },
+  {
+    "id": "p-nom-1",
+    "slug": "neel-o-mitti-earthen-skirt-top",
+    "name": "Neel-o-Mitti Earthen Indigo Handblock Skirt Top",
+    "subtitle": "Archival Heritage Series",
+    "price": 33000,
+    "originalPrice": 39000,
+    "currency": "₹",
+    "collection": "Neel-o-Mitti",
+    "collectionSlug": "neel-o-mitti",
+    "category": "Skirt Top",
+    "description": "Archival heritage skirt and top set dyed in organic natural indigo with traditional Bagru mud-resist (Dabu) handblock printing.",
+    "fabric": "Organic Handloom Cotton-Silk Skirt & Top.",
+    "care": [
+      "Dry clean recommended"
+    ],
+    "images": [
+      {
+        "url": "/images/models/lantana-detail-hues.jpg",
+        "alt": "Neel-o-Mitti Archival Skirt Top",
+        "isPrimary": true
+      },
+      {
+        "url": "/images/models/lantana-shoot-grid.jpg",
+        "alt": "Neel-o-Mitti Shoot"
+      }
+    ],
+    "sizes": [
+      {
+        "label": "XS",
+        "available": true
+      },
+      {
+        "label": "S",
+        "available": true
+      },
+      {
+        "label": "M",
+        "available": true
+      },
+      {
+        "label": "L",
+        "available": true
+      }
+    ],
+    "colors": [
+      {
+        "name": "Earthen Indigo",
+        "hex": "#374F6B"
+      }
+    ],
+    "tags": [
+      "skirt-top",
+      "neel-o-mitti",
+      "indigo",
+      "handblock",
+      "archival"
+    ],
+    "sku": "ZY-NOM-01",
+    "status": "active",
+    "isFeatured": false,
+    "isBestseller": false,
+    "isLimitedEdition": true,
+    "limitedCount": 18,
+    "inStock": true,
+    "badge": "Archive Vault",
+    "inventory": [
+      {
+        "sku": "ZY-NOM-01-M",
+        "color": "Earthen Indigo",
+        "size": "M",
+        "stock": 3,
+        "lowStockThreshold": 1
+      }
+    ]
+  }
 ]
 
-export const collections: Collection[] = [
+export const collections: Collection[] = ([
   {
-    id: 'c1',
-    slug: 'noor-e-rang',
-    title: 'Noor-e-Rang',
-    subtitle: 'Luminous Hues of Rajasthan',
-    description:
-      "A celebration of Jaipur's imperial court palettes, hand-spun Chanderi silks, and meticulous antique gota patti embroidery. Echoes of Amber Fort sunlit arches meet pure contemporary drape architecture.",
-    season: 'Autumn-Winter 2025',
-    capsule: 'Capsule 04',
-    heroImage: productImages.gulabi[0],
-    mosaicImages: [
-      productImages.gulabi[0],
-      productImages.gulabi[1],
-      productImages.gulabi[2],
+    "id": "c-neel-pushp",
+    "slug": "neel-pushp",
+    "title": "Neel Pushp",
+    "subtitle": "Indigo Blooms & Midnight Silks",
+    "description": "Inspired by twilight indigo flora and intricate Persian butis hand-woven into lustrous Chanderi and mulberry silks.",
+    "season": "Spring-Summer 2026",
+    "capsule": "Capsule 01",
+    "heroImage": "/images/models/lantana-hero-models.jpg",
+    "mosaicImages": [
+      "/images/models/lantana-hero-models.jpg",
+      "/images/models/lantana-detail-hues.jpg",
+      "/images/models/lantana-shoot-grid.jpg"
     ],
-    products: products.filter((p) => p.collectionSlug === 'noor-e-rang'),
-    metrics: [
-      { label: 'Archival Silhouettes', value: '14' },
-      { label: 'Mulberry & Chanderi', value: '100%' },
-      { label: 'Artisan Workshops', value: '6' },
+    "status": "published",
+    "displayOrder": 1,
+    "isOld": false,
+    "metrics": [
+      {
+        "label": "Archival Silhouettes",
+        "value": "10"
+      },
+      {
+        "label": "Mulberry Silk",
+        "value": "100%"
+      },
+      {
+        "label": "Master Weavers",
+        "value": "6"
+      }
     ],
+    "productIds": [
+      "p-np-1",
+      "p-np-2"
+    ]
   },
   {
-    id: 'c2',
-    slug: 'lantana',
-    title: 'Lantana',
-    subtitle: 'An Architecture of Bloom — Soft Hues',
-    description:
-      'For the girls who love timeless elegance. Architectural tailoring and delicate scalloped lace trims reimagined through soft pastel hues, handloom Chanderi silks, and shaded ombre dupattas.',
-    season: 'Spring-Summer & Festive 2026',
-    capsule: 'Edition 01/03',
-    heroImage: siteImages.models.heroGirls,
-    mosaicImages: [
-      siteImages.models.heroGirls,
-      siteImages.models.detailHues,
-      siteImages.models.shootGrid,
+    "id": "c-sunehri-dhoop",
+    "slug": "sunehri-dhoop",
+    "title": "Sunehri Dhoop",
+    "subtitle": "Golden Sunrays & Warm Metallics",
+    "description": "A radiant reverie bathed in midday amber sunlight, antique marodi embroidery, and molten zari weaves.",
+    "season": "Festive-Resort 2026",
+    "capsule": "Capsule 02",
+    "heroImage": "/images/models/lantana-detail-hues.jpg",
+    "mosaicImages": [
+      "/images/models/lantana-detail-hues.jpg",
+      "/images/models/lantana-hero-models.jpg",
+      "/images/models/lantana-shoot-grid.jpg"
     ],
-    products: products.filter((p) => p.collectionSlug === 'lantana'),
-    metrics: [
-      { label: 'Hand-crafted pieces', value: '12' },
-      { label: 'Soft Pastel Hues', value: '100%' },
-      { label: 'Heritage Weavers', value: '8' },
+    "status": "published",
+    "displayOrder": 2,
+    "isOld": false,
+    "metrics": [
+      {
+        "label": "Golden Weaves",
+        "value": "8"
+      },
+      {
+        "label": "Pure Tissue Silk",
+        "value": "100%"
+      },
+      {
+        "label": "Handcrafted Hours",
+        "value": "140+"
+      }
     ],
+    "productIds": [
+      "p-sd-1",
+      "p-sd-2"
+    ]
   },
-]
-
-export function formatPrice(price: number, currency = '₹'): string {
-  return `${currency}${price.toLocaleString('en-IN')}`
-}
+  {
+    "id": "c-desi-dastaan",
+    "slug": "desi-dastaan",
+    "title": "Desi Dastaan",
+    "subtitle": "Tales of Indian Heirlooms",
+    "description": "Nostalgic celebrations of indigenous textile crafts, royal courts of Awadh, and timeless trousseau elegance.",
+    "season": "Heritage Edition 2026",
+    "capsule": "Edition 03",
+    "heroImage": "https://res.cloudinary.com/c8deakbl/image/upload/v1794029107/zamyaa/products/kro6zhda0mlzo6qwdsvh.jpg",
+    "mosaicImages": [
+      "https://res.cloudinary.com/c8deakbl/image/upload/v1794029107/zamyaa/products/kro6zhda0mlzo6qwdsvh.jpg",
+      "/images/models/lantana-detail-hues.jpg",
+      "/images/models/lantana-shoot-grid.jpg"
+    ],
+    "status": "published",
+    "displayOrder": 3,
+    "isOld": false,
+    "metrics": [
+      {
+        "label": "Heirloom Patterns",
+        "value": "12"
+      },
+      {
+        "label": "Handloom Cotton-Silk",
+        "value": "100%"
+      },
+      {
+        "label": "Artisan Clusters",
+        "value": "5"
+      }
+    ],
+    "productIds": [
+      "p4",
+      "p-dd-2"
+    ]
+  },
+  {
+    "id": "c-noor-e-rang",
+    "slug": "noor-e-rang",
+    "title": "Noor-e-Rang",
+    "subtitle": "Luminous Hues of Rajasthan",
+    "description": "A celebration of imperial court palettes, hand-spun Chanderi silks, and meticulous antique gota patti embroidery.",
+    "season": "Autumn-Winter 2025",
+    "capsule": "Capsule 04",
+    "heroImage": "https://res.cloudinary.com/c8deakbl/image/upload/v1794206193/zamyaa/products/sparyp1mwtrxd55gblqw.jpg",
+    "mosaicImages": [
+      "https://res.cloudinary.com/c8deakbl/image/upload/v1794206193/zamyaa/products/sparyp1mwtrxd55gblqw.jpg",
+      "https://res.cloudinary.com/c8deakbl/image/upload/v1794206160/zamyaa/products/zttifqb0fl5pjvz0q5x8.jpg",
+      "/images/models/lantana-shoot-grid.jpg"
+    ],
+    "status": "published",
+    "displayOrder": 4,
+    "isOld": false,
+    "metrics": [
+      {
+        "label": "Archival Silhouettes",
+        "value": "14"
+      },
+      {
+        "label": "Mulberry & Chanderi",
+        "value": "100%"
+      },
+      {
+        "label": "Artisan Workshops",
+        "value": "6"
+      }
+    ],
+    "productIds": [
+      "p1",
+      "p3"
+    ]
+  },
+  {
+    "id": "c-the-boho-flare-affair",
+    "slug": "the-boho-flare-affair",
+    "title": "The Boho Flare Affair",
+    "subtitle": "Free-Spirited Drapes & Organza Flows",
+    "description": "Fluid bohemian silhouettes tailored with classical Indian handcrafts, scalloped edges, and crushed silk layers.",
+    "season": "Spring-Summer 2026",
+    "capsule": "Capsule 05",
+    "heroImage": "/images/models/lantana-shoot-grid.jpg",
+    "mosaicImages": [
+      "/images/models/lantana-shoot-grid.jpg",
+      "/images/models/lantana-hero-models.jpg",
+      "/images/models/lantana-detail-hues.jpg"
+    ],
+    "status": "published",
+    "displayOrder": 5,
+    "isOld": false,
+    "metrics": [
+      {
+        "label": "Fluid Ensembles",
+        "value": "9"
+      },
+      {
+        "label": "Crushed Silk",
+        "value": "100%"
+      },
+      {
+        "label": "Handcrafted Flairs",
+        "value": "18m"
+      }
+    ],
+    "productIds": [
+      "p-bfa-1",
+      "p-bfa-2"
+    ]
+  },
+  {
+    "id": "c-lantana",
+    "slug": "lantana",
+    "title": "Lantana",
+    "subtitle": "An Architecture of Bloom — Soft Hues",
+    "description": "For the girls who love timeless elegance. Architectural tailoring and delicate scalloped lace trims reimagined through soft pastel hues and shaded ombre dupattas.",
+    "season": "Spring-Summer & Festive 2026",
+    "capsule": "Edition 01/03",
+    "heroImage": "/images/models/lantana-hero-models.jpg",
+    "mosaicImages": [
+      "/images/models/lantana-hero-models.jpg",
+      "/images/models/lantana-detail-hues.jpg",
+      "/images/models/lantana-shoot-grid.jpg"
+    ],
+    "status": "published",
+    "displayOrder": 6,
+    "isOld": false,
+    "metrics": [
+      {
+        "label": "Hand-crafted Pieces",
+        "value": "8"
+      },
+      {
+        "label": "Natural Zardozi",
+        "value": "100%"
+      },
+      {
+        "label": "Heritage Artisans",
+        "value": "12"
+      }
+    ],
+    "productIds": [
+      "p5",
+      "p6"
+    ]
+  },
+  {
+    "id": "c-zarrin",
+    "slug": "zarrin",
+    "title": "Zarrin",
+    "subtitle": "Molten Gold & Evening Opulence",
+    "description": "Decadent evening silhouettes in metallic tissue, antique badla work, and sculpted corsetry for majestic celebrations.",
+    "season": "Couture Festive 2026",
+    "capsule": "Couture Capsule",
+    "heroImage": "/images/models/lantana-detail-hues.jpg",
+    "mosaicImages": [
+      "/images/models/lantana-detail-hues.jpg",
+      "/images/models/lantana-hero-models.jpg",
+      "/images/models/lantana-shoot-grid.jpg"
+    ],
+    "status": "published",
+    "displayOrder": 7,
+    "isOld": false,
+    "metrics": [
+      {
+        "label": "Couture Silhouettes",
+        "value": "7"
+      },
+      {
+        "label": "Metallic Tissue",
+        "value": "100%"
+      },
+      {
+        "label": "Zardozi Embroidery",
+        "value": "Pure"
+      }
+    ],
+    "productIds": [
+      "p-zar-1",
+      "p-zar-2"
+    ]
+  },
+  {
+    "id": "c-gulabi-noor",
+    "slug": "gulabi-noor",
+    "title": "Gulabi Noor",
+    "subtitle": "Archival Rose Edition",
+    "description": "The inaugural rose petal collection that defined the poetic romance and royal blush aesthetics of Zamyaa by Jyoti.",
+    "season": "Archival AW2024",
+    "capsule": "Archive Edition",
+    "heroImage": "https://res.cloudinary.com/c8deakbl/image/upload/v1794206193/zamyaa/products/sparyp1mwtrxd55gblqw.jpg",
+    "mosaicImages": [
+      "https://res.cloudinary.com/c8deakbl/image/upload/v1794206193/zamyaa/products/sparyp1mwtrxd55gblqw.jpg",
+      "/images/models/lantana-detail-hues.jpg",
+      "/images/models/lantana-shoot-grid.jpg"
+    ],
+    "status": "archived",
+    "displayOrder": 8,
+    "isOld": true,
+    "metrics": [
+      {
+        "label": "Archival Ensembles",
+        "value": "6"
+      },
+      {
+        "label": "Vintage Chanderi",
+        "value": "100%"
+      },
+      {
+        "label": "Founding Year",
+        "value": "2024"
+      }
+    ],
+    "productIds": [
+      "p-gn-1"
+    ]
+  },
+  {
+    "id": "c-neel-o-mitti",
+    "slug": "neel-o-mitti",
+    "title": "Neel-o-Mitti",
+    "subtitle": "Of Earth & Indigo Dyes",
+    "description": "Raw earthen clays, Bagru hand-block resist prints, and organic dip-dyed silks from our founding atelier archival vaults.",
+    "season": "Archival SS2024",
+    "capsule": "Archive Edition",
+    "heroImage": "/images/models/lantana-hero-models.jpg",
+    "mosaicImages": [
+      "/images/models/lantana-hero-models.jpg",
+      "/images/models/lantana-detail-hues.jpg",
+      "/images/models/lantana-shoot-grid.jpg"
+    ],
+    "status": "archived",
+    "displayOrder": 9,
+    "isOld": true,
+    "metrics": [
+      {
+        "label": "Archival Pieces",
+        "value": "5"
+      },
+      {
+        "label": "Natural Indigo Dyes",
+        "value": "100%"
+      },
+      {
+        "label": "Earthen Weaves",
+        "value": "Pure"
+      }
+    ],
+    "productIds": [
+      "p-nom-1"
+    ]
+  }
+] as any[]).map(c => ({
+  ...c,
+  products: products.filter(p => p.collectionSlug === c.slug),
+}))

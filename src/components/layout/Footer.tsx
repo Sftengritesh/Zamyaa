@@ -6,10 +6,19 @@ import Logo from '@/components/ui/Logo'
 const footerLinks = {
   shop: [
     { label: 'All Collections', to: '/collections' },
-    { label: 'New In', to: '/collections?filter=new' },
-    { label: 'Lantana — AW2025', to: '/collections/lantana' },
+    { label: 'Farshi Suit-Sets', to: '/collections?category=farshi-suit-set' },
+    { label: 'Skirt Tops', to: '/collections?category=skirt-top' },
+    { label: 'Neel Pushp', to: '/collections/neel-pushp' },
+    { label: 'Sunehri Dhoop', to: '/collections/sunehri-dhoop' },
+    { label: 'Desi Dastaan', to: '/collections/desi-dastaan' },
     { label: 'Noor-e-Rang', to: '/collections/noor-e-rang' },
-    { label: 'Gift Cards', to: '/gift-cards' },
+    { label: 'The Boho Flare Affair', to: '/collections/the-boho-flare-affair' },
+    { label: 'Lantana', to: '/collections/lantana' },
+    { label: 'Zarrin', to: '/collections/zarrin' },
+  ],
+  archive: [
+    { label: 'Gulabi Noor (Old Collection)', to: '/collections/gulabi-noor' },
+    { label: 'Neel-o-Mitti (Old Collection)', to: '/collections/neel-o-mitti' },
   ],
   help: [
     { label: 'Size Guide', to: '/size-guide' },

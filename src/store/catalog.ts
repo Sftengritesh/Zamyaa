@@ -60,3 +60,4 @@ export const useCatalogStore = create<CatalogState>((set, get) => ({
     return list.find((p) => p.slug === slug || p.id === slug)
   },
 }))
+
