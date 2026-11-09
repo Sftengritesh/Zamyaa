@@ -88,8 +88,9 @@ export default function ProductPage() {
   const { toggle, isWishlisted } = useWishlistStore()
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     fetchCatalog()
-  }, [fetchCatalog])
+  }, [fetchCatalog, slug])
 
   const product = products.find((p) => p.slug === slug || p.id === slug)
 

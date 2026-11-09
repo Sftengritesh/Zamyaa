@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import ScrollToTop from '@/components/common/ScrollToTop'
 import Layout from '@/components/layout/Layout'
 import HomePage from '@/pages/HomePage'
 import CollectionsPage from '@/pages/CollectionsPage'
@@ -27,7 +28,9 @@ import AdminSettingsPage from '@/pages/admin/AdminSettingsPage'
 
 export default function App() {
   return (
-    <Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
       {/* Admin Public Route */}
       <Route path="/admin/login" element={<AdminLoginPage />} />
 
@@ -62,5 +65,6 @@ export default function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
+    </>
   )
 }

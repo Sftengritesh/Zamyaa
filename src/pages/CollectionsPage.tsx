@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom'
-import { Eye, Sparkles, X, ChevronRight } from 'lucide-react'
+import { Eye, Sparkles, X, ChevronRight, ChevronLeft } from 'lucide-react'
 import { useCatalogStore } from '@/store'
 import ProductCard from '@/components/ui/ProductCard'
 import { siteImages } from '@/config/images'
@@ -22,6 +22,46 @@ export default function CollectionsPage() {
 
   const [viewMode, setViewMode] = useState<'3-col' | '4-col'>('3-col')
   const [selectedImage, setSelectedImage] = useState<{ url: string; title: string; subtitle?: string } | null>(null)
+
+  // Collection carousel scroll controls
+  const collectionsScrollRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+
+  const checkScrollButtons = () => {
+    const el = collectionsScrollRef.current
+    if (!el) return
+    setCanScrollLeft(el.scrollLeft > 10)
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10)
+  }
+
+  useEffect(() => {
+    checkScrollButtons()
+    const el = collectionsScrollRef.current
+    if (!el) return
+    el.addEventListener('scroll', checkScrollButtons)
+    window.addEventListener('resize', checkScrollButtons)
+    return () => {
+      el.removeEventListener('scroll', checkScrollButtons)
+      window.removeEventListener('resize', checkScrollButtons)
+    }
+  }, [collections])
+
+  const scrollCollections = (direction: 'left' | 'right') => {
+    const el = collectionsScrollRef.current
+    if (!el) return
+    const offset = 280
+    el.scrollBy({
+      left: direction === 'left' ? -offset : offset,
+      behavior: 'smooth',
+    })
+  }
+
+  const handleCollectionsWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (e.deltaY !== 0 && collectionsScrollRef.current) {
+      collectionsScrollRef.current.scrollLeft += e.deltaY
+    }
+  }
 
   // Find active collection or default to Lantana if on lantana, else Noor-e-Rang
   const currentCollection =
@@ -320,78 +360,124 @@ export default function CollectionsPage() {
       {/* ── STICKY FILTER & SORT BAR ── */}
       <section
         id="collection-grid"
-        className="sticky top-20 z-30 border-y py-4 px-6 md:px-16 backdrop-blur-md"
+        className="sticky top-20 z-30 border-y py-3.5 px-4 md:px-12 backdrop-blur-md shadow-xs"
         style={{
           backgroundColor: 'var(--color-surface-container-lowest)',
           borderColor: 'var(--color-outline-variant)',
         }}
       >
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
-          {/* Collection Switcher */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+        <div className="max-w-7xl mx-auto space-y-3">
+          {/* TIER 1: Collections Carousel with Left & Right Scroll Buttons */}
+          <div className="relative flex items-center">
+            {/* Scroll Left Button */}
             <button
-              onClick={() => handleCollectionChange('all')}
-              className="px-4 py-2 text-xs tracking-wider uppercase font-semibold font-body border transition-colors shrink-0"
+              type="button"
+              onClick={() => scrollCollections('left')}
+              disabled={!canScrollLeft}
+              aria-label="Scroll collections left"
+              className={`shrink-0 w-8 h-8 rounded-full border flex items-center justify-center mr-2 transition-all z-10 ${
+                canScrollLeft
+                  ? 'bg-white hover:bg-black hover:text-white shadow-xs cursor-pointer'
+                  : 'opacity-30 cursor-not-allowed bg-transparent'
+              }`}
+              style={{ borderColor: 'var(--color-outline-variant)' }}
+            >
+              <ChevronLeft size={16} />
+            </button>
+
+            {/* Scrollable Collections Track */}
+            <div
+              ref={collectionsScrollRef}
+              onWheel={handleCollectionsWheel}
+              className="flex items-center gap-2 overflow-x-auto py-1 scroll-smooth select-none"
               style={{
-                backgroundColor:
-                  activeCollectionSlug === 'all'
-                    ? 'var(--color-primary)'
-                    : 'transparent',
-                color:
-                  activeCollectionSlug === 'all'
-                    ? 'var(--color-on-primary)'
-                    : 'var(--color-on-surface)',
-                borderColor: 'var(--color-outline-variant)',
+                scrollbarWidth: 'thin',
+                WebkitOverflowScrolling: 'touch',
               }}
             >
-              All Collections
-            </button>
-            {collections.map((c) => (
               <button
-                key={c.slug}
-                onClick={() => handleCollectionChange(c.slug)}
-                className="px-4 py-2 text-xs tracking-wider uppercase font-semibold font-body border transition-colors shrink-0 flex items-center gap-1.5"
+                onClick={() => handleCollectionChange('all')}
+                className="px-4 py-2 text-xs tracking-wider uppercase font-semibold font-body border transition-colors shrink-0 whitespace-nowrap"
                 style={{
                   backgroundColor:
-                    activeCollectionSlug === c.slug
+                    activeCollectionSlug === 'all'
                       ? 'var(--color-primary)'
                       : 'transparent',
                   color:
-                    activeCollectionSlug === c.slug
+                    activeCollectionSlug === 'all'
                       ? 'var(--color-on-primary)'
                       : 'var(--color-on-surface)',
                   borderColor: 'var(--color-outline-variant)',
                 }}
               >
-                {c.slug === 'lantana' && <Sparkles size={12} className="text-amber-300" />}
-                {c.title}
-                {c.isOld && (
-                  <span className="text-[9px] px-1.5 py-0.5 rounded uppercase font-mono tracking-wider opacity-70 bg-black/10 dark:bg-white/10">
-                    Old / Archive
-                  </span>
-                )}
+                All Collections
               </button>
-            ))}
+              {collections.map((c) => (
+                <button
+                  key={c.slug}
+                  onClick={() => handleCollectionChange(c.slug)}
+                  className="px-4 py-2 text-xs tracking-wider uppercase font-semibold font-body border transition-colors shrink-0 flex items-center gap-1.5 whitespace-nowrap"
+                  style={{
+                    backgroundColor:
+                      activeCollectionSlug === c.slug
+                        ? 'var(--color-primary)'
+                        : 'transparent',
+                    color:
+                      activeCollectionSlug === c.slug
+                        ? 'var(--color-on-primary)'
+                        : 'var(--color-on-surface)',
+                    borderColor: 'var(--color-outline-variant)',
+                  }}
+                >
+                  {c.slug === 'lantana' && <Sparkles size={12} className="text-amber-300" />}
+                  {c.title}
+                  {c.isOld && (
+                    <span className="text-[9px] px-1.5 py-0.5 rounded uppercase font-mono tracking-wider opacity-70 bg-black/10 dark:bg-white/10">
+                      Old / Archive
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Scroll Right Button */}
+            <button
+              type="button"
+              onClick={() => scrollCollections('right')}
+              disabled={!canScrollRight}
+              aria-label="Scroll collections right"
+              className={`shrink-0 w-8 h-8 rounded-full border flex items-center justify-center ml-2 transition-all z-10 ${
+                canScrollRight
+                  ? 'bg-white hover:bg-black hover:text-white shadow-xs cursor-pointer'
+                  : 'opacity-30 cursor-not-allowed bg-transparent'
+              }`}
+              style={{ borderColor: 'var(--color-outline-variant)' }}
+            >
+              <ChevronRight size={16} />
+            </button>
           </div>
 
-          {/* Categories & Sorting Controls */}
-          <div className="flex items-center justify-between md:justify-end gap-3">
-            {/* Category pills */}
-            <div className="hidden lg:flex items-center gap-1.5">
+          {/* TIER 2: Category Filters & View / Sort Controls */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-2.5 border-t border-black/5">
+            {/* Category Pills (Always visible on all screens!) */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5">
+              <span className="text-[10px] uppercase font-mono tracking-widest text-neutral-400 mr-1 hidden sm:inline">
+                Category:
+              </span>
               {categories.map((cat) => (
                 <button
                   key={cat.value}
                   onClick={() => handleCategoryChange(cat.value)}
-                  className="px-3 py-1.5 text-[0.7rem] uppercase tracking-wider font-semibold font-body rounded-full transition-colors"
+                  className="px-3.5 py-1.5 text-xs uppercase tracking-wider font-semibold font-body rounded-full transition-colors whitespace-nowrap"
                   style={{
                     backgroundColor:
                       activeCategory === cat.value
-                        ? 'var(--color-surface-container-high)'
-                        : 'transparent',
+                        ? 'var(--color-primary)'
+                        : 'var(--color-surface-container)',
                     color:
                       activeCategory === cat.value
-                        ? 'var(--color-primary)'
-                        : 'var(--color-secondary)',
+                        ? 'var(--color-on-primary)'
+                        : 'var(--color-on-surface)',
                   }}
                 >
                   {cat.label}
@@ -399,42 +485,49 @@ export default function CollectionsPage() {
               ))}
             </div>
 
-            {/* Sort Dropdown */}
-            <select
-              value={sortBy}
-              onChange={(e) => handleSortChange(e.target.value)}
-              aria-label="Sort products"
-              className="px-3 py-2 text-xs uppercase tracking-wider font-body border bg-transparent outline-none cursor-pointer"
-              style={{
-                borderColor: 'var(--color-outline-variant)',
-                color: 'var(--color-on-surface)',
-              }}
-            >
-              <option value="featured">Featured Curations</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-            </select>
+            {/* Right Controls: Piece Count + Sort + Grid View Toggle */}
+            <div className="flex items-center gap-3 ml-auto">
+              <span className="text-xs font-mono tracking-wide text-neutral-500 hidden sm:inline">
+                {filteredProducts.length} Pieces
+              </span>
 
-            {/* Grid Toggle (Desktop) */}
-            <div className="hidden md:flex items-center border" style={{ borderColor: 'var(--color-outline-variant)' }}>
-              <button
-                onClick={() => setViewMode('3-col')}
-                className={`p-2 text-xs uppercase font-mono transition-colors ${
-                  viewMode === '3-col' ? 'bg-black text-white' : 'hover:bg-black/5'
-                }`}
-                title="3 Column View"
+              {/* Sort Dropdown */}
+              <select
+                value={sortBy}
+                onChange={(e) => handleSortChange(e.target.value)}
+                aria-label="Sort products"
+                className="px-3 py-1.5 text-xs uppercase tracking-wider font-body border bg-transparent outline-none cursor-pointer"
+                style={{
+                  borderColor: 'var(--color-outline-variant)',
+                  color: 'var(--color-on-surface)',
+                }}
               >
-                3 Col
-              </button>
-              <button
-                onClick={() => setViewMode('4-col')}
-                className={`p-2 text-xs uppercase font-mono transition-colors ${
-                  viewMode === '4-col' ? 'bg-black text-white' : 'hover:bg-black/5'
-                }`}
-                title="4 Column View"
-              >
-                4 Col
-              </button>
+                <option value="featured">Featured Curations</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+              </select>
+
+              {/* Grid Toggle (Desktop) */}
+              <div className="hidden md:flex items-center border" style={{ borderColor: 'var(--color-outline-variant)' }}>
+                <button
+                  onClick={() => setViewMode('3-col')}
+                  className={`p-1.5 px-2.5 text-xs uppercase font-mono transition-colors ${
+                    viewMode === '3-col' ? 'bg-black text-white' : 'hover:bg-black/5'
+                  }`}
+                  title="3 Column View"
+                >
+                  3 Col
+                </button>
+                <button
+                  onClick={() => setViewMode('4-col')}
+                  className={`p-1.5 px-2.5 text-xs uppercase font-mono transition-colors ${
+                    viewMode === '4-col' ? 'bg-black text-white' : 'hover:bg-black/5'
+                  }`}
+                  title="4 Column View"
+                >
+                  4 Col
+                </button>
+              </div>
             </div>
           </div>
         </div>
