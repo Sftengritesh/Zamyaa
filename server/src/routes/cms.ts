@@ -20,3 +20,4 @@ cmsRouter.put('/', (req: Request, res: Response) => {
 })
 
 export default cmsRouter
+

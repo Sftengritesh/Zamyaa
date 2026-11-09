@@ -76,3 +76,4 @@ collectionsRouter.delete('/:id', (req: Request, res: Response) => {
 })
 
 export default collectionsRouter
+

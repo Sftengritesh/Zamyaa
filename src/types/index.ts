@@ -50,6 +50,8 @@ export interface Collection {
   season: string
   capsule: string
   heroImage: string
+  bannerImage?: string
+  mosaicImages?: string[]
   products: Product[]
   metrics?: { label: string; value: string }[]
 }

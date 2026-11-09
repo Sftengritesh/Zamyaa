@@ -10,3 +10,4 @@ export default function AdminRoute() {
 
   return <Outlet />
 }
+

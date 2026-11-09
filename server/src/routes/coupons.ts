@@ -92,3 +92,4 @@ couponsRouter.delete('/:id', (req: Request, res: Response) => {
 })
 
 export default couponsRouter
+

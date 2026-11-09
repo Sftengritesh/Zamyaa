@@ -58,3 +58,4 @@ app.listen(PORT, () => {
   console.log(`✦ Cloudinary integration: ACTIVE (cloud: c8deakbl)`)
   console.log(`✦ REST endpoints active for Products, Orders, Inventory, Collections, CMS & Upload\n`)
 })
+

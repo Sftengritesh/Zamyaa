@@ -7,9 +7,9 @@ import Logo from '../ui/Logo'
 
 const navLinks = [
   { label: 'Home', to: '/' },
+  { label: 'Lantana Edit', to: '/collections/lantana' },
   { label: 'Collections', to: '/collections' },
   { label: 'Shop All', to: '/collections?filter=all' },
-  { label: 'New In', to: '/collections?filter=new' },
   { label: 'About', to: '/about' },
 ]
 

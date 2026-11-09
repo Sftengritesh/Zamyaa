@@ -42,3 +42,4 @@ export async function uploadMultipleToCloudinary(files: File[], folder = 'zamyaa
 
   return res.data
 }
+

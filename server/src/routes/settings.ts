@@ -20,3 +20,4 @@ settingsRouter.put('/', (req: Request, res: Response) => {
 })
 
 export default settingsRouter
+

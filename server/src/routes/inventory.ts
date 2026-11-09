@@ -131,3 +131,4 @@ inventoryRouter.patch('/sold-out', (req: Request, res: Response) => {
 })
 
 export default inventoryRouter
+

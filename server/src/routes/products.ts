@@ -165,3 +165,4 @@ productsRouter.delete('/:id', (req: Request, res: Response) => {
 })
 
 export default productsRouter
+
