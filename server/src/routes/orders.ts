@@ -181,10 +181,7 @@ ordersRouter.post('/', async (req: Request, res: Response) => {
 
       // Deduct inventory per size safely
       if (sizeInventory) {
-        sizeInventory.stock -= qty
-        if (sizeInventory.stock <= 0) {
-          sizeInventory.inStock = false
-        }
+        sizeInventory.stock = Math.max(0, sizeInventory.stock - qty)
       }
     }
 
@@ -288,7 +285,6 @@ ordersRouter.patch('/:id/status', authMiddleware, async (req: Request, res: Resp
             const sizeInv = product.inventory.find((i) => i.size === item.size)
             if (sizeInv) {
               sizeInv.stock += item.quantity
-              sizeInv.inStock = true
             }
             product.inStock = true
           }

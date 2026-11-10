@@ -94,8 +94,8 @@ export interface Order {
   total: number
   currency: string
   paymentStatus: 'paid' | 'pending' | 'failed' | 'refunded'
-  paymentMethod: 'card' | 'upi' | 'netbanking' | 'cod'
-  fulfillmentStatus: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled' | 'refunded'
+  paymentMethod: 'card' | 'upi' | 'netbanking' | 'cod' | 'razorpay'
+  fulfillmentStatus: 'pending' | 'confirmed' | 'processing' | 'shipped' | 'delivered' | 'cancelled' | 'refunded'
   trackingNumber?: string
   courier?: string
   notes?: string
@@ -205,8 +205,8 @@ export interface StoreSettings {
   taxRatePercent: number
   returnWindowDays: number
   instagramUrl: string
-  youtubeUrl: string
-  twitterUrl: string
+  youtubeUrl?: string
+  twitterUrl?: string
 }
 
 export interface JournalArticle {
