@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react'
+import { Mail, Phone, MapPin, ArrowRight, MessageCircle } from 'lucide-react'
 import { InstagramIcon, TwitterIcon, YoutubeIcon } from '@/components/ui/SocialIcons'
 import Logo from '@/components/ui/Logo'
 
@@ -132,14 +132,22 @@ export default function Footer() {
             ))}
           </ul>
           <div className="space-y-2">
-            <a href="mailto:hello@zamyaa.in" className="flex items-center gap-2 opacity-60 hover:opacity-100 text-sm font-body transition-opacity">
-              <Mail size={14} /> hello@zamyaa.in
+            <a href="mailto:jyotisharam120099@gmail.com" className="flex items-center gap-2 opacity-60 hover:opacity-100 text-sm font-body transition-opacity">
+              <Mail size={14} /> jyotisharam120099@gmail.com
             </a>
-            <a href="tel:+919999999999" className="flex items-center gap-2 opacity-60 hover:opacity-100 text-sm font-body transition-opacity">
-              <Phone size={14} /> +91 99999 99999
+            <a href="tel:+918427233901" className="flex items-center gap-2 opacity-60 hover:opacity-100 text-sm font-body transition-opacity">
+              <Phone size={14} /> +91 8427233901
+            </a>
+            <a
+              href="https://wa.me/918427233901"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 opacity-60 hover:opacity-100 text-sm font-body transition-opacity"
+            >
+              <MessageCircle size={14} /> WhatsApp: +91 8427233901
             </a>
             <p className="flex items-start gap-2 opacity-60 text-sm font-body">
-              <MapPin size={14} className="mt-0.5 shrink-0" /> Mumbai · Jaipur · Delhi
+              <MapPin size={14} className="mt-0.5 shrink-0" /> Jaipur · Mumbai · Delhi
             </p>
           </div>
         </div>

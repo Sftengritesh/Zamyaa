@@ -43,6 +43,7 @@ export interface ProductSize {
 export interface ProductColor {
   name: string
   hex: string
+  image?: string
   images?: ProductImage[]
 }
 
@@ -62,7 +63,8 @@ export interface Collection {
   metrics?: { label: string; value: string }[]
   productIds?: string[]
   isOld?: boolean
-  status?: 'published' | 'draft' | 'archived'
+  isComingSoon?: boolean
+  status?: 'published' | 'draft' | 'archived' | 'active' | 'coming_soon'
 }
 
 // Cart types
@@ -121,5 +123,26 @@ export interface WishlistItem {
   price: number
   image: string
   addedAt: string
+}
+
+// Journal / Editorial types
+export interface JournalArticle {
+  id: string
+  slug: string
+  title: string
+  subtitle?: string
+  excerpt: string
+  content: string
+  coverImage: string
+  additionalImages?: string[]
+  category: 'Designer Notes' | 'Craft Stories' | 'Style Journal' | 'Behind the Scenes' | 'Fabric Stories' | string
+  author: string
+  readTime: string
+  publishedAt: string
+  status: 'published' | 'draft'
+  isFeatured?: boolean
+  tags?: string[]
+  createdAt?: string
+  updatedAt?: string
 }
 

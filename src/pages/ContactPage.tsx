@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, Sparkles } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, MessageCircle } from 'lucide-react'
 import { InstagramIcon, YoutubeIcon } from '@/components/ui/SocialIcons'
 
 export default function ContactPage() {
@@ -253,22 +253,24 @@ export default function ContactPage() {
 
               <div className="space-y-3 text-xs">
                 <a
-                  href="mailto:concierge@zamyaa.in"
+                  href="mailto:jyotisharam120099@gmail.com"
                   className="flex items-center gap-3 py-1 hover:underline"
                 >
-                  <Mail size={16} /> concierge@zamyaa.in
+                  <Mail size={16} /> jyotisharam120099@gmail.com
                 </a>
                 <a
-                  href="mailto:bespoke@zamyaa.in"
+                  href="tel:+918427233901"
                   className="flex items-center gap-3 py-1 hover:underline"
                 >
-                  <Sparkles size={16} /> bespoke@zamyaa.in (Direct with Jyoti)
+                  <Phone size={16} /> +91 8427233901
                 </a>
                 <a
-                  href="tel:+919876543210"
-                  className="flex items-center gap-3 py-1 hover:underline"
+                  href="https://wa.me/918427233901"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 py-1 hover:underline font-semibold"
                 >
-                  <Phone size={16} /> +91 (0) 22 4988 2300 / +91 98765 43210
+                  <MessageCircle size={16} /> WhatsApp: +91 8427233901
                 </a>
                 <div className="flex items-center gap-3 py-1 text-secondary">
                   <Clock size={16} /> Monday – Saturday, 10:00 AM – 7:30 PM IST

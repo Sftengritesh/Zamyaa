@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Heart,
   ArrowRight,
-  ArrowLeft,
   ChevronRight,
   Leaf,
   Users,
@@ -14,10 +13,9 @@ import {
 import { formatPrice } from '@/data/products'
 import { useWishlistStore, useCartStore, useCatalogStore } from '@/store'
 import type { Product } from '@/types'
-import Hero3DModel from '@/components/home/Hero3DModel'
 import { siteImages } from '@/config/images'
 
-// ── Marquee CSS injected once ──
+// ── Hero & Marquee CSS injected once ──
 const marqueeStyle = `
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -36,7 +34,14 @@ const marqueeStyle = `
   to   { opacity: 1; transform: translateY(0); }
 }
 .fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
+  animation: fadeInUp 0.7s ease-out forwards;
+}
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float-gentle {
+  animation: floatGentle 6s ease-in-out infinite;
 }
 `
 
@@ -258,10 +263,7 @@ function ProductCard({ product }: ProductCardProps) {
 
 // ── Main HomePage ──
 export default function HomePage() {
-  const { products, collections, cms, fetchCatalog } = useCatalogStore()
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const totalSlides = 3
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const { products, collections, fetchCatalog } = useCatalogStore()
 
   injectStyle(marqueeStyle, 'zamyaa-marquee-style')
 
@@ -270,29 +272,9 @@ export default function HomePage() {
     fetchCatalog()
   }, [fetchCatalog])
 
-  // Auto-advance hero carousel
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setCurrentSlide((s) => (s + 1) % totalSlides)
-    }, 5000)
-    return () => { if (intervalRef.current) clearInterval(intervalRef.current) }
-  }, [])
-
-  function prevSlide() {
-    if (intervalRef.current) clearInterval(intervalRef.current)
-    setCurrentSlide((s) => (s - 1 + totalSlides) % totalSlides)
-  }
-
-  function nextSlide() {
-    if (intervalRef.current) clearInterval(intervalRef.current)
-    setCurrentSlide((s) => (s + 1) % totalSlides)
-  }
-
-  const newArrivals = products.slice(0, 4)
-  const noorCollection = collections.find((c) => c.slug === 'noor-e-rang')
+  const lantanaProducts = products.filter((p) => p.collectionSlug === 'lantana')
   const lantanaCollection = collections.find((c) => c.slug === 'lantana')
-  const lantanaProduct = products.find((p) => p.collectionSlug === 'lantana')
-  const noorProduct = products.find((p) => p.collectionSlug === 'noor-e-rang')
+  const lantanaProduct = lantanaProducts[0]
 
   const instagramImages = [
     siteImages.models.heroGirls,
@@ -309,100 +291,71 @@ export default function HomePage() {
   return (
     <main style={{ background: 'var(--color-surface)', color: 'var(--color-on-surface)' }}>
 
-      {/* ── SECTION 1: Hero Campaign Banner ── */}
-      <section className="relative overflow-hidden" style={{ minHeight: '92vh' }}>
-        <div className="max-w-screen-2xl mx-auto px-6 lg:px-12 h-full">
-          <div className="grid lg:grid-cols-12 gap-0 items-stretch" style={{ minHeight: '92vh' }}>
+      {/* ── SECTION 1: Editorial Campaign Hero (Matching Reference Editorial Composition) ── */}
+      <section
+        className="hero relative min-h-screen w-full border-b bg-white text-black overflow-hidden"
+        style={{ borderColor: 'var(--color-outline-variant)' }}
+      >
+        <div className="max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-12 min-h-screen items-stretch">
+          
+          {/* Left Column (52% on Desktop): Dominant Fashion Campaign Photograph */}
+          <div className="lg:col-span-7 relative w-full h-[540px] sm:h-[660px] lg:h-full overflow-hidden bg-[#FAF9F6]">
+            <img
+              src="/homescreen/campaign-models.png"
+              alt="Lantana Spring-Summer Atelier Campaign — Dual Silhouettes in Soft Hues"
+              className="w-full h-full object-cover object-[center_top] transition-transform duration-1000 ease-out hover:scale-[1.015]"
+              loading="eager"
+            />
+          </div>
 
-            {/* Left column */}
-            <div className="lg:col-span-6 flex flex-col justify-center py-20 lg:py-24 pr-0 lg:pr-16">
-              {/* Season badge */}
-              <div className="flex items-center gap-3 mb-6">
-                <div className="h-px flex-1 max-w-8" style={{ background: 'var(--color-primary)' }} />
-                <span className="font-body text-xs font-semibold tracking-[0.3em] uppercase" style={{ color: 'var(--color-secondary)' }}>
-                  Autumn / Winter 2025 · Capsule Drop
-                </span>
-              </div>
-
-              {/* Edition indicator */}
-              <div
-                className="inline-flex items-center gap-3 mb-8 px-4 py-2 w-fit"
-                style={{ border: '1px solid var(--color-outline-variant)' }}
-              >
-                <span className="font-body text-xs tracking-widest uppercase" style={{ color: 'var(--color-secondary)' }}>
-                  Edition 01/03 · Lantana Collection
-                </span>
-                <div className="h-3 w-px" style={{ background: 'var(--color-outline-variant)' }} />
-                <div className="flex gap-1">
-                  {[0, 1, 2].map((i) => (
-                    <div
-                      key={i}
-                      className="w-1.5 h-1.5 rounded-full transition-all duration-300"
-                      style={{ background: i === currentSlide % 3 ? 'var(--color-primary)' : 'var(--color-outline-variant)' }}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Headline */}
-              <h1
-                className="font-display text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05] tracking-tight mb-6 fade-in-up"
-                style={{ color: 'var(--color-on-surface)' }}
-              >
-                Discover a World of Contemporary Elegance
-              </h1>
-
-              {/* Subtext */}
-              <p className="font-body text-base lg:text-lg leading-relaxed mb-10 max-w-lg" style={{ color: 'var(--color-secondary)' }}>
-                Chanderi silks reborn in architectural silhouettes. Zardozi that whispers of royal courts.
-                Each piece is a collaboration between heritage craft and the modern muse.
+          {/* Right Column (48% on Desktop): Clean Minimal Editorial Typography positioned below transparent header */}
+          <div className="lg:col-span-5 flex flex-col justify-center px-8 sm:px-14 lg:px-12 xl:px-18 pt-28 sm:pt-36 lg:pt-32 pb-16 lg:pb-20 bg-white z-10">
+            {/* Small Eyebrow Label */}
+            <div className="flex items-center gap-3.5 mb-5 sm:mb-6">
+              <span className="w-8 sm:w-10 h-px bg-black/60" />
+              <p className="font-body text-xs sm:text-[0.8125rem] font-semibold tracking-[0.35em] uppercase text-black">
+                COLLECTION · LANTANA
               </p>
-
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <Link
-                  to="/collections"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 font-body text-sm font-semibold tracking-widest uppercase transition-opacity duration-200 hover:opacity-80"
-                  style={{ background: 'var(--color-primary)', color: 'var(--color-on-primary)' }}
-                >
-                  Shop New Season <ArrowRight size={16} />
-                </Link>
-                <Link
-                  to="/collections/lantana"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 font-body text-sm font-semibold tracking-widest uppercase transition-all duration-200 hover:bg-black hover:text-white"
-                  style={{ border: '1px solid var(--color-primary)', color: 'var(--color-primary)' }}
-                >
-                  Explore the Campaign
-                </Link>
-              </div>
-
-              {/* Carousel controls */}
-              <div className="flex items-center gap-6">
-                <button
-                  onClick={prevSlide}
-                  className="w-12 h-12 flex items-center justify-center transition-all duration-200"
-                  style={{ border: '1px solid var(--color-outline-variant)' }}
-                  aria-label="Previous slide"
-                >
-                  <ArrowLeft size={18} style={{ color: 'var(--color-on-surface)' }} />
-                </button>
-                <span className="font-body text-sm font-semibold tracking-widest" style={{ color: 'var(--color-secondary)' }}>
-                  {String(currentSlide + 1).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
-                </span>
-                <button
-                  onClick={nextSlide}
-                  className="w-12 h-12 flex items-center justify-center transition-all duration-200 hover:opacity-70"
-                  style={{ background: 'var(--color-primary)' }}
-                  aria-label="Next slide"
-                >
-                  <ArrowRight size={18} style={{ color: 'var(--color-on-primary)' }} />
-                </button>
-              </div>
             </div>
 
-            {/* Right column — Interactive 3D Model of the Atelier Models */}
-            <div className="lg:col-span-6 relative flex flex-col justify-center min-h-[580px] lg:min-h-[720px] shadow-2xl border-l border-white/5">
-              <Hero3DModel heroImage={cms?.hero?.imageUrl} />
+            {/* Editorial Heading: The New Ancestral Heritage Festival '26 */}
+            <h1 className="font-display tracking-tight text-black leading-[0.98] mb-6">
+              <span className="block italic text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-normal text-neutral-800">
+                Draped
+              </span>
+              <span className="block uppercase text-5xl sm:text-6xl lg:text-7xl xl:text-[5.75rem] font-light tracking-[0.03em] mt-1 text-black">
+                in Stories.
+              </span>
+              <div className="flex flex-wrap items-baseline gap-2 sm:gap-3.5 mt-1">
+              </div>
+            </h1>
+
+            {/* Campaign Description */}
+            <p className="font-body text-sm sm:text-base text-neutral-600 max-w-md leading-relaxed mb-8">
+              Poetic, feminine and editorial.
+                          </p>
+
+            {/* Action CTAs */}
+            <div className="flex flex-wrap items-center gap-6 sm:gap-8">
+              {/* Primary Discover link with thin black underline */}
+              <Link
+                to="/collections/lantana"
+                className="group inline-flex flex-col items-start font-display text-2xl sm:text-3xl text-black transition-opacity hover:opacity-75 cursor-pointer"
+              >
+                <span className="flex items-center gap-2.5">
+                  Discover Lantana
+                  <span className="inline-block transition-transform duration-300 group-hover:translate-x-1.5 font-body">→</span>
+                </span>
+                <span className="w-full h-px bg-black group-hover:w-[112%] transition-all duration-300 origin-left mt-1" />
+              </Link>
+
+              {/* Secondary CTA */}
+              <Link
+                to="/collections"
+                className="px-7 py-3.5 border border-black text-black bg-white hover:bg-black hover:text-white text-xs font-body uppercase tracking-[0.2em] font-semibold transition-colors duration-200 cursor-pointer"
+              >
+                Explore Collections
+              </Link>
             </div>
           </div>
         </div>
@@ -503,7 +456,7 @@ export default function HomePage() {
               className="group relative overflow-hidden block aspect-[4/5] bg-neutral-900 text-white shadow-xl"
             >
               <img
-                src="/images/models/lantana-hero-models.jpg"
+                src="/images/lantana/IMG_6642.jpeg"
                 alt="Farshi Suit-Set"
                 className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105 opacity-90"
               />
@@ -524,21 +477,27 @@ export default function HomePage() {
               </div>
             </Link>
 
-            {/* Category 2: Skirt Top */}
+            {/* Category 2: Skirt Top (Atelier Silhouette 02 - The Boho Flare Affair) */}
             <Link
-              to="/collections?category=skirt-top"
-              className="group relative overflow-hidden block aspect-[4/5] bg-neutral-900 text-white shadow-xl"
+              to="/collections/the-boho-flare-affair"
+              className="group relative overflow-hidden block aspect-[4/5] bg-neutral-900 text-white shadow-xl cursor-pointer"
             >
               <img
-                src="/images/models/lantana-detail-hues.jpg"
-                alt="Skirt Top"
-                className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 opacity-90"
+                src="/images/the-boho-flare-affair/IMG_6681.jpeg"
+                alt="The Boho Flare Affair Skirt Top Silhouette"
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105 opacity-90"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
               <div className="absolute bottom-8 left-8 right-8">
-                <span className="text-[10px] tracking-[0.25em] uppercase font-mono text-amber-200 block mb-2">
-                  Atelier Silhouette · 02
-                </span>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-[10px] tracking-[0.25em] uppercase font-mono text-amber-200">
+                    Atelier Silhouette · 02
+                  </span>
+                  <span className="px-2 py-0.5 text-[9px] tracking-widest font-mono uppercase bg-amber-400 text-black font-bold rounded-full">
+                    Live
+                  </span>
+                </div>
                 <h3 className="font-display text-3xl sm:text-4xl font-normal mb-2 text-white">
                   Skirt Top
                 </h3>
@@ -555,108 +514,38 @@ export default function HomePage() {
           {/* Quick Collection Switcher Ribbon */}
           <div className="mt-16 pt-10 border-t border-black/10">
             <p className="text-center font-mono text-[11px] uppercase tracking-widest text-neutral-500 mb-6">
-              Explore Our 7 Curated Capsules & Archival Editions
+              Curated Capsules & Archival Editions
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2.5">
-              {collections.map((c) => (
-                <Link
-                  key={c.slug}
-                  to={`/collections/${c.slug}`}
-                  className="px-4 py-2 text-xs uppercase tracking-wider font-semibold border border-neutral-300 hover:border-black hover:bg-black hover:text-white transition-all rounded-full flex items-center gap-1.5"
-                >
-                  {c.title}
-                  {c.isOld && <span className="text-[9px] opacity-60 font-mono">(Archive)</span>}
-                </Link>
-              ))}
+              {collections.map((c) => {
+                const isLive = c.slug === 'lantana' || c.slug === 'the-boho-flare-affair'
+                return (
+                  <Link
+                    key={c.slug}
+                    to={`/collections/${c.slug}`}
+                    className={`px-4 py-2 text-xs uppercase tracking-wider font-semibold border transition-all rounded-full flex items-center gap-1.5 ${
+                      isLive
+                        ? 'bg-black text-white border-black'
+                        : 'border-neutral-300 hover:border-black text-neutral-700 bg-white/50'
+                    }`}
+                  >
+                    {c.title}
+                    {isLive ? (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded-full uppercase font-mono tracking-wider bg-amber-400 text-black font-bold">
+                        Live
+                      </span>
+                    ) : (
+                      <span className="text-[9px] opacity-60 font-mono">
+                        (Soon)
+                      </span>
+                    )}
+                  </Link>
+                )
+              })}
             </div>
           </div>
         </div>
       </section>
-
-      {/* ── SECTION 4: Featured Collection — Noor-e-Rang ── */}
-      {noorCollection && (
-        <section className="py-20 lg:py-28">
-          <div className="max-w-screen-2xl mx-auto px-6 lg:px-12">
-            <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-              {/* Text side */}
-              <div>
-                <p className="font-body text-xs font-semibold tracking-[0.3em] uppercase mb-4" style={{ color: 'var(--color-secondary)' }}>
-                  {noorCollection.capsule} · {noorCollection.season}
-                </p>
-                <h2 className="font-display text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-4" style={{ color: 'var(--color-on-surface)' }}>
-                  {noorCollection.title}
-                </h2>
-                <p className="font-display text-xl italic mb-6" style={{ color: 'var(--color-secondary)' }}>
-                  {noorCollection.subtitle}
-                </p>
-                <p className="font-body text-base leading-relaxed mb-10 max-w-md" style={{ color: 'var(--color-secondary)' }}>
-                  {noorCollection.description}
-                </p>
-
-                {/* Metrics ribbon */}
-                <div
-                  className="grid grid-cols-3 mb-10"
-                  style={{ borderTop: '1px solid var(--color-outline-variant)', borderBottom: '1px solid var(--color-outline-variant)' }}
-                >
-                  {noorCollection.metrics?.map((m, i) => (
-                    <div
-                      key={i}
-                      className="py-5 text-center"
-                      style={{ borderRight: i < 2 ? '1px solid var(--color-outline-variant)' : undefined }}
-                    >
-                      <p className="font-display text-2xl font-bold mb-1" style={{ color: 'var(--color-on-surface)' }}>{m.value}</p>
-                      <p className="font-body text-xs tracking-wide uppercase" style={{ color: 'var(--color-secondary)' }}>{m.label}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* CTAs */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link
-                    to={`/collections/${noorCollection.slug}`}
-                    className="inline-flex items-center gap-2 px-8 py-4 font-body text-sm font-semibold tracking-widest uppercase transition-opacity duration-200 hover:opacity-80"
-                    style={{ background: 'var(--color-primary)', color: 'var(--color-on-primary)' }}
-                  >
-                    Shop This Collection <ArrowRight size={16} />
-                  </Link>
-                  <Link
-                    to={`/collections/${noorCollection.slug}`}
-                    className="inline-flex items-center gap-2 px-8 py-4 font-body text-sm font-semibold tracking-widest uppercase transition-all duration-200"
-                    style={{ border: '1px solid var(--color-outline-variant)', color: 'var(--color-on-surface)' }}
-                  >
-                    View Lookbook
-                  </Link>
-                </div>
-              </div>
-
-              {/* Image side */}
-              <div className="relative overflow-hidden aspect-[4/5]" style={{ background: 'var(--color-surface-container-low)' }}>
-                <img
-                  src={noorCollection.heroImage}
-                  alt={noorCollection.title}
-                  className="w-full h-full object-cover"
-                />
-                {noorProduct && (
-                  <div
-                    className="absolute bottom-6 left-6 right-6 p-5"
-                    style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(8px)' }}
-                  >
-                    <p className="font-body text-xs tracking-widest uppercase mb-1" style={{ color: 'var(--color-secondary)' }}>
-                      Featured Piece
-                    </p>
-                    <p className="font-display text-lg font-semibold mb-1" style={{ color: 'var(--color-on-surface)' }}>
-                      {noorProduct.name}
-                    </p>
-                    <p className="font-body text-sm font-semibold" style={{ color: 'var(--color-on-surface)' }}>
-                      {formatPrice(noorProduct.price, noorProduct.currency)}
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* ── SECTION 5: Product Grid — New Arrivals ── */}
       <section className="py-20 lg:py-24" style={{ background: 'var(--color-surface-container-lowest)' }}>
@@ -665,14 +554,14 @@ export default function HomePage() {
           <div className="flex items-center gap-6 mb-14">
             <div className="h-px flex-1" style={{ background: 'var(--color-outline-variant)' }} />
             <h2 className="font-body text-xs font-semibold tracking-[0.4em] uppercase whitespace-nowrap" style={{ color: 'var(--color-on-surface)' }}>
-              New Arrivals
+              Live Atelier Arrivals · Lantana Farshi Suits
             </h2>
             <div className="h-px flex-1" style={{ background: 'var(--color-outline-variant)' }} />
           </div>
 
-          {/* 4-col product grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {newArrivals.map((product) => (
+          {/* Centered product grid — Lantana Only */}
+          <div className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12 justify-center">
+            {lantanaProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

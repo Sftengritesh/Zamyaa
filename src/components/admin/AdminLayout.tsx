@@ -15,6 +15,7 @@ import {
   LogOut,
   Menu,
   X,
+  BookOpen,
 } from 'lucide-react'
 import { useAdminAuth } from '@/store/adminAuth'
 import { api } from '@/services/api'
@@ -28,6 +29,7 @@ const navItems = [
   { to: '/admin/customers', label: 'Customers', icon: Users },
   { to: '/admin/discounts', label: 'Discounts', icon: Percent },
   { to: '/admin/homepage', label: 'Homepage CMS', icon: LayoutTemplate },
+  { to: '/admin/journal', label: 'Journal Articles', icon: BookOpen },
   { to: '/admin/reviews', label: 'Reviews', icon: Star },
   { to: '/admin/settings', label: 'Store Settings', icon: Settings },
 ]

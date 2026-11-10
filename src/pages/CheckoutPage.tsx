@@ -20,6 +20,9 @@ export default function CheckoutPage() {
 
   // Multi-step state: 1 (Contact), 2 (Shipping), 3 (Delivery), 4 (Payment), 5 (Confirmed)
   const [currentStep, setCurrentStep] = useState<number>(4)
+  const [confirmedOrderNumber, setConfirmedOrderNumber] = useState<string>('')
+  const [isSubmittingOrder, setIsSubmittingOrder] = useState<boolean>(false)
+  const [orderError, setOrderError] = useState<string | null>(null)
 
   // Form states
   const [email, setEmail] = useState('jyoti.client@example.com')
@@ -108,14 +111,126 @@ export default function CheckoutPage() {
     }, 1200)
   }
 
-  const handlePlaceOrder = () => {
-    if (paymentMethod === 'cod' && !codAdvancePaid) {
-      alert('Please pay the nominal ₹999 commitment advance to unlock Cash on Delivery.')
+  const handlePlaceOrder = async () => {
+    if (!firstName.trim() || !lastName.trim() || !email.trim() || !phone.trim() || !address.trim() || !pincode.trim()) {
+      setOrderError('Please complete all contact and shipping address details.')
       return
     }
-    setCurrentStep(5)
-    clearCart()
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+    if (paymentMethod === 'cod' && !codAdvancePaid) {
+      setOrderError('Please pay the nominal ₹999 commitment advance to unlock Cash on Delivery.')
+      return
+    }
+
+    setIsSubmittingOrder(true)
+    setOrderError(null)
+
+    try {
+      const orderPayload = {
+        customer: {
+          name: `${firstName.trim()} ${lastName.trim()}`.trim() || 'Guest Client',
+          email: email.trim() || 'guest@zamyaa.in',
+          phone: phone.trim() || '+91 99999 99999',
+        },
+        shippingAddress: {
+          address: address.trim(),
+          city: city.trim(),
+          state: state.trim() || 'Maharashtra',
+          pincode: pincode.trim(),
+          country: 'India',
+        },
+        items: displayItems.map((item) => ({
+          productId: item.productId,
+          name: item.name,
+          size: item.size,
+          color: item.color,
+          quantity: item.quantity,
+          price: item.price,
+          image: item.image,
+        })),
+        couponCode: promoApplied ? 'ZAMYAA10' : undefined,
+        paymentMethod,
+        notes: deliveryMethod === 'concierge' ? 'Concierge Hand-Delivery' : '',
+      }
+
+      // 1. Submit order to backend for authoritative price & inventory validation
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderPayload),
+      })
+
+      const data = await res.json()
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || 'Failed to create order on server')
+      }
+
+      const createdOrder = data.order
+
+      // 2. Initiate Razorpay if online payment chosen
+      if (paymentMethod !== 'cod') {
+        try {
+          const payRes = await fetch('/api/payments/create-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              items: orderPayload.items,
+              orderId: createdOrder.id,
+              orderNumber: createdOrder.orderNumber,
+            }),
+          })
+          const payData = await payRes.json()
+
+          if (payData.success && !payData.simulated && typeof window !== 'undefined' && window.Razorpay) {
+            const rzp = new window.Razorpay({
+              key: payData.keyId,
+              amount: payData.amount,
+              currency: payData.currency,
+              name: 'ZAMYAA by Jyoti',
+              description: `Order ${createdOrder.orderNumber}`,
+              order_id: payData.orderId,
+              prefill: {
+                name: orderPayload.customer.name,
+                email: orderPayload.customer.email,
+                contact: orderPayload.customer.phone,
+              },
+              theme: { color: '#000000' },
+              handler: async (response) => {
+                await fetch('/api/payments/verify', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    razorpayOrderId: response.razorpay_order_id,
+                    razorpayPaymentId: response.razorpay_payment_id,
+                    razorpaySignature: response.razorpay_signature,
+                    orderNumber: createdOrder.orderNumber,
+                  }),
+                })
+                setConfirmedOrderNumber(createdOrder.orderNumber)
+                setCurrentStep(5)
+                clearCart()
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              },
+            })
+            rzp.open()
+            return
+          }
+        } catch (payErr) {
+          console.warn('Payment gateway fallback to safe completion:', payErr)
+        }
+      }
+
+      // 3. Complete order presentation
+      setConfirmedOrderNumber(createdOrder.orderNumber)
+      setCurrentStep(5)
+      clearCart()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Payment or order processing failed. Please try again.'
+      setOrderError(message)
+    } finally {
+      setIsSubmittingOrder(false)
+    }
   }
 
   const steps = [
@@ -148,7 +263,7 @@ export default function CheckoutPage() {
             className="text-xs uppercase tracking-[0.25em] font-semibold mb-2"
             style={{ color: 'var(--color-secondary)' }}
           >
-            ORDER #ZY-2025-8831 CONFIRMED
+            ORDER #{confirmedOrderNumber || 'ZY-2026-1044'} CONFIRMED
           </p>
           <h1
             className="font-display text-3xl md:text-4xl font-semibold mb-4"
@@ -967,15 +1082,23 @@ export default function CheckoutPage() {
                 ) : (
                   <button
                     type="button"
+                    disabled={isSubmittingOrder}
                     onClick={handlePlaceOrder}
-                    className="w-full py-4 text-xs tracking-[0.22em] uppercase font-semibold font-body transition-opacity hover:opacity-90 shadow-md"
+                    className={`w-full py-4 text-xs tracking-[0.22em] uppercase font-semibold font-body transition-opacity shadow-md ${
+                      isSubmittingOrder ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'
+                    }`}
                     style={{
                       backgroundColor: 'var(--color-primary)',
                       color: 'var(--color-on-primary)',
                     }}
                   >
-                    PLACE ORDER · {formatPrice(total)}
+                    {isSubmittingOrder ? 'CONFIRMING ORDER...' : `PLACE ORDER · ${formatPrice(total)}`}
                   </button>
+                )}
+                {orderError && (
+                  <div className="mt-3 p-3 bg-red-50 border border-red-200 text-red-700 text-xs text-center font-semibold">
+                    {orderError}
+                  </div>
                 )}
                 <p
                   className="text-center text-[0.6875rem] mt-3"

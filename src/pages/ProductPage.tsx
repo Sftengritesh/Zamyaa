@@ -92,7 +92,12 @@ export default function ProductPage() {
     fetchCatalog()
   }, [fetchCatalog, slug])
 
-  const product = products.find((p) => p.slug === slug || p.id === slug)
+  const product = products.find(
+    (p) =>
+      p.slug === slug ||
+      p.id === slug ||
+      (slug === 'the-lantana-zari-citron-skirt-top-set' && p.id === 'p6')
+  )
 
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   const [selectedSize, setSelectedSize] = useState<string>('')
@@ -108,6 +113,38 @@ export default function ProductPage() {
       }
     }
   }, [product, selectedColor])
+
+  // Handle color button selection: update color AND dynamically switch to corresponding model photo!
+  const handleSelectColor = (colorName: string) => {
+    setSelectedColor(colorName)
+    if (!product) return
+
+    const colorObj = product.colors.find((c) => c.name === colorName)
+    // 1. If explicit color.image URL is defined
+    if (colorObj?.image) {
+      const idx = product.images.findIndex((img) => img.url === colorObj.image)
+      if (idx !== -1) {
+        setSelectedImageIndex(idx)
+        return
+      }
+    }
+    // 2. Intelligent match on color name vs image URL / alt text
+    const nameLower = colorName.toLowerCase()
+    const matchIdx = product.images.findIndex((img) => {
+      const url = img.url.toLowerCase()
+      const alt = (img.alt || '').toLowerCase()
+      if (nameLower.includes('pink') && (url.includes('6630') || alt.includes('pink') || url.includes('pink'))) {
+        return true
+      }
+      if (nameLower.includes('yellow') && (url.includes('6637') || alt.includes('yellow') || url.includes('yellow'))) {
+        return true
+      }
+      return false
+    })
+    if (matchIdx !== -1) {
+      setSelectedImageIndex(matchIdx)
+    }
+  }
   const [quantity] = useState(1)
   const [addedError, setAddedError] = useState<string | null>(null)
 
@@ -133,17 +170,17 @@ export default function ProductPage() {
   }
 
   const relatedProducts = products
-    .filter((p) => p.collection === product.collection && p.id !== product.id)
+    .filter((p) => p.collectionSlug === product.collectionSlug && p.id !== product.id)
     .slice(0, 3)
 
   const youMayAlsoLike = products
-    .filter((p) => p.id !== product.id)
+    .filter((p) => p.collectionSlug === product.collectionSlug && p.id !== product.id)
     .slice(0, 4)
 
   const isInWishlist = isWishlisted(product.id)
 
   const handleAddToBag = () => {
-    if (!product) return
+    if (!product || !product.inStock) return
     if (!selectedSize) {
       setAddedError('Please select a size.')
       return
@@ -156,7 +193,7 @@ export default function ProductPage() {
       quantity,
       size: selectedSize,
       color: selectedColor,
-      image: product.images[0]?.url ?? '',
+      image: product.images[selectedImageIndex]?.url ?? product.images[0]?.url ?? '',
       slug: product.slug,
     })
     openCart()
@@ -224,13 +261,16 @@ export default function ProductPage() {
           <div className="flex flex-col-reverse md:flex-row gap-4">
 
             {/* Thumbnail rail */}
-            <div className="flex flex-row md:flex-col gap-2 md:w-24 overflow-x-auto md:overflow-visible">
+            <div
+              className="flex flex-row md:flex-col gap-2 md:w-24 overflow-x-auto md:overflow-y-auto md:max-h-[640px] pr-1.5"
+              style={{ scrollbarWidth: 'thin' }}
+            >
               {product.images.map((img, i) => (
                 <button
-                  key={img.url}
+                  key={`${img.url}-${i}`}
                   type="button"
                   onClick={() => setSelectedImageIndex(i)}
-                  className="shrink-0 overflow-hidden transition-all duration-200"
+                  className="shrink-0 overflow-hidden transition-all duration-200 cursor-pointer"
                   style={{
                     width: '72px',
                     height: '90px',
@@ -321,36 +361,103 @@ export default function ProductPage() {
             style={{ background: 'var(--color-outline-variant)' }}
           />
 
+          {/* Design / Silhouette Selector for The Boho Flare Affair */}
+          {product.collectionSlug === 'the-boho-flare-affair' && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <p
+                  className="font-body text-xs font-semibold tracking-[0.14em]"
+                  style={{ color: 'var(--color-on-surface)' }}
+                >
+                  DESIGN SILHOUETTE:
+                </p>
+                <span className="text-[10px] font-mono uppercase tracking-wider text-amber-700 bg-amber-100 px-2 py-0.5 font-bold rounded">
+                  2 Unique Cuts
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-2.5">
+                <Link
+                  to="/product/the-boho-flare-scoop-booti-skirt-top-set"
+                  className={`p-3 border text-left transition-all rounded-xs ${
+                    product.slug === 'the-boho-flare-scoop-booti-skirt-top-set'
+                      ? 'border-black bg-black text-white shadow-xs'
+                      : 'border-neutral-200 bg-white text-black hover:border-black'
+                  }`}
+                >
+                  <span className="block text-[9px] font-mono uppercase tracking-widest opacity-80 mb-0.5">
+                    Design 01 · Scoop Neck
+                  </span>
+                  <span className="block font-serif text-xs font-semibold">
+                    Teardrop Booti Tiered Set
+                  </span>
+                  <span className="block text-[10px] font-mono mt-1 opacity-75">
+                    ₹34,000
+                  </span>
+                </Link>
+
+                <Link
+                  to="/product/the-boho-flare-halter-mandala-skirt-top-set"
+                  className={`p-3 border text-left transition-all rounded-xs ${
+                    product.slug === 'the-boho-flare-halter-mandala-skirt-top-set'
+                      ? 'border-black bg-black text-white shadow-xs'
+                      : 'border-neutral-200 bg-white text-black hover:border-black'
+                  }`}
+                >
+                  <span className="block text-[9px] font-mono uppercase tracking-widest opacity-80 mb-0.5">
+                    Design 02 · Halter Neck
+                  </span>
+                  <span className="block font-serif text-xs font-semibold">
+                    Mandala Jaal Tiered Set
+                  </span>
+                  <span className="block text-[10px] font-mono mt-1 opacity-75">
+                    ₹35,500
+                  </span>
+                </Link>
+              </div>
+            </div>
+          )}
+
           {/* Color selector */}
           <div>
             <p
               className="font-body text-xs font-semibold tracking-[0.14em] mb-3"
               style={{ color: 'var(--color-on-surface)' }}
             >
-              COLOUR:{' '}
+              {product.collectionSlug === 'the-boho-flare-affair' ? 'PALETTE:' : 'COLOUR:'}{' '}
               <span style={{ color: 'var(--color-secondary)' }}>{selectedColor}</span>
             </p>
-            <div className="flex gap-3">
-              {product.colors.map((c) => (
-                <button
-                  key={c.name}
-                  type="button"
-                  onClick={() => setSelectedColor(c.name)}
-                  title={c.name}
-                  className="w-8 h-8 rounded-full transition-all duration-150"
-                  style={{
-                    background: c.hex,
-                    outline:
-                      selectedColor === c.name
-                        ? '2px solid var(--color-primary)'
-                        : '2px solid var(--color-outline-variant)',
-                    outlineOffset: '2px',
-                    border: 'none',
-                  }}
-                />
-              ))}
+              <div className="flex flex-wrap gap-3">
+                {product.colors.map((c) => {
+                  const isSelected = selectedColor === c.name
+                  return (
+                    <button
+                      key={c.name}
+                      type="button"
+                      onClick={() => handleSelectColor(c.name)}
+                      title={c.name}
+                      className="group flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all duration-200 cursor-pointer"
+                      style={{
+                        backgroundColor: isSelected
+                          ? 'var(--color-surface-container-high)'
+                          : 'var(--color-surface-container-lowest)',
+                        borderColor: isSelected
+                          ? 'var(--color-primary)'
+                          : 'var(--color-outline-variant)',
+                        boxShadow: isSelected ? '0 0 0 1px var(--color-primary)' : 'none',
+                      }}
+                    >
+                      <span
+                        className="w-4 h-4 rounded-full border border-black/10 shrink-0"
+                        style={{ background: c.hex }}
+                      />
+                      <span className="text-xs font-body font-medium" style={{ color: 'var(--color-on-surface)' }}>
+                        {c.name}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
             </div>
-          </div>
 
           {/* Size selector */}
           <div>
@@ -420,15 +527,18 @@ export default function ProductPage() {
           <div className="flex flex-col gap-3">
             <button
               type="button"
+              disabled={!product.inStock}
               onClick={handleAddToBag}
-              className="flex items-center justify-center gap-3 w-full py-4 font-body text-xs font-semibold tracking-[0.18em] transition-opacity duration-150 hover:opacity-80"
+              className={`flex items-center justify-center gap-3 w-full py-4 font-body text-xs font-semibold tracking-[0.18em] transition-opacity duration-150 ${
+                !product.inStock ? 'opacity-40 cursor-not-allowed' : 'hover:opacity-80 cursor-pointer'
+              }`}
               style={{
                 background: 'var(--color-primary)',
                 color: 'var(--color-on-primary)',
               }}
             >
               <ShoppingBag size={16} />
-              ADD TO BAG
+              {product.inStock ? 'ADD TO BAG' : 'OUT OF STOCK'}
             </button>
             <button
               type="button"

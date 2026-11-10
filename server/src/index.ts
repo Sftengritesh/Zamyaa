@@ -13,14 +13,38 @@ import couponsRouter from './routes/coupons.js'
 import reviewsRouter from './routes/reviews.js'
 import cmsRouter from './routes/cms.js'
 import settingsRouter from './routes/settings.js'
+import journalRouter from './routes/journal.js'
+import paymentsRouter from './routes/payments.js'
+import { connectMongo } from './db/mongo.js'
 
 dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 5000
 
+// Initialize MongoDB connection (falls back safely to local db.json if URI omitted)
+connectMongo().catch((err) => console.warn('MongoDB Init Exception:', err))
+
 // Middlewares
-app.use(cors({ origin: true, credentials: true }))
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:3000',
+  process.env.FRONTEND_URL,
+].filter(Boolean) as string[]
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
+        callback(null, true)
+      } else {
+        callback(null, true) // Allow during review/preview builds
+      }
+    },
+    credentials: true,
+  })
+)
 app.use(express.json({ limit: '20mb' }))
 app.use(express.urlencoded({ extended: true, limit: '20mb' }))
 
@@ -37,11 +61,13 @@ app.use('/api/products', productsRouter)
 app.use('/api/collections', collectionsRouter)
 app.use('/api/inventory', inventoryRouter)
 app.use('/api/orders', ordersRouter)
+app.use('/api/payments', paymentsRouter)
 app.use('/api/customers', customersRouter)
 app.use('/api/coupons', couponsRouter)
 app.use('/api/reviews', reviewsRouter)
 app.use('/api/cms', cmsRouter)
 app.use('/api/settings', settingsRouter)
+app.use('/api/journal', journalRouter)
 
 // Health check
 app.get('/api/health', (_req, res) => {

@@ -11,9 +11,9 @@
  */
 
 // Common photos
-const defaultHero = '/images/models/lantana-hero-models.jpg'
-const defaultDetail = '/images/models/lantana-detail-hues.jpg'
-const defaultShootGrid = '/images/models/lantana-shoot-grid.jpg'
+const defaultHero = '/images/lantana/IMG_6642.jpeg'
+const defaultDetail = '/images/lantana/IMG_6646.jpeg'
+const defaultShootGrid = '/images/lantana/IMG_6644.jpeg'
 
 export const siteImages = {
   // ── 3D MODEL & HERO GIRLS (From Atelier Shoot) ──
@@ -40,7 +40,7 @@ export const siteImages = {
     // 1. Farshi Suit-Set
     farshiSuitSet: defaultHero,
     // 2. Skirt Top
-    skirtTop: defaultDetail,
+    skirtTop: '/images/the-boho-flare-affair/IMG_6681.jpeg',
   },
 
   // ── SIGNATURE COLLECTIONS (7 Active + 2 Old) ──
@@ -79,8 +79,12 @@ export const siteImages = {
 
     // 5. The Boho Flare Affair
     theBohoFlareAffair: {
-      hero: defaultShootGrid,
-      mosaic: [defaultShootGrid, defaultHero, defaultDetail],
+      hero: '/images/the-boho-flare-affair/IMG_6681.jpeg',
+      mosaic: [
+        '/images/the-boho-flare-affair/IMG_6681.jpeg',
+        '/images/the-boho-flare-affair/IMG_6686.jpeg',
+        '/images/the-boho-flare-affair/IMG_6680.jpeg',
+      ],
     },
 
     // 6. Lantana

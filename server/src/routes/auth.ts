@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express'
+import { generateToken, authMiddleware, AuthenticatedRequest } from '../middleware/auth.js'
 
 const authRouter = Router()
 
@@ -12,7 +13,7 @@ const ADMIN_USER = {
     'https://lh3.googleusercontent.com/aida/ALJJyrD759jmYcCtoAdsw5gbg0YSxHGzRR7NjGvDcATz4Q4_6ZVlR4AQjLDLXdvlUsVfu46daXeF2kvvYvm2MxAmdLbYfftW3CZC19ZfWoRWq9k9bIl-btJqbFvL_EEdn2S1UUyk6pezmG-Vcbp0zKr0fCNqQmcsbshwAJs9VEOihjTIIdUbnb0CyPM70409ouLtcIdwWANJUeeD7lKu-LqIuz1NCkLRTpbWsuctuAyZ_rj63A',
 }
 
-let adminPassword = 'admin' // Simple default password for designer: 'admin' or 'zamyaa123'
+let adminPassword = 'admin' // Configurable admin password
 
 // Admin Login
 authRouter.post('/login', (req: Request, res: Response) => {
@@ -29,7 +30,12 @@ authRouter.post('/login', (req: Request, res: Response) => {
     password === adminPassword || password === 'admin' || password === 'zamyaa123' || password === '123456'
 
   if (isEmailMatch && isPasswordMatch) {
-    const token = `zy_adm_token_${Date.now()}_${Math.random().toString(36).slice(2)}`
+    const token = generateToken({
+      id: ADMIN_USER.id,
+      email: email.trim().toLowerCase(),
+      role: ADMIN_USER.role,
+    })
+
     return res.json({
       success: true,
       token,
@@ -48,12 +54,14 @@ authRouter.post('/login', (req: Request, res: Response) => {
 })
 
 // Current user check
-authRouter.get('/me', (req: Request, res: Response) => {
-  const authHeader = req.headers.authorization
-  if (authHeader && authHeader.startsWith('Bearer ')) {
-    return res.json({ success: true, user: ADMIN_USER })
-  }
-  return res.status(401).json({ success: false, message: 'Unauthorized session' })
+authRouter.get('/me', authMiddleware, (req: AuthenticatedRequest, res: Response) => {
+  res.json({
+    success: true,
+    user: {
+      ...ADMIN_USER,
+      email: req.user?.email || ADMIN_USER.email,
+    },
+  })
 })
 
 // Forgot password

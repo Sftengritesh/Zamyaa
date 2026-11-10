@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express'
 import { db, Product } from '../db/store.js'
+import { authMiddleware } from '../middleware/auth.js'
 
 const productsRouter = Router()
 
@@ -48,7 +49,7 @@ productsRouter.get('/:id', (req: Request, res: Response) => {
 })
 
 // Create new product
-productsRouter.post('/', (req: Request, res: Response) => {
+productsRouter.post('/', authMiddleware, (req: Request, res: Response) => {
   try {
     const body = req.body
     if (!body.name || !body.price) {
@@ -124,7 +125,7 @@ productsRouter.post('/', (req: Request, res: Response) => {
 })
 
 // Update product
-productsRouter.put('/:id', (req: Request, res: Response) => {
+productsRouter.put('/:id', authMiddleware, (req: Request, res: Response) => {
   const updated = db.updateProduct(req.params.id, req.body)
   if (!updated) {
     return res.status(404).json({ success: false, message: 'Product not found' })
@@ -133,7 +134,7 @@ productsRouter.put('/:id', (req: Request, res: Response) => {
 })
 
 // Quick field toggles (status, inStock, isFeatured, isBestseller)
-productsRouter.patch('/:id/toggle', (req: Request, res: Response) => {
+productsRouter.patch('/:id/toggle', authMiddleware, (req: Request, res: Response) => {
   const { field } = req.body
   const product = db.getProductById(req.params.id)
   if (!product) {
@@ -156,7 +157,7 @@ productsRouter.patch('/:id/toggle', (req: Request, res: Response) => {
 })
 
 // Delete product
-productsRouter.delete('/:id', (req: Request, res: Response) => {
+productsRouter.delete('/:id', authMiddleware, (req: Request, res: Response) => {
   const ok = db.deleteProduct(req.params.id)
   if (!ok) {
     return res.status(404).json({ success: false, message: 'Product not found' })

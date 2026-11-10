@@ -1,25 +1,29 @@
 import { Router, Request, Response } from 'express'
 import multer from 'multer'
 import cloudinary from '../config/cloudinary.js'
+import { authMiddleware } from '../middleware/auth.js'
 
 const uploadRouter = Router()
+
+const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp']
+const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB limit
 
 // Use memory storage so we stream directly to Cloudinary
 const storage = multer.memoryStorage()
 const upload = multer({
   storage,
-  limits: { fileSize: 15 * 1024 * 1024 }, // 15MB max
+  limits: { fileSize: MAX_FILE_SIZE },
   fileFilter: (_req, file, cb) => {
-    if (file.mimetype.startsWith('image/')) {
+    if (ALLOWED_MIME_TYPES.includes(file.mimetype)) {
       cb(null, true)
     } else {
-      cb(new Error('Only image files are allowed'))
+      cb(new Error('Invalid image format. Only JPEG, PNG, and WebP are accepted.'))
     }
   },
 })
 
 // Upload single image (via file or base64 data URI)
-uploadRouter.post('/image', upload.single('image'), async (req: Request, res: Response) => {
+uploadRouter.post('/image', authMiddleware, upload.single('image'), async (req: Request, res: Response) => {
   try {
     const folder = req.body.folder || 'zamyaa/products'
 
@@ -73,7 +77,7 @@ uploadRouter.post('/image', upload.single('image'), async (req: Request, res: Re
 })
 
 // Upload multiple images at once
-uploadRouter.post('/images', upload.array('images', 8), async (req: Request, res: Response) => {
+uploadRouter.post('/images', authMiddleware, upload.array('images', 8), async (req: Request, res: Response) => {
   try {
     const folder = req.body.folder || 'zamyaa/products'
     const files = req.files as Express.Multer.File[]
@@ -105,6 +109,25 @@ uploadRouter.post('/images', upload.array('images', 8), async (req: Request, res
     return res.status(500).json({
       success: false,
       message: error.message || 'Bulk upload failed',
+    })
+  }
+})
+
+// Delete image from Cloudinary
+uploadRouter.delete('/:publicId(*)', authMiddleware, async (req: Request, res: Response) => {
+  try {
+    const { publicId } = req.params
+    if (!publicId) {
+      return res.status(400).json({ success: false, message: 'publicId parameter is required' })
+    }
+
+    const result = await cloudinary.uploader.destroy(publicId)
+    return res.json({ success: true, result })
+  } catch (error: any) {
+    console.error('Cloudinary Delete Error:', error)
+    return res.status(500).json({
+      success: false,
+      message: error.message || 'Image deletion failed',
     })
   }
 })

@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
-import { useParams, useSearchParams, useNavigate } from 'react-router-dom'
-import { Eye, Sparkles, X, ChevronRight, ChevronLeft } from 'lucide-react'
+import { useParams, useSearchParams, useNavigate, Link } from 'react-router-dom'
+import { Eye, Sparkles, X, ChevronRight, ChevronLeft, ArrowRight } from 'lucide-react'
 import { useCatalogStore } from '@/store'
 import ProductCard from '@/components/ui/ProductCard'
 import { siteImages } from '@/config/images'
@@ -63,6 +63,42 @@ export default function CollectionsPage() {
     }
   }
 
+  const isHorizontalNavClickRef = useRef<boolean>(false)
+
+  // Automatic smooth scroll handling on collection change
+  useEffect(() => {
+    if (isHorizontalNavClickRef.current) {
+      isHorizontalNavClickRef.current = false
+      // User clicked a collection in the horizontal navigation:
+      // Smoothly scroll so the products section is docked right beneath the sticky header & filter bar!
+      setTimeout(() => {
+        const targetEl = document.getElementById('products-section')
+        if (targetEl) {
+          const navBarHeight = 80
+          const filterBarHeight = 56
+          const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset - (navBarHeight + filterBarHeight)
+          window.scrollTo({
+            top: Math.max(0, targetY),
+            behavior: 'smooth',
+          })
+        }
+      }, 50)
+    } else {
+      // Direct navigation or link click:
+      if (window.location.hash) {
+        const id = window.location.hash.replace('#', '')
+        setTimeout(() => {
+          const el = document.getElementById(id)
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' })
+          }
+        }, 50)
+      } else {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+      }
+    }
+  }, [activeCollectionSlug])
+
   // Find active collection or default to Lantana if on lantana, else Noor-e-Rang
   const currentCollection =
     collections.find((c) => c.slug === activeCollectionSlug) ||
@@ -103,14 +139,12 @@ export default function CollectionsPage() {
   }, [products, activeCollectionSlug, activeCategory, sortBy])
 
   const handleCollectionChange = (newSlug: string) => {
-    if (slug) {
-      if (newSlug === 'all') navigate('/collections', { preventScrollReset: true })
-      else navigate(`/collections/${newSlug}`, { preventScrollReset: true })
+    // Mark as horizontal nav click so scroll is positioned at the product section beneath sticky header
+    isHorizontalNavClickRef.current = true
+    if (newSlug === 'all') {
+      navigate('/collections')
     } else {
-      const next = new URLSearchParams(searchParams)
-      if (newSlug === 'all') next.delete('collection')
-      else next.set('collection', newSlug)
-      setSearchParams(next, { preventScrollReset: true })
+      navigate(`/collections/${newSlug}`)
     }
   }
 
@@ -128,234 +162,327 @@ export default function CollectionsPage() {
     setSearchParams(next, { preventScrollReset: true })
   }
 
+  const isBoho = currentCollection?.slug === 'the-boho-flare-affair'
+
   // Active mosaic images
-  const mosaicImages = currentCollection?.mosaicImages || [
-    siteImages.models.heroGirls,
-    siteImages.models.detailHues,
-    siteImages.models.shootGrid,
-  ]
+  const mosaicImages = currentCollection?.mosaicImages && currentCollection.mosaicImages.length >= 3
+    ? currentCollection.mosaicImages
+    : [
+        siteImages.models.heroGirls,
+        siteImages.models.detailHues,
+        siteImages.models.shootGrid,
+      ]
 
   return (
     <div
       className="min-h-screen font-body"
       style={{ backgroundColor: 'var(--color-surface)', color: 'var(--color-on-surface)' }}
     >
-      {/* ── EDITORIAL HERO CAMPAIGN ── */}
-      <section
-        className="relative w-full overflow-hidden"
-        style={{ backgroundColor: 'var(--color-surface-container-lowest)' }}
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[720px]">
-          {/* Left Column: Editorial Dossier */}
-          <div
-            className="lg:col-span-5 flex flex-col justify-between p-8 md:p-16 z-10"
-            style={{ backgroundColor: 'var(--color-surface-container-lowest)' }}
-          >
-            <div className="space-y-6">
-              <div className="flex items-center gap-3" style={{ color: 'var(--color-secondary)' }}>
-                <span className="text-[0.6875rem] tracking-[0.25em] uppercase font-semibold font-body">
-                  {currentCollection ? currentCollection.capsule : 'EDITION 01/03'}
-                </span>
-                <span
-                  className="w-1.5 h-1.5 rounded-full"
-                  style={{ backgroundColor: 'var(--color-primary)' }}
-                />
-                <span className="text-[0.6875rem] tracking-[0.25em] uppercase font-semibold font-body">
-                  {currentCollection ? currentCollection.season : 'SPRING-SUMMER 2026'}
-                </span>
-              </div>
-
-              <div className="space-y-2">
-                <h1
-                  className="font-display text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.08] tracking-tight"
-                  style={{ color: 'var(--color-primary)' }}
-                >
-                  {currentCollection ? currentCollection.title : 'Lantana'}
-                </h1>
-                <p
-                  className="font-display text-xl sm:text-2xl italic font-normal"
-                  style={{ color: 'var(--color-secondary)' }}
-                >
-                  {currentCollection
-                    ? currentCollection.subtitle
-                    : 'An Architecture of Bloom — Soft Hues'}
-                </p>
-              </div>
-
-              <p
-                className="font-body text-sm sm:text-base leading-relaxed max-w-md pt-2"
-                style={{ color: 'var(--color-on-surface-variant)' }}
-              >
-                {currentCollection
-                  ? currentCollection.description
-                  : 'For the girls who love timeless elegance. Architectural tailoring and delicate artisanal scalloped lace trims reimagined through soft pastel hues, handloom Chanderi silks, and shaded ombre dupattas.'}
+      {/* ── CASE 1: ALL COLLECTIONS DIRECTORY VIEW ── */}
+      {activeCollectionSlug === 'all' ? (
+        <section className="py-16 md:py-24 px-6 md:px-16 border-b border-black/10 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="max-w-3xl mb-12">
+              <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-neutral-500 block mb-2">
+                COLLECTION DIRECTORY · SPRING / SUMMER 2026
+              </span>
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-neutral-900 font-light mb-4">
+                The Collections
+              </h1>
+              <p className="font-body text-neutral-600 text-sm sm:text-base leading-relaxed">
+                Discover Zamyaa&apos;s signature collections. Each capsule celebrates distinct Indian silhouettes — from architectural Farshi suit-sets to bohemian tiered skirt tops.
               </p>
             </div>
 
-            <div className="pt-8 space-y-6">
-              {/* Metrics Ribbon */}
-              <div
-                className="grid grid-cols-3 gap-4 py-4 px-5"
-                style={{ backgroundColor: 'var(--color-surface-container-low)' }}
-              >
-                <div>
-                  <p
-                    className="font-body text-xl font-bold"
-                    style={{ color: 'var(--color-primary)' }}
-                  >
-                    {currentCollection?.metrics?.[0]?.value || '12'}
-                  </p>
-                  <p
-                    className="text-[0.625rem] tracking-[0.16em] uppercase font-body font-semibold mt-0.5"
-                    style={{ color: 'var(--color-secondary)' }}
-                  >
-                    {currentCollection?.metrics?.[0]?.label || 'Archival Pieces'}
-                  </p>
-                </div>
-                <div>
-                  <p
-                    className="font-body text-xl font-bold"
-                    style={{ color: 'var(--color-primary)' }}
-                  >
-                    {currentCollection?.metrics?.[1]?.value || '100%'}
-                  </p>
-                  <p
-                    className="text-[0.625rem] tracking-[0.16em] uppercase font-body font-semibold mt-0.5"
-                    style={{ color: 'var(--color-secondary)' }}
-                  >
-                    {currentCollection?.metrics?.[1]?.label || 'Pure Handloom'}
-                  </p>
-                </div>
-                <div>
-                  <p
-                    className="font-body text-xl font-bold"
-                    style={{ color: 'var(--color-primary)' }}
-                  >
-                    {currentCollection?.metrics?.[2]?.value || '8'}
-                  </p>
-                  <p
-                    className="text-[0.625rem] tracking-[0.16em] uppercase font-body font-semibold mt-0.5"
-                    style={{ color: 'var(--color-secondary)' }}
-                  >
-                    {currentCollection?.metrics?.[2]?.label || 'Artisan Weavers'}
-                  </p>
-                </div>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {collections.map((col) => {
+                const isColLantana = col.slug === 'lantana'
+                const isColBoho = col.slug === 'the-boho-flare-affair'
+                const isLive = isColLantana || isColBoho
+                const cover = isColLantana
+                  ? '/images/lantana/IMG_6642.jpeg'
+                  : isColBoho
+                  ? '/images/the-boho-flare-affair/IMG_6681.jpeg'
+                  : col.heroImage || '/homescreen/campaign-models.png'
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <a
-                  href="#collection-grid"
-                  className="h-12 px-7 flex items-center justify-center text-xs tracking-[0.2em] uppercase font-semibold font-body transition-opacity hover:opacity-90 shadow-xs"
-                  style={{
-                    backgroundColor: 'var(--color-primary)',
-                    color: 'var(--color-on-primary)',
-                  }}
-                >
-                  SHOP THIS COLLECTION →
-                </a>
-                <a
-                  href="#lantana-editorial"
-                  className="h-12 px-7 flex items-center justify-center gap-2 text-xs tracking-[0.2em] uppercase font-semibold font-body border transition-colors hover:bg-black/5"
-                  style={{
-                    borderColor: 'var(--color-primary)',
-                    color: 'var(--color-primary)',
-                  }}
-                >
-                  <Sparkles size={14} /> VIEW CAMPAIGN GALLERY
-                </a>
-              </div>
+                return (
+                  <Link
+                    key={col.slug}
+                    to={`/collections/${col.slug}`}
+                    className="group border border-neutral-200 bg-white hover:border-black hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer block text-left"
+                  >
+                    <div>
+                      <div className="relative aspect-[4/5] overflow-hidden bg-neutral-100">
+                        <img
+                          src={cover}
+                          alt={col.title}
+                          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute top-4 left-4">
+                          {isLive ? (
+                            <span className="px-2.5 py-1 text-[9px] font-mono uppercase tracking-widest bg-black text-white font-bold shadow-xs">
+                              Live · {isColLantana ? 'Farshi Suit' : 'Skirt Top'}
+                            </span>
+                          ) : (
+                            <span className="px-2.5 py-1 text-[9px] font-mono uppercase tracking-widest bg-white/90 text-black font-semibold backdrop-blur-sm">
+                              Coming Soon
+                            </span>
+                          )}
+                        </div>
+                        <div className="absolute top-4 right-4 text-[10px] font-mono uppercase tracking-widest text-white/90 bg-black/60 px-2 py-0.5 backdrop-blur-xs">
+                          {col.capsule}
+                        </div>
+                      </div>
+
+                      <div className="p-6">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block mb-1">
+                          {col.season}
+                        </span>
+                        <h2 className="font-display text-2xl text-neutral-900 group-hover:underline block mb-2">
+                          {col.title}
+                        </h2>
+                        <p className="font-body text-xs text-neutral-500 leading-relaxed line-clamp-3">
+                          {col.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="px-6 pb-6 pt-2">
+                      <span className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold border-b border-black pb-1 group-hover:gap-3 transition-all font-body text-black">
+                        Explore Collection <ArrowRight size={14} />
+                      </span>
+                    </div>
+                  </Link>
+                )
+              })}
             </div>
           </div>
-
-          {/* Right Column: Visual Campaign Mosaic with Real Photos */}
-          <div className="lg:col-span-7 grid grid-cols-2 gap-1 p-2 bg-[var(--color-surface-container-high)]">
-            {/* Left large vertical photo */}
+        </section>
+      ) : (
+        /* ── CASE 2: DEDICATED SINGLE COLLECTION EDITORIAL HERO ── */
+        <section
+          className="relative w-full overflow-hidden"
+          style={{ backgroundColor: 'var(--color-surface-container-lowest)' }}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[720px]">
+            {/* Left Column: Editorial Dossier */}
             <div
-              onClick={() =>
-                setSelectedImage({
-                  url: mosaicImages[0],
-                  title: 'The Timeless Elegance Campaign',
-                  subtitle: 'Soft hues of lilac and lemon yellow in pure Chanderi silk with ombre dupattas.',
-                })
-              }
-              className="relative h-[360px] lg:h-[720px] overflow-hidden cursor-pointer group"
+              className="lg:col-span-5 flex flex-col justify-between p-8 md:p-16 z-10"
+              style={{ backgroundColor: 'var(--color-surface-container-lowest)' }}
             >
-              <img
-                src={mosaicImages[0]}
-                alt={`${currentCollection?.title || 'Collection'} Hero Look`}
-                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-95 transition-opacity" />
-              <div className="absolute bottom-4 left-4 right-4 p-4 text-white border border-white/20 backdrop-blur-md bg-black/30">
-                <span className="font-serif italic text-sm md:text-base block">
-                  &ldquo;For the girls who love timeless elegance&rdquo;
-                </span>
-                <span className="text-[10px] uppercase font-mono tracking-widest text-amber-200 mt-1 flex items-center gap-1.5">
-                  <Sparkles size={11} /> Lantana Pret Edition · Click to Expand
-                </span>
+              <div className="space-y-6">
+                <div className="flex items-center gap-3" style={{ color: 'var(--color-secondary)' }}>
+                  <span className="text-[0.6875rem] tracking-[0.25em] uppercase font-semibold font-body">
+                    {currentCollection ? currentCollection.capsule : 'EDITION 01/03'}
+                  </span>
+                  <span
+                    className="w-1.5 h-1.5 rounded-full"
+                    style={{ backgroundColor: 'var(--color-primary)' }}
+                  />
+                  <span className="text-[0.6875rem] tracking-[0.25em] uppercase font-semibold font-body">
+                    {currentCollection ? currentCollection.season : 'SPRING-SUMMER 2026'}
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  <h1
+                    className="font-display text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.08] tracking-tight"
+                    style={{ color: 'var(--color-primary)' }}
+                  >
+                    {currentCollection?.title}
+                  </h1>
+                  <p
+                    className="font-display text-xl sm:text-2xl italic font-normal"
+                    style={{ color: 'var(--color-secondary)' }}
+                  >
+                    {currentCollection?.subtitle}
+                  </p>
+                </div>
+
+                <p
+                  className="font-body text-sm sm:text-base leading-relaxed max-w-md pt-2"
+                  style={{ color: 'var(--color-on-surface-variant)' }}
+                >
+                  {currentCollection?.description}
+                </p>
+              </div>
+
+              <div className="pt-8 space-y-6">
+                {/* Metrics Ribbon */}
+                <div
+                  className="grid grid-cols-3 gap-4 py-4 px-5"
+                  style={{ backgroundColor: 'var(--color-surface-container-low)' }}
+                >
+                  <div>
+                    <p
+                      className="font-body text-xl font-bold"
+                      style={{ color: 'var(--color-primary)' }}
+                    >
+                      {currentCollection?.metrics?.[0]?.value || (isBoho ? '2' : '12')}
+                    </p>
+                    <p
+                      className="text-[0.625rem] tracking-[0.16em] uppercase font-body font-semibold mt-0.5"
+                      style={{ color: 'var(--color-secondary)' }}
+                    >
+                      {currentCollection?.metrics?.[0]?.label || (isBoho ? 'Silhouettes' : 'Archival Pieces')}
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      className="font-body text-xl font-bold"
+                      style={{ color: 'var(--color-primary)' }}
+                    >
+                      {currentCollection?.metrics?.[1]?.value || '100%'}
+                    </p>
+                    <p
+                      className="text-[0.625rem] tracking-[0.16em] uppercase font-body font-semibold mt-0.5"
+                      style={{ color: 'var(--color-secondary)' }}
+                    >
+                      {currentCollection?.metrics?.[1]?.label || (isBoho ? 'Artisanal Block' : 'Pure Handloom')}
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      className="font-body text-xl font-bold"
+                      style={{ color: 'var(--color-primary)' }}
+                    >
+                      {currentCollection?.metrics?.[2]?.value || (isBoho ? 'Tiered' : '8')}
+                    </p>
+                    <p
+                      className="text-[0.625rem] tracking-[0.16em] uppercase font-body font-semibold mt-0.5"
+                      style={{ color: 'var(--color-secondary)' }}
+                    >
+                      {currentCollection?.metrics?.[2]?.label || (isBoho ? 'Skirt Cuts' : 'Artisan Weavers')}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    href="#collection-grid"
+                    className="h-12 px-7 flex items-center justify-center text-xs tracking-[0.2em] uppercase font-semibold font-body transition-opacity hover:opacity-90 shadow-xs"
+                    style={{
+                      backgroundColor: 'var(--color-primary)',
+                      color: 'var(--color-on-primary)',
+                    }}
+                  >
+                    SHOP THIS COLLECTION →
+                  </a>
+                  <a
+                    href={isBoho ? '#boho-editorial' : '#lantana-editorial'}
+                    className="h-12 px-7 flex items-center justify-center gap-2 text-xs tracking-[0.2em] uppercase font-semibold font-body border transition-colors hover:bg-black/5"
+                    style={{
+                      borderColor: 'var(--color-primary)',
+                      color: 'var(--color-primary)',
+                    }}
+                  >
+                    <Sparkles size={14} /> VIEW CAMPAIGN GALLERY
+                  </a>
+                </div>
               </div>
             </div>
 
-            {/* Right stacked photos */}
-            <div className="grid grid-rows-2 gap-1 h-[360px] lg:h-[720px]">
-              {/* Top detail photo */}
+            {/* Right Column: Visual Campaign Mosaic with Real Photos */}
+            <div className="lg:col-span-7 grid grid-cols-2 gap-1 p-2 bg-[var(--color-surface-container-high)]">
+              {/* Left large vertical photo */}
               <div
                 onClick={() =>
                   setSelectedImage({
-                    url: mosaicImages[1],
-                    title: 'Soft Hues & Scalloped Lace Detail',
-                    subtitle: 'French scalloped cotton lace trims along kurti hems with pleated salwar trousers.',
+                    url: mosaicImages[0],
+                    title: isBoho ? 'The Boho Flare Affair — Duo Look' : 'The Timeless Elegance Campaign',
+                    subtitle: isBoho
+                      ? 'Twin silhouettes in sculpted crop tops and tiered gathered maxi skirts.'
+                      : 'Soft hues of lilac and lemon yellow in pure Chanderi silk with ombre dupattas.',
                   })
                 }
-                className="relative overflow-hidden cursor-pointer group"
+                className="relative h-[360px] lg:h-[720px] overflow-hidden cursor-pointer group"
               >
                 <img
-                  src={mosaicImages[1]}
-                  alt={`${currentCollection?.title || 'Collection'} Detail Look`}
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                  src={mosaicImages[0]}
+                  alt={`${currentCollection?.title || 'Collection'} Hero Look`}
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
-                <div className="absolute bottom-3 left-3 right-3 p-3 text-white border border-white/20 backdrop-blur-md bg-black/30">
-                  <span className="font-serif italic text-xs md:text-sm block">
-                    Soft hues 🌸✨🌼
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-95 transition-opacity" />
+                <div className="absolute bottom-4 left-4 right-4 p-4 text-white border border-white/20 backdrop-blur-md bg-black/30">
+                  <span className="font-serif italic text-sm md:text-base block">
+                    {isBoho
+                      ? '“Sculpted bodices & billowing bohemian flare”'
+                      : '“For the girls who love timeless elegance”'}
                   </span>
-                  <span className="text-[9px] uppercase font-mono tracking-widest text-white/80 mt-0.5 block">
-                    Textile & Lace Craftsmanship
+                  <span className="text-[10px] uppercase font-mono tracking-widest text-amber-200 mt-1 flex items-center gap-1.5">
+                    <Sparkles size={11} />{' '}
+                    {isBoho
+                      ? 'The Boho Flare Affair · Skirt Top Capsule'
+                      : 'Lantana Pret Edition · Click to Expand'}
                   </span>
                 </div>
               </div>
 
-              {/* Bottom lookbook grid */}
-              <div
-                onClick={() =>
-                  setSelectedImage({
-                    url: mosaicImages[2],
-                    title: 'Garden Atelier Shoot Grid',
-                    subtitle: 'Archival 32-shot contact sheet documenting the outdoor summer campaign.',
-                  })
-                }
-                className="relative overflow-hidden cursor-pointer group"
-              >
-                <img
-                  src={mosaicImages[2]}
-                  alt={`${currentCollection?.title || 'Collection'} Shoot Portfolio`}
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
-                <div className="absolute bottom-3 left-3 right-3 p-3 text-white border border-white/20 backdrop-blur-md bg-black/30">
-                  <span className="font-serif text-xs md:text-sm block">
-                    Atelier Campaign Contact Sheet
-                  </span>
-                  <span className="text-[9px] uppercase font-mono tracking-widest text-white/80 mt-0.5 flex items-center gap-1">
-                    <Eye size={11} /> 32 Archival Angles
-                  </span>
+              {/* Right stacked photos */}
+              <div className="grid grid-rows-2 gap-1 h-[360px] lg:h-[720px]">
+                {/* Top detail photo */}
+                <div
+                  onClick={() =>
+                    setSelectedImage({
+                      url: mosaicImages[1],
+                      title: isBoho ? 'Design 01 · Teardrop Booti Scoop Neck' : 'Soft Hues & Scalloped Lace Detail',
+                      subtitle: isBoho
+                        ? 'Scoop neck crop top paired with three-tier pleated printed flared skirt.'
+                        : 'French scalloped cotton lace trims along kurti hems with pleated salwar trousers.',
+                    })
+                  }
+                  className="relative overflow-hidden cursor-pointer group"
+                >
+                  <img
+                    src={mosaicImages[1]}
+                    alt={`${currentCollection?.title || 'Collection'} Detail Look`}
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
+                  <div className="absolute bottom-3 left-3 right-3 p-3 text-white border border-white/20 backdrop-blur-md bg-black/30">
+                    <span className="font-serif italic text-xs md:text-sm block">
+                      {isBoho ? 'Design 01 · Scoop Neck' : 'Soft hues 🌸✨🌼'}
+                    </span>
+                    <span className="text-[9px] uppercase font-mono tracking-widest text-white/80 mt-0.5 block">
+                      {isBoho ? 'Teardrop Booti Tiered Skirt Set' : 'Textile & Lace Craftsmanship'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Bottom lookbook grid */}
+                <div
+                  onClick={() =>
+                    setSelectedImage({
+                      url: mosaicImages[2],
+                      title: isBoho ? 'Design 02 · Mandala Jaal Halter Neck' : 'Garden Atelier Shoot Grid',
+                      subtitle: isBoho
+                        ? 'Regal halter neck crop top with back tie-ups and coordinating tiered flare skirt.'
+                        : 'Archival 32-shot contact sheet documenting the outdoor summer campaign.',
+                    })
+                  }
+                  className="relative overflow-hidden cursor-pointer group"
+                >
+                  <img
+                    src={mosaicImages[2]}
+                    alt={`${currentCollection?.title || 'Collection'} Shoot Portfolio`}
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
+                  <div className="absolute bottom-3 left-3 right-3 p-3 text-white border border-white/20 backdrop-blur-md bg-black/30">
+                    <span className="font-serif text-xs md:text-sm block">
+                      {isBoho ? 'Design 02 · Halter Neck' : 'Atelier Campaign Contact Sheet'}
+                    </span>
+                    <span className="text-[9px] uppercase font-mono tracking-widest text-white/80 mt-0.5 flex items-center gap-1">
+                      <Eye size={11} /> {isBoho ? 'Mandala Jaal Tiered Skirt Set' : '32 Archival Angles'}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── STICKY FILTER & SORT BAR ── */}
       <section
@@ -364,6 +491,7 @@ export default function CollectionsPage() {
         style={{
           backgroundColor: 'var(--color-surface-container-lowest)',
           borderColor: 'var(--color-outline-variant)',
+          scrollMarginTop: '80px',
         }}
       >
         <div className="max-w-7xl mx-auto space-y-3">
@@ -389,9 +517,10 @@ export default function CollectionsPage() {
             <div
               ref={collectionsScrollRef}
               onWheel={handleCollectionsWheel}
-              className="flex items-center gap-2 overflow-x-auto py-1 scroll-smooth select-none"
+              className="flex items-center gap-2 overflow-x-auto py-1 scroll-smooth select-none [&::-webkit-scrollbar]:hidden"
               style={{
-                scrollbarWidth: 'thin',
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
                 WebkitOverflowScrolling: 'touch',
               }}
             >
@@ -534,7 +663,11 @@ export default function CollectionsPage() {
       </section>
 
       {/* ── PRODUCTS GRID ── */}
-      <section className="max-w-7xl mx-auto py-12 px-6 md:px-16">
+      <section
+        id="products-section"
+        style={{ scrollMarginTop: '200px' }}
+        className="max-w-7xl mx-auto py-12 px-6 md:px-16"
+      >
         <div className="mb-8 flex items-center justify-between">
           <p className="text-xs font-mono uppercase tracking-widest" style={{ color: 'var(--color-secondary)' }}>
             Showing {filteredProducts.length} pieces in{' '}
@@ -545,17 +678,57 @@ export default function CollectionsPage() {
         </div>
 
         {filteredProducts.length === 0 ? (
-          <div className="text-center py-24 space-y-4">
-            <p className="font-display text-2xl text-neutral-600">No pieces found in this category.</p>
-            <button
-              onClick={() => {
-                handleCollectionChange('all')
-                handleCategoryChange('all')
-              }}
-              className="px-6 py-3 bg-black text-white text-xs uppercase tracking-widest font-semibold"
-            >
-              Reset Filters
-            </button>
+          <div className="py-20 px-6 max-w-2xl mx-auto text-center border border-[#E5E5E5] bg-white space-y-5 my-8">
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-neutral-400 block">
+              {currentCollection?.isComingSoon ? 'Capsule in Curation · Jaipur Atelier' : 'Archive Status'}
+            </span>
+            <h3 className="font-display text-2xl md:text-3xl text-neutral-900 font-normal">
+              {currentCollection?.isComingSoon
+                ? `${currentCollection.title} — Coming Soon`
+                : 'No Pieces Found'}
+            </h3>
+            <p className="font-body text-sm text-neutral-600 leading-relaxed max-w-md mx-auto">
+              {currentCollection?.isComingSoon
+                ? currentCollection.description || 'This signature capsule is currently being handwoven in pure handloom silks at our atelier. Register your interest for private preview access.'
+                : 'No pieces match your selected category filter in this collection.'}
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+              <button
+                onClick={() => {
+                  handleCategoryChange('all')
+                  handleCollectionChange('lantana')
+                }}
+                className="px-5 py-2.5 bg-black text-white text-xs uppercase tracking-widest font-semibold font-body hover:opacity-85 transition-opacity"
+              >
+                Shop Lantana (Farshi Suits) →
+              </button>
+              <button
+                onClick={() => {
+                  handleCategoryChange('all')
+                  handleCollectionChange('the-boho-flare-affair')
+                }}
+                className="px-5 py-2.5 bg-amber-500 text-black text-xs uppercase tracking-widest font-bold font-body hover:bg-amber-400 transition-colors"
+              >
+                Shop The Boho Flare Affair (Skirt Tops) →
+              </button>
+              <button
+                onClick={() => {
+                  handleCollectionChange('all')
+                  handleCategoryChange('all')
+                }}
+                className="px-5 py-2.5 border border-neutral-300 text-neutral-800 bg-white text-xs uppercase tracking-widest font-semibold font-body hover:border-black transition-colors"
+              >
+                Collection Directory
+              </button>
+              {activeCategory !== 'all' && (
+                <button
+                  onClick={() => handleCategoryChange('all')}
+                  className="px-5 py-2.5 border border-black text-black bg-white text-xs uppercase tracking-widest font-semibold font-body hover:bg-black hover:text-white transition-colors"
+                >
+                  Clear Category Filter
+                </button>
+              )}
+            </div>
           </div>
         ) : (
           <div
@@ -571,151 +744,301 @@ export default function CollectionsPage() {
       </section>
 
       {/* ── EXCLUSIVE LANTANA CAMPAIGN GALLERY ── */}
-      <section
-        id="lantana-editorial"
-        className="w-full py-20 px-6 md:px-16 border-t"
-        style={{
-          backgroundColor: 'var(--color-surface-container-low)',
-          borderColor: 'var(--color-outline-variant)',
-        }}
-      >
-        <div className="max-w-7xl mx-auto space-y-12">
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <span className="text-[0.6875rem] tracking-[0.3em] uppercase font-semibold text-neutral-500 font-mono">
-              EDITORIAL CAMPAIGN · SPRING-SUMMER 2026
-            </span>
-            <h2 className="font-display text-3xl md:text-5xl font-light text-neutral-900 tracking-tight">
-              The Lantana Lookbook
-            </h2>
-            <p className="font-serif italic text-lg md:text-xl text-neutral-600">
-              &ldquo;For the girls who love timeless elegance&rdquo;
-            </p>
-            <p className="font-body text-sm text-neutral-600 max-w-xl mx-auto leading-relaxed pt-1">
-              Immerse yourself in Jyoti’s delicate soft-hued palette — pastel lilac, buttercup yellow,
-              and sunlit ecru adorned with handmade French scalloped laces and pure silk silhouettes.
-            </p>
+      {activeCollectionSlug === 'lantana' && (
+        <section
+          id="lantana-editorial"
+          className="w-full py-20 px-6 md:px-16 border-t"
+          style={{
+            backgroundColor: 'var(--color-surface-container-low)',
+            borderColor: 'var(--color-outline-variant)',
+          }}
+        >
+          <div className="max-w-7xl mx-auto space-y-12">
+            <div className="text-center max-w-3xl mx-auto space-y-3">
+              <span className="text-[0.6875rem] tracking-[0.3em] uppercase font-semibold text-neutral-500 font-mono">
+                EDITORIAL CAMPAIGN · SPRING-SUMMER 2026
+              </span>
+              <h2 className="font-display text-3xl md:text-5xl font-light text-neutral-900 tracking-tight">
+                The Lantana Lookbook
+              </h2>
+              <p className="font-serif italic text-lg md:text-xl text-neutral-600">
+                &ldquo;For the girls who love timeless elegance&rdquo;
+              </p>
+              <p className="font-body text-sm text-neutral-600 max-w-xl mx-auto leading-relaxed pt-1">
+                Immerse yourself in Jyoti’s delicate soft-hued palette — pastel lilac, buttercup yellow,
+                and sunlit ecru adorned with handmade French scalloped laces and pure silk silhouettes.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Card 1: Full Look */}
+              <div
+                onClick={() =>
+                  setSelectedImage({
+                    url: siteImages.models.heroGirls,
+                    title: 'The Timeless Elegance Campaign',
+                    subtitle: 'Dual silhouettes in soft lilac & butter-yellow with shaded ombre dupattas.',
+                  })
+                }
+                className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
+                  <img
+                    src={siteImages.models.heroGirls}
+                    alt="Lantana Hero Models"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
+                    Look 01
+                  </div>
+                </div>
+                <div className="p-6 space-y-2">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
+                    Campaign Hero
+                  </span>
+                  <h3 className="font-serif text-xl font-normal text-neutral-900">
+                    Timeless Elegance in Soft Hues
+                  </h3>
+                  <p className="text-xs text-neutral-500 leading-relaxed">
+                    Tailored in breathable handloom Chanderi silk with delicate gold butis and shaded chiffon dupattas.
+                  </p>
+                  <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
+                    <span>Inspect High-Res View</span>
+                    <ChevronRight size={14} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 2: Detail Hues */}
+              <div
+                onClick={() =>
+                  setSelectedImage({
+                    url: siteImages.models.detailHues,
+                    title: 'Soft Hues & Scalloped Lace Detail',
+                    subtitle: 'Artisanal scalloped French lace hemline and hand-pleated salwar pants.',
+                  })
+                }
+                className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
+                  <img
+                    src={siteImages.models.detailHues}
+                    alt="Soft Hues Detail"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
+                    Look 02
+                  </div>
+                </div>
+                <div className="p-6 space-y-2">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
+                    Artisanal Craft
+                  </span>
+                  <h3 className="font-serif text-xl font-normal text-neutral-900">
+                    Soft Hues 🌸✨🌼
+                  </h3>
+                  <p className="text-xs text-neutral-500 leading-relaxed">
+                    Intricate French scalloped cotton laces along the kurti hemline, salwar cuffs, and handcrafted dupatta tassels.
+                  </p>
+                  <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
+                    <span>Inspect High-Res View</span>
+                    <ChevronRight size={14} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 3: Shoot Grid */}
+              <div
+                onClick={() =>
+                  setSelectedImage({
+                    url: siteImages.models.shootGrid,
+                    title: 'Atelier Shoot Contact Sheet',
+                    subtitle: '32-frame archival contact sheet documenting the outdoor garden lookbook.',
+                  })
+                }
+                className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
+                  <img
+                    src={siteImages.models.shootGrid}
+                    alt="Lantana Shoot Grid"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
+                    Lookbook 03
+                  </div>
+                </div>
+                <div className="p-6 space-y-2">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
+                    Archive Montage
+                  </span>
+                  <h3 className="font-serif text-xl font-normal text-neutral-900">
+                    Garden Atelier Moodboard
+                  </h3>
+                  <p className="text-xs text-neutral-500 leading-relaxed">
+                    A 32-frame editorial contact sheet capturing flower accents, pearl-strap bodice details, and movement.
+                  </p>
+                  <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
+                    <span>Inspect High-Res View</span>
+                    <ChevronRight size={14} />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </section>
+      )}
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1: Full Look */}
-            <div
-              onClick={() =>
-                setSelectedImage({
-                  url: siteImages.models.heroGirls,
-                  title: 'The Timeless Elegance Campaign',
-                  subtitle: 'Dual silhouettes in soft lilac & butter-yellow with shaded ombre dupattas.',
-                })
-              }
-              className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
-            >
-              <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
-                <img
-                  src={siteImages.models.heroGirls}
-                  alt="Lantana Hero Models"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
-                  Look 01
-                </div>
-              </div>
-              <div className="p-6 space-y-2">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
-                  Campaign Hero
-                </span>
-                <h3 className="font-serif text-xl font-normal text-neutral-900">
-                  Timeless Elegance in Soft Hues
-                </h3>
-                <p className="text-xs text-neutral-500 leading-relaxed">
-                  Tailored in breathable handloom Chanderi silk with delicate gold butis and shaded chiffon dupattas.
-                </p>
-                <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
-                  <span>Inspect High-Res View</span>
-                  <ChevronRight size={14} />
-                </div>
-              </div>
+      {/* ── EXCLUSIVE THE BOHO FLARE AFFAIR CAMPAIGN GALLERY ── */}
+      {activeCollectionSlug === 'the-boho-flare-affair' && (
+        <section
+          id="boho-editorial"
+          className="w-full py-20 px-6 md:px-16 border-t"
+          style={{
+            backgroundColor: 'var(--color-surface-container-low)',
+            borderColor: 'var(--color-outline-variant)',
+          }}
+        >
+          <div className="max-w-7xl mx-auto space-y-12">
+            <div className="text-center max-w-3xl mx-auto space-y-3">
+              <span className="text-[0.6875rem] tracking-[0.3em] uppercase font-semibold text-neutral-500 font-mono">
+                EDITORIAL CAMPAIGN · SPRING-SUMMER 2026
+              </span>
+              <h2 className="font-display text-3xl md:text-5xl font-light text-neutral-900 tracking-tight">
+                The Boho Flare Lookbook
+              </h2>
+              <p className="font-serif italic text-lg md:text-xl text-neutral-600">
+                &ldquo;Two Distinct Silhouettes · Earthy Moss Olive &amp; Hand-Block Artistry&rdquo;
+              </p>
+              <p className="font-body text-sm text-neutral-600 max-w-xl mx-auto leading-relaxed pt-1">
+                A celebration of sweeping volume and free-spirited elegance. Featuring Design 01 (Scoop Neck Teardrop Booti) and Design 02 (High Halter Mandala Jaal) with 3-tiered billowing maxi skirts and smocked crop top bodices.
+              </p>
             </div>
 
-            {/* Card 2: Detail Hues */}
-            <div
-              onClick={() =>
-                setSelectedImage({
-                  url: siteImages.models.detailHues,
-                  title: 'Soft Hues & Scalloped Lace Detail',
-                  subtitle: 'Artisanal scalloped French lace hemline and hand-pleated salwar pants.',
-                })
-              }
-              className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
-            >
-              <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
-                <img
-                  src={siteImages.models.detailHues}
-                  alt="Soft Hues Detail"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
-                  Look 02
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Card 1: Full Look Dual Models */}
+              <div
+                onClick={() =>
+                  setSelectedImage({
+                    url: '/images/the-boho-flare-affair/IMG_6681.jpeg',
+                    title: 'The Boho Flare Duo Look',
+                    subtitle: 'Dual silhouettes against aged teak doors showcasing both designs side-by-side.',
+                  })
+                }
+                className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
+                  <img
+                    src="/images/the-boho-flare-affair/IMG_6681.jpeg"
+                    alt="The Boho Flare Hero Look"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
+                    Look 01
+                  </div>
+                </div>
+                <div className="p-6 space-y-2">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
+                    Campaign Preview Hero
+                  </span>
+                  <h3 className="font-serif text-xl font-normal text-neutral-900">
+                    Dual Silhouette Showcase
+                  </h3>
+                  <p className="text-xs text-neutral-500 leading-relaxed">
+                    Featuring both models in complementary moss olive block prints — scoop neck and halter neck cuts.
+                  </p>
+                  <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
+                    <span>Inspect High-Res View</span>
+                    <ChevronRight size={14} />
+                  </div>
                 </div>
               </div>
-              <div className="p-6 space-y-2">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
-                  Artisanal Craft
-                </span>
-                <h3 className="font-serif text-xl font-normal text-neutral-900">
-                  Soft Hues 🌸✨🌼
-                </h3>
-                <p className="text-xs text-neutral-500 leading-relaxed">
-                  Intricate French scalloped cotton laces along the kurti hemline, salwar cuffs, and handcrafted dupatta tassels.
-                </p>
-                <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
-                  <span>Inspect High-Res View</span>
-                  <ChevronRight size={14} />
-                </div>
-              </div>
-            </div>
 
-            {/* Card 3: Shoot Grid */}
-            <div
-              onClick={() =>
-                setSelectedImage({
-                  url: siteImages.models.shootGrid,
-                  title: 'Atelier Shoot Contact Sheet',
-                  subtitle: '32-frame archival contact sheet documenting the outdoor garden lookbook.',
-                })
-              }
-              className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
-            >
-              <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
-                <img
-                  src={siteImages.models.shootGrid}
-                  alt="Lantana Shoot Grid"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
-                  Lookbook 03
+              {/* Card 2: Print Craftsmanship Comparison */}
+              <div
+                onClick={() =>
+                  setSelectedImage({
+                    url: '/images/the-boho-flare-affair/IMG_6686.jpeg',
+                    title: 'Block Print Comparison',
+                    subtitle: 'Macro view comparing Design 01 Teardrop Booti with Design 02 Geometric Mandala Jaal.',
+                  })
+                }
+                className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
+                  <img
+                    src="/images/the-boho-flare-affair/IMG_6686.jpeg"
+                    alt="Block Print Comparison"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
+                    Look 02
+                  </div>
+                </div>
+                <div className="p-6 space-y-2">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
+                    Print Craftsmanship
+                  </span>
+                  <h3 className="font-serif text-xl font-normal text-neutral-900">
+                    Booti vs. Mandala Jaal
+                  </h3>
+                  <p className="text-xs text-neutral-500 leading-relaxed">
+                    Hand-carved wooden block impressions on lustrous moss olive cotton silk with ornamental borders.
+                  </p>
+                  <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
+                    <span>Inspect High-Res View</span>
+                    <ChevronRight size={14} />
+                  </div>
                 </div>
               </div>
-              <div className="p-6 space-y-2">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
-                  Archive Montage
-                </span>
-                <h3 className="font-serif text-xl font-normal text-neutral-900">
-                  Garden Atelier Moodboard
-                </h3>
-                <p className="text-xs text-neutral-500 leading-relaxed">
-                  A 32-frame editorial contact sheet capturing flower accents, pearl-strap bodice details, and movement.
-                </p>
-                <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
-                  <span>Inspect High-Res View</span>
-                  <ChevronRight size={14} />
+
+              {/* Card 3: Tiered Flare Cobblestone Montage */}
+              <div
+                onClick={() =>
+                  setSelectedImage({
+                    url: '/images/the-boho-flare-affair/IMG_6680.jpeg',
+                    title: 'Cobblestone Street Montage',
+                    subtitle: 'Dual models seated showing expansive volume of the tiered flared skirts.',
+                  })
+                }
+                className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
+                  <img
+                    src="/images/the-boho-flare-affair/IMG_6680.jpeg"
+                    alt="Cobblestone Street Montage"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
+                    Look 03
+                  </div>
+                </div>
+                <div className="p-6 space-y-2">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
+                    Volume & Movement
+                  </span>
+                  <h3 className="font-serif text-xl font-normal text-neutral-900">
+                    Tiered Bohemian Flare
+                  </h3>
+                  <p className="text-xs text-neutral-500 leading-relaxed">
+                    Sweeping 3-tiered maxi gathers designed to billow and flow effortlessly in motion.
+                  </p>
+                  <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
+                    <span>Inspect High-Res View</span>
+                    <ChevronRight size={14} />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── EDITORIAL CRAFT STORY STRIP ── */}
       <section
@@ -859,7 +1182,7 @@ export default function CollectionsPage() {
             </div>
           </div>
         </div>
-      )}
+       )}
     </div>
   )
 }

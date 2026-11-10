@@ -8,6 +8,9 @@ import CheckoutPage from '@/pages/CheckoutPage'
 import AboutPage from '@/pages/AboutPage'
 import ContactPage from '@/pages/ContactPage'
 import CartPage from '@/pages/CartPage'
+import WishlistPage from '@/pages/WishlistPage'
+import JournalPage from '@/pages/JournalPage'
+import JournalArticlePage from '@/pages/JournalArticlePage'
 import NotFoundPage from '@/pages/NotFoundPage'
 
 // Admin Components & Pages
@@ -23,6 +26,7 @@ import AdminOrdersPage from '@/pages/admin/AdminOrdersPage'
 import AdminCustomersPage from '@/pages/admin/AdminCustomersPage'
 import AdminDiscountsPage from '@/pages/admin/AdminDiscountsPage'
 import AdminHomepageCMSPage from '@/pages/admin/AdminHomepageCMSPage'
+import AdminJournalPage from '@/pages/admin/AdminJournalPage'
 import AdminReviewsPage from '@/pages/admin/AdminReviewsPage'
 import AdminSettingsPage from '@/pages/admin/AdminSettingsPage'
 
@@ -47,6 +51,7 @@ export default function App() {
           <Route path="/admin/customers" element={<AdminCustomersPage />} />
           <Route path="/admin/discounts" element={<AdminDiscountsPage />} />
           <Route path="/admin/homepage" element={<AdminHomepageCMSPage />} />
+          <Route path="/admin/journal" element={<AdminJournalPage />} />
           <Route path="/admin/reviews" element={<AdminReviewsPage />} />
           <Route path="/admin/settings" element={<AdminSettingsPage />} />
         </Route>
@@ -62,6 +67,9 @@ export default function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/wishlist" element={<WishlistPage />} />
+        <Route path="/journal" element={<JournalPage />} />
+        <Route path="/journal/:slug" element={<JournalArticlePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

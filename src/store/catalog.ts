@@ -41,7 +41,11 @@ export const useCatalogStore = create<CatalogState>((set, get) => ({
       }
 
       if (collRes.status === 'fulfilled' && collRes.value.data?.collections?.length) {
-        updates.collections = collRes.value.data.collections
+        const prods = updates.products || get().products
+        updates.collections = collRes.value.data.collections.map((c: Collection) => ({
+          ...c,
+          products: prods.filter((p: Product) => p.collectionSlug === c.slug),
+        }))
       }
 
       if (cmsRes.status === 'fulfilled' && cmsRes.value.data?.cms) {

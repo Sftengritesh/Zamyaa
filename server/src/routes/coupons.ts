@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express'
 import { db } from '../db/store.js'
+import { authMiddleware } from '../middleware/auth.js'
 
 const couponsRouter = Router()
 
@@ -42,7 +43,7 @@ couponsRouter.post('/validate', (req: Request, res: Response) => {
 })
 
 // Create coupon
-couponsRouter.post('/', (req: Request, res: Response) => {
+couponsRouter.post('/', authMiddleware, (req: Request, res: Response) => {
   const body = req.body
   if (!body.code || !body.value) {
     return res.status(400).json({ success: false, message: 'Code and discount value required' })
@@ -63,7 +64,7 @@ couponsRouter.post('/', (req: Request, res: Response) => {
 })
 
 // Update coupon
-couponsRouter.put('/:id', (req: Request, res: Response) => {
+couponsRouter.put('/:id', authMiddleware, (req: Request, res: Response) => {
   const updated = db.updateCoupon(req.params.id, req.body)
   if (!updated) {
     return res.status(404).json({ success: false, message: 'Coupon not found' })
@@ -72,7 +73,7 @@ couponsRouter.put('/:id', (req: Request, res: Response) => {
 })
 
 // Toggle active status
-couponsRouter.patch('/:id/toggle', (req: Request, res: Response) => {
+couponsRouter.patch('/:id/toggle', authMiddleware, (req: Request, res: Response) => {
   const coupon = db.getCoupons().find((c) => c.id === req.params.id)
   if (!coupon) {
     return res.status(404).json({ success: false, message: 'Coupon not found' })
@@ -83,7 +84,7 @@ couponsRouter.patch('/:id/toggle', (req: Request, res: Response) => {
 })
 
 // Delete coupon
-couponsRouter.delete('/:id', (req: Request, res: Response) => {
+couponsRouter.delete('/:id', authMiddleware, (req: Request, res: Response) => {
   const ok = db.deleteCoupon(req.params.id)
   if (!ok) {
     return res.status(404).json({ success: false, message: 'Coupon not found' })

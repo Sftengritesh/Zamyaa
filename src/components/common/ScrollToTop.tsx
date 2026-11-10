@@ -7,32 +7,28 @@ import { useLocation } from 'react-router-dom'
  * but preserves scroll position when interacting with filters, categories, and tabs on the same page.
  */
 export default function ScrollToTop() {
-  const { pathname } = useLocation()
+  const { pathname, search } = useLocation()
   const prevPathRef = useRef<string>(pathname)
 
   useEffect(() => {
-    const isCollectionsRoute = (path: string) => path.startsWith('/collections')
-
-    const wasCollections = isCollectionsRoute(prevPathRef.current)
-    const isCollections = isCollectionsRoute(pathname)
-
-    // If the user is on the /collections page switching collection tabs or categories,
-    // DO NOT jump to the top — let them stay at the products grid!
-    if (wasCollections && isCollections) {
-      prevPathRef.current = pathname
-      return
-    }
-
-    // When navigating to a DIFFERENT page (e.g. from /collections to /product/:slug, or / to /collections):
+    // When the path itself changes (e.g. /collections -> /collections/lantana, or /collections/lantana -> /collections/the-boho-flare-affair, or /collections -> /product/123):
     if (prevPathRef.current !== pathname) {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'instant' as ScrollBehavior,
-      })
+      if (window.location.hash) {
+        const id = window.location.hash.replace('#', '')
+        const el = document.getElementById(id)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' })
+        }
+      } else {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'instant' as ScrollBehavior,
+        })
+      }
       prevPathRef.current = pathname
     }
-  }, [pathname])
+  }, [pathname, search])
 
   return null
 }

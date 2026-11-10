@@ -209,6 +209,26 @@ export interface StoreSettings {
   twitterUrl: string
 }
 
+export interface JournalArticle {
+  id: string
+  slug: string
+  title: string
+  subtitle?: string
+  excerpt: string
+  content: string
+  coverImage: string
+  additionalImages?: string[]
+  category: 'Designer Notes' | 'Craft Stories' | 'Style Journal' | 'Behind the Scenes' | 'Fabric Stories' | string
+  author: string
+  readTime: string
+  publishedAt: string
+  status: 'published' | 'draft'
+  isFeatured?: boolean
+  tags?: string[]
+  createdAt?: string
+  updatedAt?: string
+}
+
 export interface DatabaseSchema {
   products: Product[]
   collections: Collection[]
@@ -218,6 +238,7 @@ export interface DatabaseSchema {
   reviews: Review[]
   homepageCMS: HomepageCMS
   settings: StoreSettings
+  articles?: JournalArticle[]
 }
 
 const defaultInitialData: DatabaseSchema = {
@@ -840,7 +861,7 @@ const defaultInitialData: DatabaseSchema = {
       rating: 5,
       title: 'Breathtaking drape & artisanal finish',
       comment:
-        'The Chanderi luster in sunlight is unmatched. Jyoti’s bespoke fit on the trousers was immaculate. It feels like wearing pure poetry.',
+        'The Chanderi luster in sunlight is unmatched. Jyoti bespoke fit on the trousers was immaculate. It feels like wearing pure poetry.',
       createdAt: '2026-10-24T12:00:00Z',
       isVerified: true,
       status: 'approved',
@@ -928,9 +949,9 @@ const defaultInitialData: DatabaseSchema = {
     tagline: 'Luxury Indian Fashion',
     logoText: 'ZAMYAA',
     logoSubtext: 'by jyoti',
-    contactEmail: 'hello@zamyaa.in',
-    contactPhone: '+91 (0) 22 4988 2300',
-    whatsappNumber: '+91 98765 43210',
+    contactEmail: 'jyotisharam120099@gmail.com',
+    contactPhone: '+91 8427233901',
+    whatsappNumber: '+91 8427233901',
     atelierAddressMumbai: 'Plot 18, Mathuradas Mills Compound, Lower Parel, Mumbai — 400013',
     atelierAddressJaipur: '7, Civil Lines Heritage Enclave, Jacob Road, Jaipur — 302006',
     currency: 'INR',
@@ -940,9 +961,7 @@ const defaultInitialData: DatabaseSchema = {
     sameDayShippingFee: 995,
     taxRatePercent: 12,
     returnWindowDays: 7,
-    instagramUrl: 'https://instagram.com/zamyaabyjyoti',
-    youtubeUrl: 'https://youtube.com',
-    twitterUrl: 'https://twitter.com',
+    instagramUrl: 'https://www.instagram.com/zamyaa_by_jyoti/',
   },
 }
 
@@ -1161,6 +1180,73 @@ class Store {
     this.data.settings = { ...this.data.settings, ...updates }
     this.save()
     return this.data.settings
+  }
+
+  // ── Journal Articles ──
+  public getArticles(): JournalArticle[] {
+    return this.data.articles || []
+  }
+
+  public getArticleById(idOrSlug: string): JournalArticle | undefined {
+    const list = this.data.articles || []
+    return list.find((a) => a.id === idOrSlug || a.slug === idOrSlug)
+  }
+
+  public createArticle(articleData: Partial<JournalArticle>): JournalArticle {
+    if (!this.data.articles) this.data.articles = []
+    const id = `art-${Date.now()}`
+    const now = new Date().toISOString()
+    const newArticle: JournalArticle = {
+      id,
+      slug:
+        articleData.slug ||
+        (articleData.title || 'untitled')
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)+/g, ''),
+      title: articleData.title || 'Untitled Article',
+      subtitle: articleData.subtitle || '',
+      excerpt: articleData.excerpt || '',
+      content: articleData.content || '',
+      coverImage: articleData.coverImage || '/images/lantana/IMG_6642.jpeg',
+      additionalImages: articleData.additionalImages || [],
+      category: articleData.category || 'Designer Notes',
+      author: articleData.author || 'Jyoti Sharma',
+      readTime: articleData.readTime || '5 min read',
+      publishedAt: articleData.publishedAt || new Date().toISOString().split('T')[0],
+      status: articleData.status || 'published',
+      isFeatured: !!articleData.isFeatured,
+      tags: articleData.tags || [],
+      createdAt: now,
+      updatedAt: now,
+    }
+    this.data.articles.unshift(newArticle)
+    this.save()
+    return newArticle
+  }
+
+  public updateArticle(id: string, updates: Partial<JournalArticle>): JournalArticle | null {
+    if (!this.data.articles) this.data.articles = []
+    const idx = this.data.articles.findIndex((a) => a.id === id)
+    if (idx === -1) return null
+    this.data.articles[idx] = {
+      ...this.data.articles[idx],
+      ...updates,
+      updatedAt: new Date().toISOString(),
+    }
+    this.save()
+    return this.data.articles[idx]
+  }
+
+  public deleteArticle(id: string): boolean {
+    if (!this.data.articles) return false
+    const lenBefore = this.data.articles.length
+    this.data.articles = this.data.articles.filter((a) => a.id !== id)
+    if (this.data.articles.length !== lenBefore) {
+      this.save()
+      return true
+    }
+    return false
   }
 }
 
