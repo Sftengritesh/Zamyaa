@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import ScrollToTop from '@/components/common/ScrollToTop'
 import Layout from '@/components/layout/Layout'
@@ -12,6 +13,13 @@ import WishlistPage from '@/pages/WishlistPage'
 import JournalPage from '@/pages/JournalPage'
 import JournalArticlePage from '@/pages/JournalArticlePage'
 import NotFoundPage from '@/pages/NotFoundPage'
+
+// Customer Authentication & Account Pages
+import CustomerLoginPage from '@/pages/CustomerLoginPage'
+import CustomerRegisterPage from '@/pages/CustomerRegisterPage'
+import CustomerAccountPage from '@/pages/CustomerAccountPage'
+import CustomerRoute from '@/components/auth/CustomerRoute'
+import { useCustomerAuth } from '@/store/customerAuth'
 
 // Admin Components & Pages
 import AdminRoute from '@/components/admin/AdminRoute'
@@ -31,6 +39,12 @@ import AdminReviewsPage from '@/pages/admin/AdminReviewsPage'
 import AdminSettingsPage from '@/pages/admin/AdminSettingsPage'
 
 export default function App() {
+  const checkAuth = useCustomerAuth((s) => s.checkAuth)
+
+  useEffect(() => {
+    checkAuth()
+  }, [checkAuth])
+
   return (
     <>
       <ScrollToTop />
@@ -70,6 +84,14 @@ export default function App() {
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/journal" element={<JournalPage />} />
         <Route path="/journal/:slug" element={<JournalArticlePage />} />
+
+        {/* Customer Authentication & Protected Account Routes */}
+        <Route path="/login" element={<CustomerLoginPage />} />
+        <Route path="/register" element={<CustomerRegisterPage />} />
+        <Route element={<CustomerRoute />}>
+          <Route path="/account" element={<CustomerAccountPage />} />
+        </Route>
+
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

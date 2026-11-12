@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import cookieParser from 'cookie-parser'
 
 import authRouter from './routes/auth.js'
 import uploadRouter from './routes/upload.js'
@@ -25,26 +26,64 @@ const PORT = process.env.PORT || 5000
 // Initialize MongoDB connection (falls back safely to local db.json if URI omitted)
 connectMongo().catch((err) => console.warn('MongoDB Init Exception:', err))
 
-// Middlewares
-const allowedOrigins = [
+// Explicit CORS allowlist for storefront domains
+const rawAllowedOrigins = [
   'http://localhost:5173',
   'http://localhost:5174',
   'http://localhost:3000',
+  'https://zamyaa.in',
+  'https://www.zamyaa.in',
   process.env.FRONTEND_URL,
 ].filter(Boolean) as string[]
+
+const allowedOrigins = Array.from(new Set(rawAllowedOrigins.map((o) => o.replace(/\/$/, ''))))
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
-        callback(null, true)
-      } else {
-        callback(null, true) // Allow during review/preview builds
+      // In development or for non-browser/same-origin requests without an Origin header
+      if (!origin) {
+        return callback(null, true)
       }
+      const normalizedOrigin = origin.replace(/\/$/, '')
+      if (allowedOrigins.includes(normalizedOrigin)) {
+        return callback(null, true)
+      }
+      if (process.env.NODE_ENV !== 'production') {
+        return callback(null, true)
+      }
+      console.warn(`[CORS BLOCKED] Rejected unauthorized origin: ${origin}`)
+      return callback(new Error(`CORS policy does not allow access from origin: ${origin}`))
     },
     credentials: true,
   })
 )
+app.use(cookieParser())
+
+// CSRF Protection for cookie-authenticated state-changing requests
+app.use((req, res, next) => {
+  const isStateChanging = ['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)
+  const isCookieAuth = Boolean(req.cookies?.accessToken || req.cookies?.refreshToken)
+  const isAuthHeaderPresent = Boolean(req.headers.authorization)
+
+  // Webhooks from external providers (e.g. Razorpay) use cryptographic HMAC signatures rather than user cookies
+  const isWebhook = req.path.includes('/webhook')
+
+  if (isStateChanging && isCookieAuth && !isAuthHeaderPresent && !isWebhook) {
+    const origin = req.headers.origin || req.headers.referer
+    if (origin) {
+      const originMatch = allowedOrigins.some((allowed) => origin.startsWith(allowed))
+      if (!originMatch) {
+        console.warn(`[CSRF BLOCKED] Suspicious request from foreign origin: ${origin} to ${req.path}`)
+        return res.status(403).json({
+          success: false,
+          message: 'Cross-Site Request Forgery (CSRF) check failed: Untrusted request origin.',
+        })
+      }
+    }
+  }
+  next()
+})
 app.use(express.json({ limit: '20mb' }))
 app.use(express.urlencoded({ extended: true, limit: '20mb' }))
 

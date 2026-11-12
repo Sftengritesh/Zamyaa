@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
 import { db } from '../db/store.js'
-import { authMiddleware } from '../middleware/auth.js'
+import { authMiddleware, requireAdmin } from '../middleware/auth.js'
 
 const settingsRouter = Router()
 
@@ -11,7 +11,7 @@ settingsRouter.get('/', (_req: Request, res: Response) => {
 })
 
 // Update store settings (Admin)
-settingsRouter.put('/', authMiddleware, (req: Request, res: Response) => {
+settingsRouter.put('/', authMiddleware, requireAdmin, (req: Request, res: Response) => {
   try {
     const updated = db.updateSettings(req.body)
     res.json({ success: true, settings: updated })

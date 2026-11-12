@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
 import { db } from '../db/store.js'
-import { authMiddleware } from '../middleware/auth.js'
+import { authMiddleware, requireAdmin } from '../middleware/auth.js'
 
 const collectionsRouter = Router()
 
@@ -20,7 +20,7 @@ collectionsRouter.get('/:id', (req: Request, res: Response) => {
 })
 
 // Create collection
-collectionsRouter.post('/', authMiddleware, (req: Request, res: Response) => {
+collectionsRouter.post('/', authMiddleware, requireAdmin, (req: Request, res: Response) => {
   const body = req.body
   if (!body.title) {
     return res.status(400).json({ success: false, message: 'Title is required' })
@@ -59,7 +59,7 @@ collectionsRouter.post('/', authMiddleware, (req: Request, res: Response) => {
 })
 
 // Update collection
-collectionsRouter.put('/:id', authMiddleware, (req: Request, res: Response) => {
+collectionsRouter.put('/:id', authMiddleware, requireAdmin, (req: Request, res: Response) => {
   const updated = db.updateCollection(req.params.id, req.body)
   if (!updated) {
     return res.status(404).json({ success: false, message: 'Collection not found' })
@@ -68,7 +68,7 @@ collectionsRouter.put('/:id', authMiddleware, (req: Request, res: Response) => {
 })
 
 // Delete collection
-collectionsRouter.delete('/:id', authMiddleware, (req: Request, res: Response) => {
+collectionsRouter.delete('/:id', authMiddleware, requireAdmin, (req: Request, res: Response) => {
   const ok = db.deleteCollection(req.params.id)
   if (!ok) {
     return res.status(404).json({ success: false, message: 'Collection not found' })

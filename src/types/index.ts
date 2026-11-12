@@ -146,3 +146,24 @@ export interface JournalArticle {
   updatedAt?: string
 }
 
+// User & Auth types
+export interface User {
+  id: string
+  name: string
+  email: string
+  role: 'customer' | 'admin'
+  status?: 'active' | 'suspended'
+  phone?: string
+  avatar?: string
+  addresses?: {
+    type?: 'home' | 'work' | 'other'
+    address: string
+    city: string
+    state: string
+    pincode: string
+    country?: string
+    isDefault?: boolean
+  }[]
+  createdAt?: string
+}
+

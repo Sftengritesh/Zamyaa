@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express'
 import multer from 'multer'
 import cloudinary from '../config/cloudinary.js'
-import { authMiddleware } from '../middleware/auth.js'
+import { authMiddleware, requireAdmin } from '../middleware/auth.js'
 
 const uploadRouter = Router()
 
@@ -23,7 +23,7 @@ const upload = multer({
 })
 
 // Upload single image (via file or base64 data URI)
-uploadRouter.post('/image', authMiddleware, upload.single('image'), async (req: Request, res: Response) => {
+uploadRouter.post('/image', authMiddleware, requireAdmin, upload.single('image'), async (req: Request, res: Response) => {
   try {
     const folder = req.body.folder || 'zamyaa/products'
 
@@ -77,7 +77,7 @@ uploadRouter.post('/image', authMiddleware, upload.single('image'), async (req: 
 })
 
 // Upload multiple images at once
-uploadRouter.post('/images', authMiddleware, upload.array('images', 8), async (req: Request, res: Response) => {
+uploadRouter.post('/images', authMiddleware, requireAdmin, upload.array('images', 8), async (req: Request, res: Response) => {
   try {
     const folder = req.body.folder || 'zamyaa/products'
     const files = req.files as Express.Multer.File[]
@@ -114,7 +114,7 @@ uploadRouter.post('/images', authMiddleware, upload.array('images', 8), async (r
 })
 
 // Delete image from Cloudinary
-uploadRouter.delete('/:publicId(*)', authMiddleware, async (req: Request, res: Response) => {
+uploadRouter.delete('/:publicId(*)', authMiddleware, requireAdmin, async (req: Request, res: Response) => {
   try {
     const { publicId } = req.params
     if (!publicId) {

@@ -14,6 +14,7 @@ export interface IOrderItem {
 
 export interface IOrder extends Document {
   orderNumber: string
+  customerId?: string
   customer: {
     name: string
     email: string
@@ -64,6 +65,7 @@ const OrderItemSchema = new Schema<IOrderItem>(
 const OrderSchema = new Schema<IOrder>(
   {
     orderNumber: { type: String, required: true, unique: true, index: true },
+    customerId: { type: String, sparse: true, index: true },
     customer: {
       name: { type: String, required: true, trim: true },
       email: { type: String, required: true, trim: true, lowercase: true },

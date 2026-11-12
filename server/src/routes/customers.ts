@@ -1,10 +1,11 @@
 import { Router, Request, Response } from 'express'
 import { db } from '../db/store.js'
+import { authMiddleware, requireAdmin } from '../middleware/auth.js'
 
 const customersRouter = Router()
 
-// List customers
-customersRouter.get('/', (req: Request, res: Response) => {
+// List customers (Admin Only)
+customersRouter.get('/', authMiddleware, requireAdmin, (req: Request, res: Response) => {
   let list = db.getData().customers
   const { search } = req.query
 
@@ -22,8 +23,8 @@ customersRouter.get('/', (req: Request, res: Response) => {
   res.json({ success: true, count: list.length, customers: list })
 })
 
-// Single customer
-customersRouter.get('/:id', (req: Request, res: Response) => {
+// Single customer (Admin Only)
+customersRouter.get('/:id', authMiddleware, requireAdmin, (req: Request, res: Response) => {
   const customer = db.getData().customers.find((c) => c.id === req.params.id)
   if (!customer) {
     return res.status(404).json({ success: false, message: 'Customer not found' })

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Check,
@@ -13,10 +13,12 @@ import {
   CheckCircle2,
 } from 'lucide-react'
 import { useCartStore } from '@/store'
+import { useCustomerAuth } from '@/store/customerAuth'
 import { formatPrice } from '@/data/products'
 
 export default function CheckoutPage() {
   const { items, getSubtotal, clearCart } = useCartStore()
+  const { user: authUser, isAuthenticated } = useCustomerAuth()
 
   // Multi-step state: 1 (Contact), 2 (Shipping), 3 (Delivery), 4 (Payment), 5 (Confirmed)
   const [currentStep, setCurrentStep] = useState<number>(4)
@@ -24,7 +26,7 @@ export default function CheckoutPage() {
   const [isSubmittingOrder, setIsSubmittingOrder] = useState<boolean>(false)
   const [orderError, setOrderError] = useState<string | null>(null)
 
-  // Form states
+  // Form states - pre-fill from authenticated customer profile if available
   const [email, setEmail] = useState('jyoti.client@example.com')
   const [phone, setPhone] = useState('+91 98765 43210')
   const [firstName, setFirstName] = useState('Ananya')
@@ -33,6 +35,26 @@ export default function CheckoutPage() {
   const [city, setCity] = useState('Mumbai')
   const [state, setState] = useState('Maharashtra')
   const [pincode, setPincode] = useState('400018')
+
+  // Auto-populate with logged-in user profile details if authenticated
+  useEffect(() => {
+    if (isAuthenticated && authUser) {
+      if (authUser.email) setEmail(authUser.email)
+      if (authUser.name) {
+        const parts = authUser.name.trim().split(' ')
+        setFirstName(parts[0] || '')
+        setLastName(parts.slice(1).join(' ') || '')
+      }
+      if (authUser.phone) setPhone(authUser.phone)
+      if (authUser.addresses && authUser.addresses.length > 0) {
+        const defaultAddr = authUser.addresses.find((a) => a.isDefault) || authUser.addresses[0]
+        if (defaultAddr.address) setAddress(defaultAddr.address)
+        if (defaultAddr.city) setCity(defaultAddr.city)
+        if (defaultAddr.state) setState(defaultAddr.state)
+        if (defaultAddr.pincode) setPincode(defaultAddr.pincode)
+      }
+    }
+  }, [isAuthenticated, authUser])
 
   const [deliveryMethod, setDeliveryMethod] = useState<'standard' | 'concierge' | 'bespoke'>('standard')
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'upi' | 'netbanking' | 'cod'>('card')

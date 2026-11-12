@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
 import { db } from '../db/store.js'
-import { authMiddleware } from '../middleware/auth.js'
+import { authMiddleware, requireAdmin } from '../middleware/auth.js'
 
 const inventoryRouter = Router()
 
@@ -69,7 +69,7 @@ inventoryRouter.get('/', (req: Request, res: Response) => {
 })
 
 // Update stock count for a specific SKU
-inventoryRouter.patch('/stock', authMiddleware, (req: Request, res: Response) => {
+inventoryRouter.patch('/stock', authMiddleware, requireAdmin, (req: Request, res: Response) => {
   const { productId, sku, stock } = req.body
 
   const product = db.getProductById(productId)
@@ -103,7 +103,7 @@ inventoryRouter.patch('/stock', authMiddleware, (req: Request, res: Response) =>
 })
 
 // Quick mark sold out
-inventoryRouter.patch('/sold-out', authMiddleware, (req: Request, res: Response) => {
+inventoryRouter.patch('/sold-out', authMiddleware, requireAdmin, (req: Request, res: Response) => {
   const { productId, sku } = req.body
   const product = db.getProductById(productId)
   if (!product) {

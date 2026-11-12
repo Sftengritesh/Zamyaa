@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
 import { db } from '../db/store.js'
-import { authMiddleware } from '../middleware/auth.js'
+import { authMiddleware, requireAdmin } from '../middleware/auth.js'
 
 const journalRouter = Router()
 
@@ -35,7 +35,7 @@ journalRouter.get('/:idOrSlug', (req: Request, res: Response) => {
 })
 
 // Create article (Admin)
-journalRouter.post('/', authMiddleware, (req: Request, res: Response) => {
+journalRouter.post('/', authMiddleware, requireAdmin, (req: Request, res: Response) => {
   const body = req.body
   if (!body.title) {
     return res.status(400).json({ success: false, message: 'Article title is required' })
@@ -45,7 +45,7 @@ journalRouter.post('/', authMiddleware, (req: Request, res: Response) => {
 })
 
 // Update article (Admin)
-journalRouter.put('/:id', authMiddleware, (req: Request, res: Response) => {
+journalRouter.put('/:id', authMiddleware, requireAdmin, (req: Request, res: Response) => {
   const updated = db.updateArticle(req.params.id, req.body)
   if (!updated) {
     return res.status(404).json({ success: false, message: 'Article not found' })
@@ -54,7 +54,7 @@ journalRouter.put('/:id', authMiddleware, (req: Request, res: Response) => {
 })
 
 // Delete article (Admin)
-journalRouter.delete('/:id', authMiddleware, (req: Request, res: Response) => {
+journalRouter.delete('/:id', authMiddleware, requireAdmin, (req: Request, res: Response) => {
   const ok = db.deleteArticle(req.params.id)
   if (!ok) {
     return res.status(404).json({ success: false, message: 'Article not found' })

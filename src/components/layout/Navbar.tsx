@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Search, Heart, ShoppingBag, Menu, X, ArrowRight } from 'lucide-react'
+import { Search, Heart, ShoppingBag, Menu, X, ArrowRight, User as UserIcon } from 'lucide-react'
 import { useCartStore, useWishlistStore, useSearchStore } from '@/store'
+import { useCustomerAuth } from '@/store/customerAuth'
 import SearchOverlay from '../ui/SearchOverlay'
 import Logo from '../ui/Logo'
 
@@ -58,6 +59,7 @@ export default function Navbar() {
   }, [mobileOpen])
 
   const cartCount = getItemCount()
+  const { user: customerUser, isAuthenticated } = useCustomerAuth()
 
   // Dynamic header styling according to .site-header specification:
   // On homepage at top: absolute top-0 left-0 transparent, pt-10 sm:pt-12 lg:pt-14 (approx 45-65px from top)
@@ -116,6 +118,18 @@ export default function Navbar() {
               >
                 <Search size={18} strokeWidth={1.6} />
               </button>
+
+              <Link
+                to={isAuthenticated ? '/account' : '/login'}
+                aria-label={isAuthenticated ? `Account (${customerUser?.name || 'Customer'})` : 'Sign In'}
+                title={isAuthenticated ? `Signed in as ${customerUser?.name}` : 'Sign In / Register'}
+                className="p-2 text-black hover:opacity-60 transition-opacity cursor-pointer relative"
+              >
+                <UserIcon size={18} strokeWidth={1.6} />
+                {isAuthenticated && (
+                  <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 bg-black rounded-full" />
+                )}
+              </Link>
 
               <Link
                 to="/wishlist"
@@ -195,6 +209,16 @@ export default function Navbar() {
                     {link.label}
                   </NavLink>
                 ))}
+
+                <div className="pt-4 mt-4 border-t border-neutral-200">
+                  <NavLink
+                    to={isAuthenticated ? '/account' : '/login'}
+                    onClick={() => setMobileOpen(false)}
+                    className="block font-display text-2xl sm:text-3xl text-neutral-800 hover:text-black hover:translate-x-2 transition-transform duration-200 font-light"
+                  >
+                    {isAuthenticated ? `My Account (${customerUser?.name?.split(' ')[0] || 'Client'})` : 'Sign In / Register'}
+                  </NavLink>
+                </div>
               </div>
 
               {/* Secondary Column: Live Capsules & Silhouettes */}

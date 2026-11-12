@@ -153,10 +153,33 @@ paymentsRouter.post('/verify', async (req: Request, res: Response) => {
   }
 })
 
+// In-memory processed webhook event cache (with TTL) for idempotency
+const processedEvents = new Map<string, number>()
+function isEventProcessed(eventId: string): boolean {
+  if (!eventId) return false
+  const now = Date.now()
+  for (const [id, timestamp] of processedEvents.entries()) {
+    if (now - timestamp > 24 * 60 * 60 * 1000) {
+      processedEvents.delete(id)
+    }
+  }
+  if (processedEvents.has(eventId)) {
+    return true
+  }
+  processedEvents.set(eventId, now)
+  return false
+}
+
 // Webhook endpoint
 paymentsRouter.post('/webhook', async (req: Request, res: Response) => {
   try {
     const signature = req.headers['x-razorpay-signature'] as string
+    const eventId = (req.headers['x-razorpay-event-id'] as string) || req.body?.id
+
+    if (eventId && isEventProcessed(eventId)) {
+      console.log(`[RAZORPAY WEBHOOK] Duplicate event ${eventId} ignored (idempotent).`)
+      return res.json({ status: 'ok', message: 'Event already processed' })
+    }
 
     if (RAZORPAY_WEBHOOK_SECRET) {
       if (!signature) {
@@ -186,7 +209,7 @@ paymentsRouter.post('/webhook', async (req: Request, res: Response) => {
 
       if (rzpOrderId) {
         const order = db.getOrders().find((o) => (o as any).razorpayOrderId === rzpOrderId)
-        if (order) {
+        if (order && order.paymentStatus !== 'paid') {
           order.paymentStatus = 'paid'
           order.fulfillmentStatus = 'confirmed'
           db.save()
@@ -194,7 +217,7 @@ paymentsRouter.post('/webhook', async (req: Request, res: Response) => {
 
         if (isMongoActive()) {
           await OrderModel.findOneAndUpdate(
-            { razorpayOrderId: rzpOrderId },
+            { razorpayOrderId: rzpOrderId, paymentStatus: { $ne: 'paid' } },
             { paymentStatus: 'paid', fulfillmentStatus: 'confirmed' }
           )
         }
@@ -204,9 +227,16 @@ paymentsRouter.post('/webhook', async (req: Request, res: Response) => {
       const rzpOrderId = paymentEntity?.order_id
       if (rzpOrderId) {
         const order = db.getOrders().find((o) => (o as any).razorpayOrderId === rzpOrderId)
-        if (order) {
+        if (order && order.paymentStatus === 'pending') {
           order.paymentStatus = 'failed'
           db.save()
+        }
+
+        if (isMongoActive()) {
+          await OrderModel.findOneAndUpdate(
+            { razorpayOrderId: rzpOrderId, paymentStatus: 'pending' },
+            { paymentStatus: 'failed' }
+          )
         }
       }
     }

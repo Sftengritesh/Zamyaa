@@ -170,7 +170,7 @@
           "sku": "ZY-LNT-01-M",
           "color": "Pink Topaz & Citron",
           "size": "M",
-          "stock": 10,
+          "stock": 9,
           "lowStockThreshold": 2,
           "inStock": true
         },
@@ -1015,6 +1015,47 @@
   ],
   "orders": [
     {
+      "id": "ord-1794457394665",
+      "orderNumber": "ZY-2026-1051",
+      "customerId": "usr-1794457394399-x2myl",
+      "createdAt": "2026-11-12T04:23:14.665Z",
+      "customer": {
+        "name": "Aditi Rao Hydari",
+        "email": "test.client.1794457394295@zamyaa.in",
+        "phone": "+91 9988776655"
+      },
+      "shippingAddress": {
+        "address": "Bespoke Villa 12, Banjara Hills",
+        "city": "Hyderabad",
+        "state": "Telangana",
+        "pincode": "500034",
+        "country": "India"
+      },
+      "items": [
+        {
+          "productId": "p5",
+          "slug": "the-lantana-gul-e-bahar-lilac-farshi-suit-set",
+          "name": "The Lantana Farshi Suit-Set — Pink Topaz",
+          "size": "M",
+          "color": "Pink Topaz & Citron",
+          "quantity": 1,
+          "unitPrice": 34500,
+          "totalItemPrice": 34500,
+          "image": "/images/lantana/IMG_6642.jpeg"
+        }
+      ],
+      "subtotal": 34500,
+      "discount": 0,
+      "shippingFee": 0,
+      "tax": 0,
+      "total": 34500,
+      "currency": "₹",
+      "paymentStatus": "pending",
+      "paymentMethod": "card",
+      "fulfillmentStatus": "pending",
+      "notes": ""
+    },
+    {
       "id": "ord-1794284867662",
       "orderNumber": "ZY-2026-1050",
       "createdAt": "2026-11-10T04:27:47.662Z",
@@ -1632,6 +1673,84 @@
         "Atelier"
       ],
       "content": "In the world of high fashion, true beauty reveals itself at macro distance. When you inspect a Zamyaa garment up close, you are looking at the work of skilled hands."
+    }
+  ],
+  "users": [
+    {
+      "name": "Jyoti Sharma",
+      "email": "admin@zamyaa.in",
+      "password": "$2b$10$4tEAPUBjtG5V9ll0rwbzIu.hrJho.dtDV7OCiXgngcMDeVoXhwLvm",
+      "role": "admin",
+      "status": "active",
+      "id": "usr-1794456989990-f2foz",
+      "createdAt": "2026-11-12T04:16:29.990Z",
+      "updatedAt": "2026-11-12T04:16:29.990Z"
+    },
+    {
+      "name": "Aditi Rao Hydari",
+      "email": "test.client.1794457308338@zamyaa.in",
+      "password": "$2b$10$C/mr0JyC5cFNcSQdTP17h.ZBRuRWTYzhLmGU4lurILFsW9.j6UZRm",
+      "role": "customer",
+      "status": "active",
+      "phone": "+91 9988776655",
+      "addresses": [
+        {
+          "address": "Bespoke Villa 12, Banjara Hills",
+          "city": "Hyderabad",
+          "state": "Telangana",
+          "pincode": "500034",
+          "country": "India",
+          "isDefault": true
+        }
+      ],
+      "id": "usr-1794457308467-tsbgk",
+      "createdAt": "2026-11-12T04:21:48.467Z",
+      "updatedAt": "2026-11-12T04:21:48.605Z"
+    },
+    {
+      "name": "Second Client",
+      "email": "second.client.1794457308670@zamyaa.in",
+      "password": "$2b$10$1.duYjFLmof1SY8cpoEQze612lhmgUp4flJLKvuUlfNZFKur9vT/i",
+      "role": "customer",
+      "status": "active",
+      "phone": "",
+      "addresses": [],
+      "id": "usr-1794457308725-r7g5z",
+      "createdAt": "2026-11-12T04:21:48.725Z",
+      "updatedAt": "2026-11-12T04:21:48.725Z"
+    },
+    {
+      "name": "Aditi Rao Hydari",
+      "email": "test.client.1794457394295@zamyaa.in",
+      "password": "$2b$10$EldmHvz.oiGTJr.oMXRF/OGRFY7wUSnZv3zzJ2HcGkLpX2FCbb5G6",
+      "role": "customer",
+      "status": "active",
+      "phone": "+91 9988776655",
+      "addresses": [
+        {
+          "address": "Bespoke Villa 12, Banjara Hills",
+          "city": "Hyderabad",
+          "state": "Telangana",
+          "pincode": "500034",
+          "country": "India",
+          "isDefault": true
+        }
+      ],
+      "id": "usr-1794457394399-x2myl",
+      "createdAt": "2026-11-12T04:23:14.399Z",
+      "updatedAt": "2026-11-12T04:23:14.578Z"
+    },
+    {
+      "name": "Second Client",
+      "email": "second.client.1794457394667@zamyaa.in",
+      "password": "$2b$10$4r1KHE2WCFCUKrWLFCIAn.HDvsHm77kRKQBRpHyBSQhUJSAbfe2/K",
+      "role": "customer",
+      "status": "active",
+      "phone": "",
+      "addresses": [],
+      "id": "usr-1794457394745-x91c3",
+      "createdAt": "2026-11-12T04:23:14.745Z",
+      "updatedAt": "2026-11-12T04:23:14.745Z"
     }
   ]
 }

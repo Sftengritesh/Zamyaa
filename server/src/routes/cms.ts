@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
 import { db } from '../db/store.js'
-import { authMiddleware } from '../middleware/auth.js'
+import { authMiddleware, requireAdmin } from '../middleware/auth.js'
 
 const cmsRouter = Router()
 
@@ -11,7 +11,7 @@ cmsRouter.get('/', (_req: Request, res: Response) => {
 })
 
 // Update homepage CMS content (Admin)
-cmsRouter.put('/', authMiddleware, (req: Request, res: Response) => {
+cmsRouter.put('/', authMiddleware, requireAdmin, (req: Request, res: Response) => {
   try {
     const updated = db.updateHomepageCMS(req.body)
     res.json({ success: true, cms: updated })

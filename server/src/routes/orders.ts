@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express'
 import { db, Order, Product } from '../db/store.js'
 import { isMongoActive } from '../db/mongo.js'
 import { OrderModel } from '../models/Order.js'
-import { authMiddleware } from '../middleware/auth.js'
+import { authMiddleware, optionalAuth, requireAdmin, AuthenticatedRequest } from '../middleware/auth.js'
 
 const ordersRouter = Router()
 
@@ -24,8 +24,35 @@ const VALID_TRANSITIONS: Record<string, string[]> = {
   cancelled: [],
 }
 
-// List orders with status filters & search
-ordersRouter.get('/', (req: Request, res: Response) => {
+// ── CUSTOMER ORDER HISTORY (Protected: Customer can ONLY see their own orders) ──
+ordersRouter.get('/my-orders', authMiddleware, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const user = req.user!
+    let orders: any[] = []
+
+    if (isMongoActive()) {
+      orders = await OrderModel.find({
+        $or: [{ customerId: user.id }, { 'customer.email': user.email.toLowerCase() }],
+      }).sort({ createdAt: -1 })
+    } else {
+      orders = db
+        .getOrders()
+        .filter(
+          (o) =>
+            (o.customerId && o.customerId === user.id) ||
+            o.customer.email.toLowerCase() === user.email.toLowerCase()
+        )
+    }
+
+    return res.json({ success: true, count: orders.length, orders })
+  } catch (err: any) {
+    console.error('Customer Orders Error:', err)
+    return res.status(500).json({ success: false, message: 'Failed to retrieve order history.' })
+  }
+})
+
+// ── ADMIN: LIST ALL ORDERS (Protected: Admin Only) ──
+ordersRouter.get('/', authMiddleware, requireAdmin, (req: AuthenticatedRequest, res: Response) => {
   let list = db.getOrders()
 
   const { status, paymentStatus, search } = req.query
@@ -51,8 +78,8 @@ ordersRouter.get('/', (req: Request, res: Response) => {
   res.json({ success: true, count: list.length, orders: list })
 })
 
-// Analytics summary for dashboard
-ordersRouter.get('/analytics/summary', (_req: Request, res: Response) => {
+// ── ADMIN: ANALYTICS SUMMARY (Protected: Admin Only) ──
+ordersRouter.get('/analytics/summary', authMiddleware, requireAdmin, (_req: AuthenticatedRequest, res: Response) => {
   const orders = db.getOrders()
   const products = db.getProducts()
 
@@ -102,17 +129,29 @@ ordersRouter.get('/analytics/summary', (_req: Request, res: Response) => {
   })
 })
 
-// Single order details
-ordersRouter.get('/:id', (req: Request, res: Response) => {
+// Single order details with authorization checks
+ordersRouter.get('/:id', optionalAuth, (req: AuthenticatedRequest, res: Response) => {
   const order = db.getOrderById(req.params.id)
   if (!order) {
     return res.status(404).json({ success: false, message: 'Order not found' })
   }
+
+  // Authorization check: If logged in as customer, can only view their own order
+  if (req.user && req.user.role === 'customer') {
+    const isOwner =
+      (order.customerId && order.customerId === req.user.id) ||
+      order.customer.email.toLowerCase() === req.user.email.toLowerCase()
+
+    if (!isOwner) {
+      return res.status(403).json({ success: false, message: 'Forbidden: You do not have access to this order.' })
+    }
+  }
+
   res.json({ success: true, order })
 })
 
 // Create order with strict server-side price calculation and inventory deduction
-ordersRouter.post('/', async (req: Request, res: Response) => {
+ordersRouter.post('/', optionalAuth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const body = req.body
     const rawItems = body.items
@@ -197,13 +236,16 @@ ordersRouter.post('/', async (req: Request, res: Response) => {
     const id = `ord-${Date.now()}`
     const orderNumber = `ZY-${new Date().getFullYear()}-${orders.length + 1044}`
 
+    // Strict Security Guard: Never allow client body to override customerId or paymentStatus
+    // Only authenticated session token dictates customerId; paymentStatus always starts pending
     const newOrder: Order = {
       id,
       orderNumber,
+      customerId: req.user ? req.user.id : undefined,
       createdAt: new Date().toISOString(),
       customer: {
         name: body.customer.name.trim(),
-        email: body.customer.email.trim().toLowerCase(),
+        email: req.user ? req.user.email : body.customer.email.trim().toLowerCase(),
         phone: body.customer.phone.trim(),
       },
       shippingAddress: {
@@ -220,7 +262,7 @@ ordersRouter.post('/', async (req: Request, res: Response) => {
       tax: 0,
       total: finalTotal,
       currency: '₹',
-      paymentStatus: body.paymentMethod === 'cod' ? 'pending' : (body.paymentStatus || 'pending'),
+      paymentStatus: 'pending', // Always initialized to 'pending' on creation; cannot be falsified by client
       paymentMethod: body.paymentMethod || 'card',
       fulfillmentStatus: 'pending',
       notes: body.notes || '',
@@ -251,7 +293,7 @@ ordersRouter.post('/', async (req: Request, res: Response) => {
 })
 
 // Update fulfillment status & tracking with inventory restoration on cancellation
-ordersRouter.patch('/:id/status', authMiddleware, async (req: Request, res: Response) => {
+ordersRouter.patch('/:id/status', authMiddleware, requireAdmin, async (req: Request, res: Response) => {
   try {
     const { fulfillmentStatus, trackingNumber, courier, paymentStatus, notes } = req.body
 

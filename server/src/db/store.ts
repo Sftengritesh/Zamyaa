@@ -73,6 +73,7 @@ export interface OrderItem {
 export interface Order {
   id: string
   orderNumber: string
+  customerId?: string
   createdAt: string
   customer: {
     name: string
@@ -229,6 +230,21 @@ export interface JournalArticle {
   updatedAt?: string
 }
 
+export interface UserStoreItem {
+  id: string
+  name: string
+  email: string
+  password: string
+  role: 'customer' | 'admin'
+  status: 'active' | 'suspended'
+  phone?: string
+  avatar?: string
+  addresses?: any[]
+  refreshToken?: string
+  createdAt: string
+  updatedAt: string
+}
+
 export interface DatabaseSchema {
   products: Product[]
   collections: Collection[]
@@ -239,6 +255,7 @@ export interface DatabaseSchema {
   homepageCMS: HomepageCMS
   settings: StoreSettings
   articles?: JournalArticle[]
+  users?: UserStoreItem[]
 }
 
 const defaultInitialData: DatabaseSchema = {
@@ -990,6 +1007,10 @@ class Store {
   }
 
   private saveDirect(data: DatabaseSchema) {
+    if (process.env.NODE_ENV === 'production') {
+      // In production, file writes are strictly disabled
+      return
+    }
     try {
       const dir = path.dirname(DB_FILE)
       if (!fs.existsSync(dir)) {
@@ -1002,6 +1023,9 @@ class Store {
   }
 
   public save() {
+    if (process.env.NODE_ENV === 'production') {
+      return
+    }
     this.saveDirect(this.data)
   }
 
@@ -1247,6 +1271,51 @@ class Store {
       return true
     }
     return false
+  }
+
+  public getUsers(): UserStoreItem[] {
+    if (!this.data.users) this.data.users = []
+    return this.data.users
+  }
+
+  public getUserById(id: string): UserStoreItem | undefined {
+    return this.getUsers().find((u) => u.id === id)
+  }
+
+  public getUserByEmail(email: string): UserStoreItem | undefined {
+    const normalized = email.trim().toLowerCase()
+    return this.getUsers().find((u) => u.email.toLowerCase() === normalized)
+  }
+
+  public createUser(userData: Omit<UserStoreItem, 'id' | 'createdAt' | 'updatedAt'>): UserStoreItem {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('[SECURITY ERROR] Cannot create users in JSON store when NODE_ENV is production. MongoDB Atlas is mandatory.')
+    }
+    if (!this.data.users) this.data.users = []
+    const now = new Date().toISOString()
+    const newUser: UserStoreItem = {
+      ...userData,
+      id: `usr-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+      email: userData.email.trim().toLowerCase(),
+      createdAt: now,
+      updatedAt: now,
+    }
+    this.data.users.push(newUser)
+    this.save()
+    return newUser
+  }
+
+  public updateUser(id: string, updates: Partial<UserStoreItem>): UserStoreItem | null {
+    if (!this.data.users) this.data.users = []
+    const idx = this.data.users.findIndex((u) => u.id === id)
+    if (idx === -1) return null
+    this.data.users[idx] = {
+      ...this.data.users[idx],
+      ...updates,
+      updatedAt: new Date().toISOString(),
+    }
+    this.save()
+    return this.data.users[idx]
   }
 }
 

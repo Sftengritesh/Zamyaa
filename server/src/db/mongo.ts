@@ -4,8 +4,15 @@ let isConnected = false
 
 export async function connectMongo(): Promise<boolean> {
   const uri = process.env.MONGODB_URI
+  const isProduction = process.env.NODE_ENV === 'production'
+
   if (!uri) {
-    console.log('✦ MongoDB Atlas: MONGODB_URI not provided. Running in high-reliability file-backed mode (db.json).')
+    if (isProduction) {
+      console.error('FATAL: MONGODB_URI is required when running in production mode (NODE_ENV=production).')
+      console.error('File-backed JSON persistence and in-memory store are strictly disabled in production.')
+      process.exit(1)
+    }
+    console.log('✦ MongoDB Atlas: MONGODB_URI not provided. Running in development file-backed mode (db.json).')
     return false
   }
 
@@ -22,7 +29,12 @@ export async function connectMongo(): Promise<boolean> {
     console.log('✦ MongoDB Atlas: Successfully connected to cluster')
     return true
   } catch (error) {
-    console.warn('✦ MongoDB Atlas connection warning (falling back to local file store):', (error as Error).message)
+    if (isProduction) {
+      console.error('FATAL: Failed to connect to MongoDB Atlas in production:', (error as Error).message)
+      console.error('Refusing to fall back to JSON storage in production.')
+      process.exit(1)
+    }
+    console.warn('✦ MongoDB Atlas connection warning (falling back to local file store in development):', (error as Error).message)
     isConnected = false
     return false
   }
