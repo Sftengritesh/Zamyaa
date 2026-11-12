@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Mail, Phone, MapPin, ArrowRight, MessageCircle } from 'lucide-react'
-import { InstagramIcon, TwitterIcon, YoutubeIcon } from '@/components/ui/SocialIcons'
+import { InstagramIcon } from '@/components/ui/SocialIcons'
 import Logo from '@/components/ui/Logo'
 
 const footerLinks = {
@@ -53,7 +53,7 @@ export default function Footer() {
           <form className="flex w-full md:w-auto gap-0" onSubmit={(e) => e.preventDefault()}>
             <input
               type="email"
-              placeholder="Your email address"
+              placeholder="jyotisharma1200999@gmail.com"
               className="flex-1 md:w-72 bg-transparent border border-[var(--color-on-primary)]/30 px-5 py-3.5 text-sm font-body text-[var(--color-on-primary)] placeholder-[var(--color-on-primary)]/40 focus:outline-none focus:border-[var(--color-on-primary)]"
             />
             <button
@@ -76,17 +76,9 @@ export default function Footer() {
             Luxury Indian fashion rooted in heritage craft — handwoven silks, artisanal embroidery, and contemporary silhouettes for the modern muse.
           </p>
           <div className="flex items-center gap-4">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+            <a href="https://www.instagram.com/zamyaa_by_jyoti/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
               className="opacity-60 hover:opacity-100 transition-opacity">
               <InstagramIcon size={18} />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"
-              className="opacity-60 hover:opacity-100 transition-opacity">
-              <TwitterIcon size={18} />
-            </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"
-              className="opacity-60 hover:opacity-100 transition-opacity">
-              <YoutubeIcon size={18} />
             </a>
           </div>
         </div>
@@ -132,8 +124,8 @@ export default function Footer() {
             ))}
           </ul>
           <div className="space-y-2">
-            <a href="mailto:jyotisharam120099@gmail.com" className="flex items-center gap-2 opacity-60 hover:opacity-100 text-sm font-body transition-opacity">
-              <Mail size={14} /> jyotisharam120099@gmail.com
+            <a href="mailto:jyotisharma120099@gmail.com" className="flex items-center gap-2 opacity-60 hover:opacity-100 text-sm font-body transition-opacity">
+              <Mail size={14} /> jyotisharma120099@gmail.com
             </a>
             <a href="tel:+918427233901" className="flex items-center gap-2 opacity-60 hover:opacity-100 text-sm font-body transition-opacity">
               <Phone size={14} /> +91 8427233901
@@ -147,7 +139,7 @@ export default function Footer() {
               <MessageCircle size={14} /> WhatsApp: +91 8427233901
             </a>
             <p className="flex items-start gap-2 opacity-60 text-sm font-body">
-              <MapPin size={14} className="mt-0.5 shrink-0" /> Jalandher
+              <MapPin size={14} className="mt-0.5 shrink-0" /> Jalandhar
             </p>
           </div>
         </div>

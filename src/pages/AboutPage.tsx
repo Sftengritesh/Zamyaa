@@ -7,48 +7,48 @@ const heroImage2 = siteImages.models.detailHues
 const values = [
   {
     icon: '✦',
-    title: 'Heritage First',
-    desc: 'Preserving 500-year-old craft traditions through every stitch, every weave, and every hand-block print we commission from master artisans.',
+    title: 'Elegance in the Details',
+    desc: 'At Zamyaa, true elegance lies in the details — from delicate embroideries and intricate artisanal lace to graceful drapes and refreshing colour palettes.',
   },
   {
     icon: '✦',
-    title: 'Artisan Partnerships',
-    desc: 'Working directly with master weavers and embroiderers across India — building long-term relationships that sustain livelihoods and preserve craft.',
+    title: 'Independent Artistry',
+    desc: 'Led by independent designer Jyoti with 4 years of dedicated experience from her Jalandhar atelier, every creation thoughtfully unites Indian craftsmanship with modern silhouettes.',
   },
   {
     icon: '✦',
-    title: 'Conscious Luxury',
-    desc: 'Ethically made, sustainably sourced, beautifully crafted. Because luxury should feel as good as it looks — for the wearer and the world.',
+    title: 'Timeless Luxury Prêt',
+    desc: 'We don’t believe in following fleeting trends; we design heirloom styles that stay with you. Pieces designed to bring out the best in you, made to be remembered.',
   },
 ]
 
 const workshops = [
   {
     num: '01',
-    city: 'Jaipur',
-    crafts: ['Gota Patti', 'Block Print'],
-    desc: "The pink city's artisans have been perfecting their craft for over four centuries.",
+    city: 'Jalandhar Atelier',
+    crafts: ['Design Studio', 'Bespoke Tailoring', 'Artisanal Finishing'],
+    desc: 'The creative atelier of Zamyaa, where Jyoti brings 4 years of individual artistic vision to every cut, silhouette, and finish.',
   },
   {
     num: '02',
-    city: 'Varanasi',
-    crafts: ['Banarasi Silk', 'Zardozi'],
-    desc: 'Sacred looms on the Ghats of the Ganga produce silk that is woven into legend.',
+    city: 'Handloom Looms',
+    crafts: ['Cotton', 'Mul Cotton', 'Silk', 'Muslin'],
+    desc: 'Authentic pure silks woven by heritage master weavers, selected for their luminous texture and effortless drape.',
   },
   {
     num: '03',
-    city: 'Lucknow',
-    crafts: ['Chikankari'],
-    desc: 'The city of Nawabs, where delicate white thread shadow-work has flourished for 400 years.',
+    city: 'Artisan Detailing',
+    crafts: ['French Scalloped Lace', 'Zari Bootis', 'Handmade Tassels'],
+    desc: 'Meticulous micro-detailing and delicate handwork that make each occasion piece a celebration of quiet, understated luxury.',
   },
 ]
 
 const timeline = [
-  { year: '2018', event: 'Founded', detail: 'Zamyaa is born from Jyoti\'s vision to honour India\'s textile heritage.' },
-  { year: '2020', event: 'First Collection', detail: 'The debut collection — 12 hand-crafted pieces — sells out in 48 hours.' },
-  { year: '2022', event: 'Artisan Collective', detail: 'The Zamyaa artisan collective expands to over 1,200 craftspeople across India.' },
-  { year: '2024', event: 'International Debut', detail: 'Zamyaa makes its first international appearance at London Fashion Week.' },
-  { year: '2025', event: 'AW2025 Lantana', detail: 'The Lantana Collection — an architecture of bloom — launches to critical acclaim.' },
+  { year: '2022', event: 'The Spark', detail: '“Chhota hoga, par apna hoga.” Jyoti begins her independent journey in Jalandhar with limited resources and a heart full of dreams.' },
+  { year: '2023', event: 'Atelier Foundations', detail: 'Establishing her personal atelier in Jalandhar, partnering directly with master handloom weavers to source pure Chanderi and mul cotton.' },
+  { year: '2024', event: 'Signature Silhouettes', detail: 'Development of Zamyaa\'s signature Farshi Gharara trousers, scalloped kurti necklines, and hand-shaded ombre dupattas.' },
+  { year: '2025', event: 'Passion into Purpose', detail: 'Four years of patience, hard work, and growth solidify Zamyaa as a recognized symbol of luxury prêt.' },
+  { year: '2026', event: 'Zamyaa by Jyoti', detail: 'Launch of iconic capsules — Lantana, Neel Pushp, and The Boho Flare Affair — celebrating women who embrace individuality with confidence.' },
 ]
 
 export default function AboutPage() {
@@ -57,15 +57,15 @@ export default function AboutPage() {
       className="min-h-screen font-body"
       style={{ backgroundColor: 'var(--color-surface)', color: 'var(--color-on-surface)' }}
     >
-      {/* ── Placeholder Banner ── */}
+      {/* ── Brand Banner ── */}
       <div
-        className="w-full text-center py-3 px-4 text-xs tracking-[0.2em] uppercase font-semibold"
+        className="w-full text-center py-2.5 px-4 text-xs tracking-[0.25em] uppercase font-semibold"
         style={{
           backgroundColor: 'var(--color-primary)',
           color: 'var(--color-on-primary)',
         }}
       >
-        ✦ This About page has placeholder content. Tell us your story to personalise it. ✦
+        ✦ Zamyaa by Jyoti · A Symbol of Luxury Prêt · Jalandhar Atelier ✦
       </div>
 
       {/* ── Section 1: Hero ── */}
@@ -89,35 +89,35 @@ export default function AboutPage() {
             className="text-xs tracking-[0.3em] uppercase font-semibold mb-6"
             style={{ color: 'rgba(255,255,255,0.7)' }}
           >
-            Our Story
+            The Story of Zamyaa
           </p>
           <h1
             className="font-display text-5xl md:text-7xl font-semibold leading-tight mb-6 text-white"
-            style={{ maxWidth: '700px' }}
+            style={{ maxWidth: '800px' }}
           >
-            Crafting Luxury at the Intersection of Heritage and Modernity
+            Where Tradition Meets Timeless Elegance
           </h1>
           <p
             className="font-display text-xl italic"
-            style={{ color: 'rgba(255,255,255,0.75)' }}
+            style={{ color: 'rgba(255,255,255,0.85)' }}
           >
-            Founded with love, woven with purpose.
+            A Symbol of Luxury Prêt. Designed to bring out the best in you. Made to be remembered.
           </p>
         </div>
       </section>
 
       {/* ── Section 2: The Founder ── */}
       <section className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-        {/* Portrait placeholder */}
+        {/* Portrait container */}
         <div className="relative">
           <div
-            className="w-full aspect-[3/4] relative overflow-hidden"
+            className="w-full aspect-[3/4] relative overflow-hidden rounded-sm"
             style={{ backgroundColor: 'var(--color-surface-container)' }}
           >
-            {/* Editorial portrait using the second product image for style */}
+            {/* Editorial portrait */}
             <img
               src={heroImage2 || heroImage}
-              alt="Jyoti, Founder of Zamyaa"
+              alt="Jyoti, Independent Artist & Founder of Zamyaa"
               className="w-full h-full object-cover object-top"
             />
             <div
@@ -127,15 +127,15 @@ export default function AboutPage() {
               }}
             />
           </div>
-          {/* Editorial label on image */}
+          {/* Editorial badge on image */}
           <div
-            className="absolute bottom-0 left-0 px-5 py-3 text-xs tracking-[0.2em] uppercase font-semibold"
+            className="absolute bottom-0 left-0 px-5 py-3 text-xs tracking-[0.2em] uppercase font-semibold font-mono"
             style={{
               backgroundColor: 'var(--color-primary)',
               color: 'var(--color-on-primary)',
             }}
           >
-            Portrait — Placeholder
+            Jyoti · Independent Artist
           </div>
         </div>
 
@@ -145,10 +145,10 @@ export default function AboutPage() {
             className="text-xs tracking-[0.3em] uppercase font-semibold mb-4"
             style={{ color: 'var(--color-secondary)' }}
           >
-            The Founder
+            The Artist &amp; Vision
           </p>
           <h2
-            className="font-display text-6xl italic font-semibold mb-8"
+            className="font-display text-5xl sm:text-6xl italic font-semibold mb-6"
             style={{ color: 'var(--color-on-surface)' }}
           >
             Jyoti
@@ -157,41 +157,203 @@ export default function AboutPage() {
             className="w-12 h-px mb-8"
             style={{ backgroundColor: 'var(--color-outline-variant)' }}
           />
+
+          <p
+            className="font-body text-base leading-relaxed mb-5 font-semibold"
+            style={{ color: 'var(--color-on-surface)' }}
+          >
+            At Zamyaa, we believe that true elegance lies in the details.
+          </p>
+
+          <p
+            className="font-body text-base leading-relaxed mb-5"
+            style={{ color: 'var(--color-on-surface-variant)' }}
+          >
+            Born from a love for Indian craftsmanship, timeless traditions and contemporary aesthetics, Zamyaa is a celebration of women who embrace their individuality with grace and confidence.
+          </p>
+
+          <p
+            className="font-body text-base leading-relaxed mb-5"
+            style={{ color: 'var(--color-on-surface-variant)' }}
+          >
+            Every creation is thoughtfully designed to bring together the richness of traditional artistry and the effortless charm of modern silhouettes. From delicate embroideries and intricate detailing to graceful drapes, refreshing colour palettes and beautifully crafted ensembles, each piece tells a story of elegance.
+          </p>
+
+          <p
+            className="font-body text-base leading-relaxed mb-5"
+            style={{ color: 'var(--color-on-surface-variant)' }}
+          >
+            Inspired by the beauty of everyday moments and the grandeur of Indian celebrations, our collections are designed for women who appreciate understated luxury and effortless sophistication.
+          </p>
+
           <p
             className="font-body text-base leading-relaxed mb-6"
             style={{ color: 'var(--color-on-surface-variant)' }}
           >
-            Zamyaa was born from Jyoti's lifelong love of India's extraordinary textile heritage.
-            Growing up surrounded by the colours and craftsmanship of traditional Indian fabrics,
-            she envisioned a label that would honour these artisanal traditions while speaking the
-            language of contemporary luxury.
-          </p>
-          <p
-            className="font-body text-base leading-relaxed mb-10"
-            style={{ color: 'var(--color-on-surface-variant)' }}
-          >
-            Each Zamyaa piece is a bridge between the ancient and the modern — a garment that
-            carries within it the quiet genius of weavers, dyers, embroiderers, and block-printers
-            whose families have practised their art for generations.
+            Whether it’s a festive gathering, a cherished celebration or a moment worth dressing up for, Zamyaa brings you pieces that make every occasion feel special. We don’t believe in following trends; we believe in creating styles that stay with you.
           </p>
 
-          {/* Editorial placeholder prompt */}
+          {/* Jalandhar Atelier Callout */}
           <div
-            className="border-l-2 pl-5 py-2"
-            style={{ borderColor: 'var(--color-outline-variant)' }}
+            className="border-l-2 pl-5 py-3.5 mt-8 rounded-r"
+            style={{ borderColor: 'var(--color-primary)', backgroundColor: 'var(--color-surface-container)' }}
           >
             <p
-              className="text-xs tracking-[0.15em] uppercase font-semibold italic"
-              style={{ color: 'var(--color-secondary)' }}
+              className="text-xs tracking-[0.2em] uppercase font-semibold font-mono"
+              style={{ color: 'var(--color-primary)' }}
             >
-              ✦ EDIT THIS STORY — Add your personal story here ✦
+              Atelier Jyoti · Jalandhar
             </p>
             <p
-              className="text-xs mt-1 font-body"
-              style={{ color: 'var(--color-on-surface-variant)', opacity: 0.7 }}
+              className="text-xs mt-1.5 font-body leading-relaxed"
+              style={{ color: 'var(--color-on-surface-variant)' }}
             >
-              Replace this text with Jyoti's real story — her inspiration, her journey, her vision.
+              With 4 years of hands-on experience as an independent artist in Jalandhar, Jyoti personally oversees every bespoke sketch, fabric curation, and tailoring detail to bring you authentic luxury prêt.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 2.5: Behind the Brand — A Personal Letter from the Founder ── */}
+      <section
+        className="py-24 sm:py-28 relative overflow-hidden border-y"
+        style={{
+          backgroundColor: 'var(--color-surface-container-lowest)',
+          borderColor: 'var(--color-outline-variant)',
+        }}
+      >
+        <div className="max-w-4xl mx-auto px-6 sm:px-10">
+          <div
+            className="p-8 sm:p-14 lg:p-16 rounded-2xl relative shadow-xl border"
+            style={{
+              backgroundColor: 'var(--color-surface)',
+              borderColor: 'var(--color-outline-variant)',
+            }}
+          >
+            {/* Corner Decorative Accents */}
+            <div className="absolute top-4 left-4 text-xs font-mono opacity-30 select-none">✦</div>
+            <div className="absolute top-4 right-4 text-xs font-mono opacity-30 select-none">✦</div>
+            <div className="absolute bottom-4 left-4 text-xs font-mono opacity-30 select-none">✦</div>
+            <div className="absolute bottom-4 right-4 text-xs font-mono opacity-30 select-none">✦</div>
+
+            {/* Header Block */}
+            <div className="text-center max-w-2xl mx-auto mb-10 space-y-3">
+              <span
+                className="text-[11px] font-mono tracking-[0.35em] uppercase font-semibold block"
+                style={{ color: 'var(--color-secondary)' }}
+              >
+                Behind the Brand
+              </span>
+              <h2
+                className="font-display text-3xl sm:text-4xl md:text-5xl font-light tracking-tight"
+                style={{ color: 'var(--color-on-surface)' }}
+              >
+                A Dream That Started Small
+              </h2>
+              <p className="font-serif italic text-lg sm:text-xl text-neutral-600 dark:text-neutral-400">
+                Four Years of Dreams, Determination &amp; Zamyaa
+              </p>
+              <div
+                className="w-16 h-px mx-auto my-4"
+                style={{ backgroundColor: 'var(--color-outline-variant)' }}
+              />
+            </div>
+
+            {/* The Soul Motto Card */}
+            <div
+              className="my-8 p-6 sm:p-8 rounded-xl border-l-4 shadow-xs"
+              style={{
+                backgroundColor: 'var(--color-surface-container-low)',
+                borderLeftColor: 'var(--color-primary)',
+              }}
+            >
+              <p
+                className="font-serif italic text-2xl sm:text-3xl text-center leading-snug tracking-wide"
+                style={{ color: 'var(--color-on-surface)' }}
+              >
+                &ldquo;Chhota hoga, par apna hoga.&rdquo;
+              </p>
+            </div>
+
+            {/* Founder Letter Prose */}
+            <div
+              className="space-y-6 font-body text-base leading-relaxed"
+              style={{ color: 'var(--color-on-surface-variant)' }}
+            >
+              <p>
+                Every brand has a story, and mine began with a simple thought —{' '}
+                <strong className="font-serif italic font-semibold text-neutral-900 dark:text-neutral-100">
+                  &ldquo;Chhota hoga, par apna hoga.&rdquo;
+                </strong>
+              </p>
+
+              <p>
+                I always knew that I wanted to create something of my own. A regular 9-to-5 job was never the dream I saw for myself. I wanted to build something that reflected my passion, my creativity and my identity.
+              </p>
+
+              <p>
+                I didn’t start with a big investment, a fancy studio or a perfect business plan. I started small, with limited resources, countless doubts and a heart full of dreams.
+              </p>
+
+              <p>
+                The journey wasn’t always beautiful. There were days of uncertainty, moments of self-doubt and challenges that made me question whether I was on the right path. But one thing remained constant — my belief in building something I could proudly call my own.
+              </p>
+
+              <p>
+                What began as a small step slowly turned into something much more meaningful.
+              </p>
+
+              <p>
+                Over the past four years, Zamyaa has grown with me. Every collection, every customer, every little achievement and even every setback has been a part of this journey.
+              </p>
+
+              <p>
+                Today, when I look back, I don’t just see a clothing brand. I see four years of patience, hard work, learning and a dream that I refused to give up on.
+              </p>
+
+              <p>
+                Zamyaa was never just about selling clothes. It was about creating something beautiful, celebrating Indian elegance and turning my passion into my purpose.
+              </p>
+
+              <p className="font-medium" style={{ color: 'var(--color-on-surface)' }}>
+                We are still growing, still learning and still dreaming bigger.
+              </p>
+
+              <p className="font-serif italic text-lg" style={{ color: 'var(--color-on-surface)' }}>
+                And perhaps that’s the most beautiful part of this journey.
+              </p>
+
+              <p className="font-serif italic text-lg" style={{ color: 'var(--color-on-surface)' }}>
+                What started with &ldquo;Chhota hoga, par apna hoga&rdquo; has become something I am truly proud to call mine.
+              </p>
+            </div>
+
+            {/* Letter Sign-off */}
+            <div
+              className="mt-10 pt-8 border-t flex flex-col items-start gap-1"
+              style={{ borderColor: 'var(--color-outline-variant)' }}
+            >
+              <span className="font-serif italic text-lg" style={{ color: 'var(--color-secondary)' }}>
+                With love,
+              </span>
+              <span
+                className="font-display text-xl font-semibold tracking-wide"
+                style={{ color: 'var(--color-on-surface)' }}
+              >
+                Founder, Zamyaa
+              </span>
+            </div>
+
+            {/* Ornamental Bottom Banner */}
+            <div
+              className="mt-10 py-3.5 px-6 rounded-full text-center text-xs tracking-[0.2em] uppercase font-mono shadow-sm"
+              style={{
+                backgroundColor: 'var(--color-primary)',
+                color: 'var(--color-on-primary)',
+              }}
+            >
+              ✦ Four years of passion. Countless dreams. One beautiful journey. ✦
+            </div>
           </div>
         </div>
       </section>
@@ -213,7 +375,7 @@ export default function AboutPage() {
               className="font-display text-4xl md:text-5xl font-semibold"
               style={{ color: 'var(--color-on-surface)' }}
             >
-              Our Values
+              Our Philosophy
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -260,7 +422,7 @@ export default function AboutPage() {
             className="font-display text-4xl md:text-5xl font-semibold"
             style={{ color: 'var(--color-on-surface)' }}
           >
-            From the Workshops of India
+            Atelier &amp; Craftsmanship
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -277,7 +439,7 @@ export default function AboutPage() {
                 {w.num}
               </div>
               <p
-                className="font-display text-3xl font-semibold mb-3"
+                className="font-display text-2xl font-semibold mb-3"
                 style={{ color: 'var(--color-on-surface)' }}
               >
                 {w.city}
@@ -318,7 +480,7 @@ export default function AboutPage() {
               className="text-xs tracking-[0.3em] uppercase font-semibold mb-4"
               style={{ color: 'rgba(255,255,255,0.5)' }}
             >
-              Milestones
+              5-Year Artistic Journey
             </p>
             <h2 className="font-display text-4xl md:text-5xl font-semibold text-white">
               The Zamyaa Journey

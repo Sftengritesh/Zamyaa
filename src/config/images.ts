@@ -47,11 +47,11 @@ export const siteImages = {
   collections: {
     // 1. Neel Pushp
     neelPushp: {
-      hero: '/images/neel-pushp/IMG_6726.jpeg',
+      hero: '/images/neel-pushp/IMG_6717.jpeg',
       mosaic: [
         '/images/neel-pushp/IMG_6732.jpeg',
+        '/images/neel-pushp/IMG_6736.jpeg',
         '/images/neel-pushp/IMG_6720.jpeg',
-        '/images/neel-pushp/IMG_6722.jpeg',
       ],
     },
 

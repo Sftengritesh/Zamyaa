@@ -77,7 +77,7 @@ export default function Navbar() {
       {(!isHomePage || isScrolled) && (
         <div className="bg-black text-white py-2 px-5 md:px-16 text-center z-50 transition-all duration-300">
           <p className="text-[10px] sm:text-[11px] tracking-[0.22em] uppercase font-semibold font-body">
-            COMPLIMENTARY WORLDWIDE EXPRESS SHIPPING ON ORDERS OVER ₹15,000 · BESPOKE TAILORING ON REQUEST
+            COMPLIMENTARY ALL OVER INDIA EXPRESS SHIPPING ON ORDERS OVER ₹15,000 · BESPOKE TAILORING ON REQUEST
           </p>
         </div>
       )}

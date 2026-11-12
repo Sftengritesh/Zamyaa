@@ -766,28 +766,28 @@ export const products: Product[] = [
     "images": [
       {
         "url": "/images/neel-pushp/IMG_6732.jpeg",
-        "alt": "Navy Blue Floral Suit - Model Front View",
+        "alt": "Navy Blue Floral Suit - Model Front View with Bouquet",
         "isPrimary": true
       },
       {
-        "url": "/images/neel-pushp/IMG_6726.jpeg",
-        "alt": "Neel Pushp Campaign - Dual Models in Jaipur Atelier Courtyard"
-      },
-      {
-        "url": "/images/neel-pushp/IMG_6717.jpeg",
-        "alt": "Navy Blue Floral Kurti Scalloped Hem and Farshi Trouser Silhouette"
-      },
-      {
-        "url": "/images/neel-pushp/IMG_6719.jpeg",
-        "alt": "Handcrafted French Lace and Chanderi Silk Detail"
-      },
-      {
-        "url": "/images/neel-pushp/IMG_6724.jpeg",
-        "alt": "Navy Blue Floral Suit Atelier Portrait"
-      },
-      {
         "url": "/images/neel-pushp/IMG_6730.jpeg",
-        "alt": "Navy Blue Floral Suit Artisan Dupatta Drape"
+        "alt": "Navy Blue Floral Suit - Architectural Pavilion Silhouette"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6735.jpeg",
+        "alt": "Navy Blue Floral Suit - Full Farshi Flare View"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6731.jpeg",
+        "alt": "Navy Blue Floral Suit - Sunlit Garden Portrait"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6733.jpeg",
+        "alt": "Navy Blue Floral Suit - Scalloped Lace Neckline & Bouquet Detail"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6728.jpeg",
+        "alt": "Navy Blue Floral Suit - Handcrafted Cotton Lace Border"
       }
     ],
     "sizes": [
@@ -850,29 +850,29 @@ export const products: Product[] = [
     ],
     "images": [
       {
-        "url": "/images/neel-pushp/IMG_6720.jpeg",
-        "alt": "Royal Blue Striped Suit - Sky Terrace Portrait",
+        "url": "/images/neel-pushp/IMG_6736.jpeg",
+        "alt": "Royal Blue Striped Suit - Model Front View with Bouquet",
         "isPrimary": true
       },
       {
-        "url": "/images/neel-pushp/IMG_6741.jpeg",
-        "alt": "Royal Blue Striped Suit Courtyard Duo Look"
+        "url": "/images/neel-pushp/IMG_6740.jpeg",
+        "alt": "Royal Blue Striped Suit - Draped Bell Sleeve Silhouette"
       },
       {
-        "url": "/images/neel-pushp/IMG_6723.jpeg",
-        "alt": "Handcrafted Zari Stripe Silk Detail"
-      },
-      {
-        "url": "/images/neel-pushp/IMG_6727.jpeg",
-        "alt": "Royal Blue Striped Suit Rooftop Terrace Movement"
-      },
-      {
-        "url": "/images/neel-pushp/IMG_6731.jpeg",
-        "alt": "Royal Blue Striped Suit Silhouette in Sunlight"
+        "url": "/images/neel-pushp/IMG_6743.jpeg",
+        "alt": "Royal Blue Striped Suit - Flowing Sheer Dupatta Stroll"
       },
       {
         "url": "/images/neel-pushp/IMG_6738.jpeg",
-        "alt": "Artisanal Scalloped Hem Detail"
+        "alt": "Royal Blue Striped Suit - Heritage Lantern Side Profile"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6739.jpeg",
+        "alt": "Royal Blue Striped Suit - Embroidered Bell Sleeves & Floret Tassels"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6746.jpeg",
+        "alt": "Royal Blue Striped Suit - Hand-Embroidered Sleeve Detail"
       }
     ],
     "sizes": [
@@ -887,7 +887,7 @@ export const products: Product[] = [
       {
         "name": "Royal Blue",
         "hex": "#24426B",
-        "image": "/images/neel-pushp/IMG_6720.jpeg"
+        "image": "/images/neel-pushp/IMG_6736.jpeg"
       }
     ],
     "tags": [
@@ -935,29 +935,29 @@ export const products: Product[] = [
     ],
     "images": [
       {
-        "url": "/images/neel-pushp/IMG_6722.jpeg",
-        "alt": "Teal Blue Printed Suit Model Profile View",
+        "url": "/images/neel-pushp/IMG_6720.jpeg",
+        "alt": "Teal Blue Printed Suit - Model Standing with Bouquet",
         "isPrimary": true
       },
       {
-        "url": "/images/neel-pushp/IMG_6736.jpeg",
-        "alt": "Teal Blue Printed Suit Front View"
+        "url": "/images/neel-pushp/IMG_6724.jpeg",
+        "alt": "Teal Blue Printed Suit - Full Silhouette Sunlit View"
       },
       {
-        "url": "/images/neel-pushp/IMG_6735.jpeg",
-        "alt": "Teal Blue Print and Gold Zari Border Close-up"
+        "url": "/images/neel-pushp/IMG_6726.jpeg",
+        "alt": "Teal Blue Printed Suit - Full Floral Flare by Garden Blooms"
       },
       {
-        "url": "/images/neel-pushp/IMG_6747.jpeg",
-        "alt": "Teal Blue Printed Suit Editorial Composition"
+        "url": "/images/neel-pushp/IMG_6727.jpeg",
+        "alt": "Teal Blue Printed Suit - Natural Light Portrait"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6722.jpeg",
+        "alt": "Teal Blue Printed Suit - Graceful Lawn Seated Pose with Bouquet"
       },
       {
         "url": "/images/neel-pushp/IMG_6725.jpeg",
-        "alt": "Teal Blue Printed Suit Courtyard Portrait"
-      },
-      {
-        "url": "/images/neel-pushp/IMG_6746.jpeg",
-        "alt": "Teal Blue Printed Suit Dusk Atmosphere"
+        "alt": "Teal Blue Printed Suit - Scalloped Lace Hem & Vine Print Detail"
       }
     ],
     "sizes": [
@@ -972,7 +972,7 @@ export const products: Product[] = [
       {
         "name": "Teal Blue",
         "hex": "#2B5F6D",
-        "image": "/images/neel-pushp/IMG_6722.jpeg"
+        "image": "/images/neel-pushp/IMG_6720.jpeg"
       }
     ],
     "tags": [
@@ -1010,11 +1010,11 @@ export const collections: Collection[] = ([
     "description": "Inspired by twilight indigo flora and intricate Persian butis hand-woven into lustrous Chanderi and mulberry silks.",
     "season": "Spring-Summer 2026",
     "capsule": "Capsule 01",
-    "heroImage": "/images/neel-pushp/IMG_6726.jpeg",
+    "heroImage": "/images/neel-pushp/IMG_6717.jpeg",
     "mosaicImages": [
-      "/images/neel-pushp/IMG_6726.jpeg",
       "/images/neel-pushp/IMG_6732.jpeg",
-      "/images/neel-pushp/IMG_6741.jpeg"
+      "/images/neel-pushp/IMG_6736.jpeg",
+      "/images/neel-pushp/IMG_6720.jpeg"
     ],
     "status": "published",
     "displayOrder": 1,
