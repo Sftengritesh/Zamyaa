@@ -5,8 +5,8 @@ import { useAdminAuth } from '@/store/adminAuth'
 import { api } from '@/services/api'
 
 export default function AdminLoginPage() {
-  const [email, setEmail] = useState('admin@zamyaa.in')
-  const [password, setPassword] = useState('admin')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [forgotModalOpen, setForgotModalOpen] = useState(false)
@@ -22,7 +22,7 @@ export default function AdminLoginPage() {
     setError(null)
 
     try {
-      const res = await api.post('/auth/login', { email, password })
+      const res = await api.post('/auth/admin/login', { email, password })
       if (res.data.success) {
         login(res.data.token, res.data.user)
         navigate('/admin')
@@ -30,7 +30,7 @@ export default function AdminLoginPage() {
         setError(res.data.message || 'Login failed')
       }
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Invalid email or password.')
+      setError(err.response?.data?.message || 'Invalid administrator credentials.')
     } finally {
       setLoading(false)
     }
