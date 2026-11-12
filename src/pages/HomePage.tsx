@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Heart,
   ArrowRight,
@@ -263,7 +263,9 @@ function ProductCard({ product }: ProductCardProps) {
 
 // ── Main HomePage ──
 export default function HomePage() {
+  const navigate = useNavigate()
   const { products, collections, fetchCatalog } = useCatalogStore()
+  const [activeTouchCard, setActiveTouchCard] = useState<string | null>(null)
 
   injectStyle(marqueeStyle, 'zamyaa-marquee-style')
 
@@ -271,6 +273,35 @@ export default function HomePage() {
   useEffect(() => {
     fetchCatalog()
   }, [fetchCatalog])
+
+  // Tap-outside listener for mobile/touch card reveal
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as HTMLElement | null
+      if (target && !target.closest('.collection-card-showcase')) {
+        setActiveTouchCard(null)
+      }
+    }
+    window.addEventListener('touchstart', handleOutsideClick, { passive: true })
+    window.addEventListener('click', handleOutsideClick)
+    return () => {
+      window.removeEventListener('touchstart', handleOutsideClick)
+      window.removeEventListener('click', handleOutsideClick)
+    }
+  }, [])
+
+  const handleCardInteraction = (cardKey: string, targetUrl: string) => {
+    const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
+    if (isTouch) {
+      if (activeTouchCard === cardKey) {
+        navigate(targetUrl)
+      } else {
+        setActiveTouchCard(cardKey)
+      }
+    } else {
+      navigate(targetUrl)
+    }
+  }
 
   const lantanaProducts = products.filter((p) => p.collectionSlug === 'lantana')
   const lantanaCollection = collections.find((c) => c.slug === 'lantana')
@@ -451,30 +482,80 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {/* Category 1: Farshi Suit-Set */}
-            <Link
-              to="/collections?category=farshi-suit-set"
-              className="group relative overflow-hidden block aspect-[4/3] sm:aspect-[16/11] md:aspect-[4/3] lg:aspect-[16/11] rounded-2xl bg-neutral-900 text-white shadow-lg hover:shadow-2xl transition-all duration-500"
+            <div
+              className={`collection-card-showcase group relative overflow-hidden block aspect-[1.18/1] sm:aspect-[1.18/1] md:aspect-[1.18/1] lg:aspect-[1.2/1] rounded-2xl bg-neutral-900 text-white shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer select-none`}
+              onClick={() => handleCardInteraction('farshi', '/collections?category=farshi-suit-set')}
             >
               <img
                 src="/images/lantana/IMG_6642.jpeg"
                 alt="Farshi Suit-Set"
-                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                style={{ objectPosition: '50% 22%' }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
 
-              <div className="absolute inset-0 flex flex-col items-center justify-end text-center p-6 sm:p-8 lg:p-10 pb-8 sm:pb-10">
-                <span className="text-[10px] sm:text-[11px] tracking-[0.25em] uppercase font-mono text-amber-200 block mb-2">
-                  Atelier Silhouette · 01
-                </span>
-                <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-normal mb-2 text-white">
+              {/* Default ambient gradient for clean title contrast */}
+              <div
+                className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-opacity duration-400 ease-out ${
+                  activeTouchCard === 'farshi' ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
+                }`}
+              />
+
+              {/* Smooth hover gradient overlay to deepen contrast for full description readability */}
+              <div
+                className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/15 transition-opacity duration-400 ease-out ${
+                  activeTouchCard === 'farshi' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                }`}
+              />
+
+              {/* Card Content: Title always visible in lower-middle; eyebrow, description & CTA reveal on hover/tap */}
+              <div className="absolute inset-0 flex flex-col items-center justify-end text-center p-6 sm:p-8 lg:p-10 pb-8 sm:pb-10 pointer-events-none">
+                {/* Eyebrow Label: Hidden by default, reveals on hover/tap */}
+                <div
+                  className={`overflow-hidden transition-all duration-400 ease-out ${
+                    activeTouchCard === 'farshi'
+                      ? 'max-h-12 opacity-100 translate-y-0 mb-2'
+                      : 'max-h-0 opacity-0 -translate-y-2 group-hover:max-h-12 group-hover:opacity-100 group-hover:translate-y-0 group-hover:mb-2'
+                  }`}
+                >
+                  <span className="text-[10px] sm:text-[11px] tracking-[0.25em] uppercase font-mono text-amber-200 block">
+                    Atelier Silhouette · 01
+                  </span>
+                </div>
+
+                {/* Title: Always visible, bold uppercase sans-serif (matching Peter England style) */}
+                <h3 className="font-body font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-wider text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] transition-all duration-400 ease-out">
                   Farshi Suit-Set
                 </h3>
-                <p className="font-body text-xs sm:text-[13px] text-neutral-200 max-w-sm sm:max-w-md mb-5 leading-relaxed">
-                  Sweeping, architectural farshi trousers tailored with pure handloom Chanderi silk kurtis and artisan dupattas.
-                </p>
-                <span className="inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest font-semibold border-b border-white pb-1 group-hover:gap-3 transition-all">
-                  Shop Farshi Suits <ArrowRight size={14} />
-                </span>
+
+                {/* Description: Hidden by default, reveals on hover/tap */}
+                <div
+                  className={`overflow-hidden transition-all duration-400 ease-out ${
+                    activeTouchCard === 'farshi'
+                      ? 'max-h-28 opacity-100 translate-y-0 mt-2.5 mb-3.5'
+                      : 'max-h-0 opacity-0 translate-y-2 group-hover:max-h-28 group-hover:opacity-100 group-hover:translate-y-0 group-hover:mt-2.5 group-hover:mb-3.5'
+                  }`}
+                >
+                  <p className="font-body text-xs sm:text-[13px] text-neutral-200 max-w-sm sm:max-w-md mx-auto leading-relaxed">
+                    Sweeping, architectural farshi trousers tailored with pure handloom Chanderi silk kurtis and artisan dupattas.
+                  </p>
+                </div>
+
+                {/* CTA Button: Hidden by default, reveals on hover/tap */}
+                <div
+                  className={`overflow-hidden transition-all duration-400 ease-out pointer-events-auto ${
+                    activeTouchCard === 'farshi'
+                      ? 'max-h-12 opacity-100 translate-y-0 mt-1'
+                      : 'max-h-0 opacity-0 translate-y-2 group-hover:max-h-12 group-hover:opacity-100 group-hover:translate-y-0 group-hover:mt-1'
+                  }`}
+                >
+                  <Link
+                    to="/collections?category=farshi-suit-set"
+                    onClick={(e) => e.stopPropagation()}
+                    className="inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest font-semibold border-b border-white pb-1 hover:gap-3 transition-all text-white cursor-pointer"
+                  >
+                    Shop Farshi Suits <ArrowRight size={14} />
+                  </Link>
+                </div>
               </div>
 
               {/* Subtle bottom split accent (green & red) */}
@@ -482,38 +563,88 @@ export default function HomePage() {
                 <div className="w-1/2 h-full bg-[#1e7e46]" />
                 <div className="w-1/2 h-full bg-[#b91c1c]" />
               </div>
-            </Link>
+            </div>
 
             {/* Category 2: Skirt Top (Atelier Silhouette 02 - The Boho Flare Affair) */}
-            <Link
-              to="/collections/the-boho-flare-affair"
-              className="group relative overflow-hidden block aspect-[4/3] sm:aspect-[16/11] md:aspect-[4/3] lg:aspect-[16/11] rounded-2xl bg-neutral-900 text-white shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
+            <div
+              className={`collection-card-showcase group relative overflow-hidden block aspect-[1.18/1] sm:aspect-[1.18/1] md:aspect-[1.18/1] lg:aspect-[1.2/1] rounded-2xl bg-neutral-900 text-white shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer select-none`}
+              onClick={() => handleCardInteraction('skirt', '/collections/the-boho-flare-affair')}
             >
               <img
                 src="/images/the-boho-flare-affair/IMG_6681.jpeg"
                 alt="The Boho Flare Affair Skirt Top Silhouette"
-                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                style={{ objectPosition: '50% 28%' }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
 
-              <div className="absolute inset-0 flex flex-col items-center justify-end text-center p-6 sm:p-8 lg:p-10 pb-8 sm:pb-10">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <span className="text-[10px] sm:text-[11px] tracking-[0.25em] uppercase font-mono text-amber-200">
-                    Atelier Silhouette · 02
-                  </span>
-                  <span className="px-2 py-0.5 text-[9px] tracking-widest font-mono uppercase bg-amber-400 text-black font-bold rounded-full">
-                    Live
-                  </span>
+              {/* Default ambient gradient for clean title contrast */}
+              <div
+                className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-opacity duration-400 ease-out ${
+                  activeTouchCard === 'skirt' ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
+                }`}
+              />
+
+              {/* Smooth hover gradient overlay to deepen contrast for full description readability */}
+              <div
+                className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/15 transition-opacity duration-400 ease-out ${
+                  activeTouchCard === 'skirt' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                }`}
+              />
+
+              {/* Card Content: Title always visible in lower-middle; eyebrow, LIVE badge, description & CTA reveal on hover/tap */}
+              <div className="absolute inset-0 flex flex-col items-center justify-end text-center p-6 sm:p-8 lg:p-10 pb-8 sm:pb-10 pointer-events-none">
+                {/* Eyebrow & LIVE Badge: Hidden by default, reveals on hover/tap */}
+                <div
+                  className={`overflow-hidden transition-all duration-400 ease-out ${
+                    activeTouchCard === 'skirt'
+                      ? 'max-h-12 opacity-100 translate-y-0 mb-2'
+                      : 'max-h-0 opacity-0 -translate-y-2 group-hover:max-h-12 group-hover:opacity-100 group-hover:translate-y-0 group-hover:mb-2'
+                  }`}
+                >
+                  <div className="inline-flex items-center justify-center gap-2">
+                    <span className="text-[10px] sm:text-[11px] tracking-[0.25em] uppercase font-mono text-amber-200">
+                      Atelier Silhouette · 02
+                    </span>
+                    <span className="px-2 py-0.5 text-[9px] tracking-widest font-mono uppercase bg-amber-400 text-black font-bold rounded-full">
+                      Live
+                    </span>
+                  </div>
                 </div>
-                <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-normal mb-2 text-white">
+
+                {/* Title: Always visible, bold uppercase sans-serif (matching Peter England style) */}
+                <h3 className="font-body font-black text-2xl sm:text-3xl lg:text-4xl uppercase tracking-wider text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] transition-all duration-400 ease-out">
                   Skirt Top
                 </h3>
-                <p className="font-body text-xs sm:text-[13px] text-neutral-200 max-w-sm sm:max-w-md mb-5 leading-relaxed">
-                  Sculpted corsets, sweetheart bodices, and billowing handwoven skirts adorned with artisanal lace.
-                </p>
-                <span className="inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest font-semibold border-b border-white pb-1 group-hover:gap-3 transition-all">
-                  Shop Skirt Tops <ArrowRight size={14} />
-                </span>
+
+                {/* Description: Hidden by default, reveals on hover/tap */}
+                <div
+                  className={`overflow-hidden transition-all duration-400 ease-out ${
+                    activeTouchCard === 'skirt'
+                      ? 'max-h-28 opacity-100 translate-y-0 mt-2.5 mb-3.5'
+                      : 'max-h-0 opacity-0 translate-y-2 group-hover:max-h-28 group-hover:opacity-100 group-hover:translate-y-0 group-hover:mt-2.5 group-hover:mb-3.5'
+                  }`}
+                >
+                  <p className="font-body text-xs sm:text-[13px] text-neutral-200 max-w-sm sm:max-w-md mx-auto leading-relaxed">
+                    Sculpted corsets, sweetheart bodices, and billowing handwoven skirts adorned with artisanal lace.
+                  </p>
+                </div>
+
+                {/* CTA Button: Hidden by default, reveals on hover/tap */}
+                <div
+                  className={`overflow-hidden transition-all duration-400 ease-out pointer-events-auto ${
+                    activeTouchCard === 'skirt'
+                      ? 'max-h-12 opacity-100 translate-y-0 mt-1'
+                      : 'max-h-0 opacity-0 translate-y-2 group-hover:max-h-12 group-hover:opacity-100 group-hover:translate-y-0 group-hover:mt-1'
+                  }`}
+                >
+                  <Link
+                    to="/collections/the-boho-flare-affair"
+                    onClick={(e) => e.stopPropagation()}
+                    className="inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest font-semibold border-b border-white pb-1 hover:gap-3 transition-all text-white cursor-pointer"
+                  >
+                    Shop Skirt Tops <ArrowRight size={14} />
+                  </Link>
+                </div>
               </div>
 
               {/* Subtle bottom split accent (green & red) */}
@@ -521,7 +652,7 @@ export default function HomePage() {
                 <div className="w-1/2 h-full bg-[#1e7e46]" />
                 <div className="w-1/2 h-full bg-[#b91c1c]" />
               </div>
-            </Link>
+            </div>
           </div>
 
           {/* Quick Collection Switcher Ribbon */}
