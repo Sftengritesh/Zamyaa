@@ -147,7 +147,7 @@ export default function Footer() {
               <MessageCircle size={14} /> WhatsApp: +91 8427233901
             </a>
             <p className="flex items-start gap-2 opacity-60 text-sm font-body">
-              <MapPin size={14} className="mt-0.5 shrink-0" /> Jaipur · Mumbai · Delhi
+              <MapPin size={14} className="mt-0.5 shrink-0" /> Jalandher
             </p>
           </div>
         </div>

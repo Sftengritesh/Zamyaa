@@ -1113,61 +1113,22 @@ export default function CollectionsPage() {
                 Neel Pushp Lookbook
               </h2>
               <p className="font-serif italic text-lg md:text-xl text-neutral-600">
-                &ldquo;Indigo Twilight &amp; Citron Zari · The Jaipur Heritage Archive&rdquo;
+                &ldquo;The Neel Pushp Trilogy · Navy, Royal &amp; Teal Blue Silhouettes&rdquo;
               </p>
               <p className="font-body text-sm text-neutral-600 max-w-xl mx-auto leading-relaxed pt-1">
-                A visual chronicle of 29 architectural photographs exploring fluid farshi suit-sets. Captured across ancient Jaipur courtyards and open sky terraces in cerulean indigo handlooms and antique citron olive zari silks.
+                A visual chronicle of 29 architectural photographs exploring three bespoke farshi suit-sets: Navy Blue Floral Suit, Royal Blue Striped Suit, and Teal Blue Printed Suit. Captured across ancient Jaipur courtyards and open sky terraces in handloom silks.
               </p>
             </div>
 
             {/* Featured 3-Card Curated Editorial Mosaic */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Card 1: Dual Model Courtyard Showcase */}
-              <div
-                onClick={() =>
-                  setSelectedImage({
-                    url: '/images/neel-pushp/IMG_6726.jpeg',
-                    title: 'Dual Silhouette Heritage Showcase',
-                    subtitle: 'Both models in royal architectural courtyard setting, presenting the harmonious dialogue between Cerulean Indigo and Citron Olive.',
-                  })
-                }
-                className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
-              >
-                <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
-                  <img
-                    src="/images/neel-pushp/IMG_6726.jpeg"
-                    alt="Neel Pushp Dual Models in Jaipur Courtyard"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
-                    Look 01 · Group
-                  </div>
-                </div>
-                <div className="p-6 space-y-2">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
-                    Courtyard Composition
-                  </span>
-                  <h3 className="font-serif text-xl font-normal text-neutral-900">
-                    Dual Silhouette Showcase
-                  </h3>
-                  <p className="text-xs text-neutral-500 leading-relaxed">
-                    Captured against hand-carved heritage doorways showcasing both farshi silhouettes in natural daylight.
-                  </p>
-                  <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
-                    <span>Inspect High-Res View</span>
-                    <ChevronRight size={14} />
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 2: Cerulean Sky Terrace Portrait */}
+              {/* Card 1: Navy Blue Floral Suit */}
               <div
                 onClick={() =>
                   setSelectedImage({
                     url: '/images/neel-pushp/IMG_6732.jpeg',
-                    title: 'Cerulean Indigo Sky Terrace',
-                    subtitle: 'Single model portrait in delicate blue floral buti Chanderi silk kurti against open sky.',
+                    title: 'Navy Blue Floral Suit',
+                    subtitle: 'Look 01 · Handloom Chanderi silk kurti adorned with twilight floral butis and handcrafted scalloped neckline.',
                   })
                 }
                 className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
@@ -1175,23 +1136,23 @@ export default function CollectionsPage() {
                 <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
                   <img
                     src="/images/neel-pushp/IMG_6732.jpeg"
-                    alt="Cerulean Indigo Terrace Portrait"
+                    alt="Navy Blue Floral Suit - Model Front View"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
-                    Look 02 · Solo
+                    Look 01 · Floral
                   </div>
                 </div>
                 <div className="p-6 space-y-2">
                   <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
-                    Single Model Portrait
+                    Handloom Chanderi Silk
                   </span>
                   <h3 className="font-serif text-xl font-normal text-neutral-900">
-                    Cerulean Indigo Silhouette
+                    Navy Blue Floral Suit
                   </h3>
                   <p className="text-xs text-neutral-500 leading-relaxed">
-                    Sheer handloom Chanderi silk kurta adorned with Persian butis and handcrafted scalloped neckline.
+                    Sheer handloom Chanderi silk kurta in deep navy blue, adorned with intricate twilight floral butis and scalloped lace neckline.
                   </p>
                   <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
                     <span>Inspect High-Res View</span>
@@ -1200,37 +1161,76 @@ export default function CollectionsPage() {
                 </div>
               </div>
 
-              {/* Card 3: Citron Olive & Gold Zari Dialogue */}
+              {/* Card 2: Royal Blue Striped Suit */}
               <div
                 onClick={() =>
                   setSelectedImage({
-                    url: '/images/neel-pushp/IMG_6741.jpeg',
-                    title: 'Citron Olive & Antique Zari',
-                    subtitle: 'Dual silhouettes in intimate dialogue, emphasizing the contrasting textile textures.',
+                    url: '/images/neel-pushp/IMG_6720.jpeg',
+                    title: 'Royal Blue Striped Suit',
+                    subtitle: 'Look 02 · Luminous royal blue silk with metallic zari pin-stripes against open Jaipur sky.',
                   })
                 }
                 className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
               >
                 <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
                   <img
-                    src="/images/neel-pushp/IMG_6741.jpeg"
-                    alt="Citron Olive and Cerulean Zari Dialogue"
+                    src="/images/neel-pushp/IMG_6720.jpeg"
+                    alt="Royal Blue Striped Suit Terrace Silhouette"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
-                    Look 03 · Narrative
+                    Look 02 · Striped
                   </div>
                 </div>
                 <div className="p-6 space-y-2">
                   <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
-                    Textile Dialogue
+                    Metallic Zari Weaves
                   </span>
                   <h3 className="font-serif text-xl font-normal text-neutral-900">
-                    Citron Olive &amp; Farshi Flare
+                    Royal Blue Striped Suit
                   </h3>
                   <p className="text-xs text-neutral-500 leading-relaxed">
-                    The wide flared farshi trouser silhouette tailored to sweep gracefully with every regal step.
+                    Fine metallic zari stripes woven into royal blue handloom silk, paired with flowing farshi trousers and sheer dupatta.
+                  </p>
+                  <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
+                    <span>Inspect High-Res View</span>
+                    <ChevronRight size={14} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 3: Teal Blue Printed Suit */}
+              <div
+                onClick={() =>
+                  setSelectedImage({
+                    url: '/images/neel-pushp/IMG_6722.jpeg',
+                    title: 'Teal Blue Printed Suit',
+                    subtitle: 'Look 03 · Heritage block print motifs and sheer tissue silk kurti in luminous teal blue.',
+                  })
+                }
+                className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
+                  <img
+                    src="/images/neel-pushp/IMG_6722.jpeg"
+                    alt="Teal Blue Printed Suit Profile View"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
+                    Look 03 · Printed
+                  </div>
+                </div>
+                <div className="p-6 space-y-2">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
+                    Artisanal Block Prints
+                  </span>
+                  <h3 className="font-serif text-xl font-normal text-neutral-900">
+                    Teal Blue Printed Suit
+                  </h3>
+                  <p className="text-xs text-neutral-500 leading-relaxed">
+                    Exquisite teal blue kurti with hand-carved heritage floral prints, gold-flecked borders, and fluid mul farshi trousers.
                   </p>
                   <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
                     <span>Inspect High-Res View</span>

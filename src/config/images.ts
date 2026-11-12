@@ -49,9 +49,9 @@ export const siteImages = {
     neelPushp: {
       hero: '/images/neel-pushp/IMG_6726.jpeg',
       mosaic: [
-        '/images/neel-pushp/IMG_6726.jpeg',
         '/images/neel-pushp/IMG_6732.jpeg',
-        '/images/neel-pushp/IMG_6741.jpeg',
+        '/images/neel-pushp/IMG_6720.jpeg',
+        '/images/neel-pushp/IMG_6722.jpeg',
       ],
     },
 

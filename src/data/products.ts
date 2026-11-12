@@ -746,8 +746,8 @@ export const products: Product[] = [
   },
   {
     "id": "p-np-1",
-    "slug": "the-neel-pushp-chanderi-farshi-suit-set",
-    "name": "The Neel Pushp Farshi Suit-Set — Cerulean Indigo",
+    "slug": "the-neel-pushp-navy-blue-floral-suit",
+    "name": "Navy Blue Floral Suit",
     "subtitle": "Neel Pushp Capsule · Handloom Chanderi with Floral Butis",
     "price": 36500,
     "originalPrice": 45000,
@@ -755,7 +755,7 @@ export const products: Product[] = [
     "collection": "Neel Pushp",
     "collectionSlug": "neel-pushp",
     "category": "Farshi Suit-Set",
-    "description": "The quintessential Neel Pushp ensemble. Tailored in luminous handloom Chanderi silk with delicate twilight blue butis and refined artisanal lace trims. Paired with billowy farshi trousers and a shaded handwoven dupatta.",
+    "description": "A quintessential Neel Pushp ensemble in deep navy blue. Tailored in luminous handloom Chanderi silk with delicate twilight floral butis and refined artisanal scalloped lace trims. Paired with billowy farshi trousers and a shaded handwoven dupatta.",
     "fabric": "Handloom Chanderi Silk Kurti, Pure Mul Cotton Farshi Trousers, Hand-shaded Chiffon Dupatta with handmade artisan tassels.",
     "care": [
       "Dry clean only",
@@ -766,7 +766,7 @@ export const products: Product[] = [
     "images": [
       {
         "url": "/images/neel-pushp/IMG_6732.jpeg",
-        "alt": "Neel Pushp Farshi Suit-Set - Cerulean Indigo Model Front View",
+        "alt": "Navy Blue Floral Suit - Model Front View",
         "isPrimary": true
       },
       {
@@ -774,20 +774,20 @@ export const products: Product[] = [
         "alt": "Neel Pushp Campaign - Dual Models in Jaipur Atelier Courtyard"
       },
       {
-        "url": "/images/neel-pushp/IMG_6720.jpeg",
-        "alt": "Neel Pushp Sky Terrace Portrait"
-      },
-      {
         "url": "/images/neel-pushp/IMG_6717.jpeg",
-        "alt": "Neel Pushp Scalloped Hem and Farshi Trouser Silhouette"
+        "alt": "Navy Blue Floral Kurti Scalloped Hem and Farshi Trouser Silhouette"
       },
       {
-        "url": "/images/neel-pushp/IMG_6723.jpeg",
-        "alt": "Neel Pushp Handcrafted Chanderi Silk Detail"
+        "url": "/images/neel-pushp/IMG_6719.jpeg",
+        "alt": "Handcrafted French Lace and Chanderi Silk Detail"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6724.jpeg",
+        "alt": "Navy Blue Floral Suit Atelier Portrait"
       },
       {
         "url": "/images/neel-pushp/IMG_6730.jpeg",
-        "alt": "Neel Pushp Twilight Indigo Artisan Dupatta"
+        "alt": "Navy Blue Floral Suit Artisan Dupatta Drape"
       }
     ],
     "sizes": [
@@ -800,19 +800,18 @@ export const products: Product[] = [
     ],
     "colors": [
       {
-        "name": "Cerulean Indigo",
-        "hex": "#4A6B82",
+        "name": "Navy Blue",
+        "hex": "#1F2A44",
         "image": "/images/neel-pushp/IMG_6732.jpeg"
       }
     ],
     "tags": [
       "farshi-suit-set",
       "neel-pushp",
+      "navy-blue",
+      "floral",
       "chanderi-silk",
-      "cerulean",
-      "indigo",
-      "bestseller",
-      "new-drop"
+      "bestseller"
     ],
     "sku": "ZY-NP-01",
     "status": "active",
@@ -823,26 +822,26 @@ export const products: Product[] = [
     "inStock": true,
     "badge": "Signature Piece",
     "inventory": [
-      { "sku": "ZY-NP-01-XS", "color": "Cerulean Indigo", "size": "XS", "stock": 4, "lowStockThreshold": 2 },
-      { "sku": "ZY-NP-01-S", "color": "Cerulean Indigo", "size": "S", "stock": 7, "lowStockThreshold": 2 },
-      { "sku": "ZY-NP-01-M", "color": "Cerulean Indigo", "size": "M", "stock": 8, "lowStockThreshold": 2 },
-      { "sku": "ZY-NP-01-L", "color": "Cerulean Indigo", "size": "L", "stock": 6, "lowStockThreshold": 2 },
-      { "sku": "ZY-NP-01-XL", "color": "Cerulean Indigo", "size": "XL", "stock": 3, "lowStockThreshold": 2 }
+      { "sku": "ZY-NP-01-XS", "color": "Navy Blue", "size": "XS", "stock": 4, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-01-S", "color": "Navy Blue", "size": "S", "stock": 7, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-01-M", "color": "Navy Blue", "size": "M", "stock": 8, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-01-L", "color": "Navy Blue", "size": "L", "stock": 6, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-01-XL", "color": "Navy Blue", "size": "XL", "stock": 3, "lowStockThreshold": 2 }
     ]
   },
   {
     "id": "p-np-2",
-    "slug": "the-neel-pushp-zari-citron-farshi-suit-set",
-    "name": "The Neel Pushp Farshi Suit-Set — Citron Olive",
-    "subtitle": "Neel Pushp Capsule · Metallic Floral Weaves & Wide Farshi",
+    "slug": "the-neel-pushp-royal-blue-striped-suit",
+    "name": "Royal Blue Striped Suit",
+    "subtitle": "Neel Pushp Capsule · Metallic Zari Stripes & Farshi Trousers",
     "price": 38500,
     "originalPrice": 46000,
     "currency": "₹",
     "collection": "Neel Pushp",
     "collectionSlug": "neel-pushp",
     "category": "Farshi Suit-Set",
-    "description": "A regal counterpoint to twilight blue. Crafted in antique mustard and citron olive handloom weaves with gold zari booti motifs, scalloped hemline, and paired with fluid farshi trousers.",
-    "fabric": "Pure Handloom Zari Tissue Silk Kurti, Handwoven Mul Farshi Trousers, Sheer Zari Border Dupatta.",
+    "description": "A majestic silhouette in rich royal blue handloom silk, woven with fine metallic zari stripes that shimmer in natural light. Features architectural tailoring, flowing farshi trousers, and a sheer border dupatta.",
+    "fabric": "Pure Handloom Zari Striped Silk Kurti, Handwoven Mul Farshi Trousers, Sheer Zari Border Dupatta.",
     "care": [
       "Dry clean only",
       "Store flat in pure muslin cover",
@@ -851,29 +850,29 @@ export const products: Product[] = [
     ],
     "images": [
       {
-        "url": "/images/neel-pushp/IMG_6722.jpeg",
-        "alt": "Neel Pushp Citron Olive Model Profile View",
+        "url": "/images/neel-pushp/IMG_6720.jpeg",
+        "alt": "Royal Blue Striped Suit - Sky Terrace Portrait",
         "isPrimary": true
       },
       {
         "url": "/images/neel-pushp/IMG_6741.jpeg",
-        "alt": "Neel Pushp Dual Models Side-by-Side in Courtyard"
+        "alt": "Royal Blue Striped Suit Courtyard Duo Look"
       },
       {
-        "url": "/images/neel-pushp/IMG_6736.jpeg",
-        "alt": "Neel Pushp Citron Olive Floral Kurti Silhouette"
+        "url": "/images/neel-pushp/IMG_6723.jpeg",
+        "alt": "Handcrafted Zari Stripe Silk Detail"
       },
       {
-        "url": "/images/neel-pushp/IMG_6747.jpeg",
-        "alt": "Neel Pushp Dual Silhouette Editorial Composition"
+        "url": "/images/neel-pushp/IMG_6727.jpeg",
+        "alt": "Royal Blue Striped Suit Rooftop Terrace Movement"
       },
       {
-        "url": "/images/neel-pushp/IMG_6725.jpeg",
-        "alt": "Neel Pushp Atelier Portrait"
+        "url": "/images/neel-pushp/IMG_6731.jpeg",
+        "alt": "Royal Blue Striped Suit Silhouette in Sunlight"
       },
       {
-        "url": "/images/neel-pushp/IMG_6735.jpeg",
-        "alt": "Neel Pushp Gold Zari & Scalloped Trim Close-up"
+        "url": "/images/neel-pushp/IMG_6738.jpeg",
+        "alt": "Artisanal Scalloped Hem Detail"
       }
     ],
     "sizes": [
@@ -886,19 +885,18 @@ export const products: Product[] = [
     ],
     "colors": [
       {
-        "name": "Citron Olive",
-        "hex": "#8B8A5A",
-        "image": "/images/neel-pushp/IMG_6722.jpeg"
+        "name": "Royal Blue",
+        "hex": "#24426B",
+        "image": "/images/neel-pushp/IMG_6720.jpeg"
       }
     ],
     "tags": [
       "farshi-suit-set",
       "neel-pushp",
+      "royal-blue",
+      "striped",
       "zari-silk",
-      "citron",
-      "olive",
-      "gold",
-      "limited-edition"
+      "signature"
     ],
     "sku": "ZY-NP-02",
     "status": "active",
@@ -909,11 +907,96 @@ export const products: Product[] = [
     "inStock": true,
     "badge": "Artisanal Edition",
     "inventory": [
-      { "sku": "ZY-NP-02-XS", "color": "Citron Olive", "size": "XS", "stock": 3, "lowStockThreshold": 2 },
-      { "sku": "ZY-NP-02-S", "color": "Citron Olive", "size": "S", "stock": 5, "lowStockThreshold": 2 },
-      { "sku": "ZY-NP-02-M", "color": "Citron Olive", "size": "M", "stock": 6, "lowStockThreshold": 2 },
-      { "sku": "ZY-NP-02-L", "color": "Citron Olive", "size": "L", "stock": 4, "lowStockThreshold": 2 },
-      { "sku": "ZY-NP-02-XL", "color": "Citron Olive", "size": "XL", "stock": 2, "lowStockThreshold": 2 }
+      { "sku": "ZY-NP-02-XS", "color": "Royal Blue", "size": "XS", "stock": 3, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-02-S", "color": "Royal Blue", "size": "S", "stock": 5, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-02-M", "color": "Royal Blue", "size": "M", "stock": 6, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-02-L", "color": "Royal Blue", "size": "L", "stock": 4, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-02-XL", "color": "Royal Blue", "size": "XL", "stock": 2, "lowStockThreshold": 2 }
+    ]
+  },
+  {
+    "id": "p-np-3",
+    "slug": "the-neel-pushp-teal-blue-printed-suit",
+    "name": "Teal Blue Printed Suit",
+    "subtitle": "Neel Pushp Capsule · Artisanal Block Print & Tissue Silk",
+    "price": 35000,
+    "originalPrice": 42500,
+    "currency": "₹",
+    "collection": "Neel Pushp",
+    "collectionSlug": "neel-pushp",
+    "category": "Farshi Suit-Set",
+    "description": "An exquisite teal blue suit-set adorned with hand-carved heritage floral block prints on whisper-light tissue silk. Complemented by fluid farshi trousers and a soft shaded dupatta with handcrafted tassels.",
+    "fabric": "Pure Handloom Tissue Silk Kurti with Heritage Block Prints, Pure Mul Cotton Farshi Trousers, Shaded Artisan Dupatta.",
+    "care": [
+      "Dry clean only",
+      "Store flat in pure muslin cover",
+      "Steam iron with reverse protection",
+      "Do not bleach"
+    ],
+    "images": [
+      {
+        "url": "/images/neel-pushp/IMG_6722.jpeg",
+        "alt": "Teal Blue Printed Suit Model Profile View",
+        "isPrimary": true
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6736.jpeg",
+        "alt": "Teal Blue Printed Suit Front View"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6735.jpeg",
+        "alt": "Teal Blue Print and Gold Zari Border Close-up"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6747.jpeg",
+        "alt": "Teal Blue Printed Suit Editorial Composition"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6725.jpeg",
+        "alt": "Teal Blue Printed Suit Courtyard Portrait"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6746.jpeg",
+        "alt": "Teal Blue Printed Suit Dusk Atmosphere"
+      }
+    ],
+    "sizes": [
+      { "label": "XS", "available": true, "measurements": "Bust: 32 | Waist: 26 | Hip: 36 | Length: 48" },
+      { "label": "S", "available": true, "measurements": "Bust: 34 | Waist: 28 | Hip: 38 | Length: 48" },
+      { "label": "M", "available": true, "measurements": "Bust: 36 | Waist: 30 | Hip: 40 | Length: 48" },
+      { "label": "L", "available": true, "measurements": "Bust: 38 | Waist: 32 | Hip: 42 | Length: 48" },
+      { "label": "XL", "available": true, "measurements": "Bust: 40 | Waist: 34 | Hip: 44 | Length: 48" },
+      { "label": "Custom", "available": true, "measurements": "Tailored to client measurements" }
+    ],
+    "colors": [
+      {
+        "name": "Teal Blue",
+        "hex": "#2B5F6D",
+        "image": "/images/neel-pushp/IMG_6722.jpeg"
+      }
+    ],
+    "tags": [
+      "farshi-suit-set",
+      "neel-pushp",
+      "teal-blue",
+      "printed",
+      "handloom",
+      "limited-edition"
+    ],
+    "sku": "ZY-NP-03",
+    "status": "active",
+    "isFeatured": true,
+    "isBestseller": false,
+    "isLimitedEdition": true,
+    "limitedCount": 20,
+    "inStock": true,
+    "badge": "Heritage Edition",
+    "inventory": [
+      { "sku": "ZY-NP-03-XS", "color": "Teal Blue", "size": "XS", "stock": 4, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-03-S", "color": "Teal Blue", "size": "S", "stock": 6, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-03-M", "color": "Teal Blue", "size": "M", "stock": 7, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-03-L", "color": "Teal Blue", "size": "L", "stock": 5, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-03-XL", "color": "Teal Blue", "size": "XL", "stock": 3, "lowStockThreshold": 2 }
     ]
   }
 ]
@@ -950,7 +1033,7 @@ export const collections: Collection[] = ([
         "value": "6"
       }
     ],
-    "productIds": ["p-np-1", "p-np-2"],
+    "productIds": ["p-np-1", "p-np-2", "p-np-3"],
     "isComingSoon": false
   },
   {

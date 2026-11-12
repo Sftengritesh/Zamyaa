@@ -16,7 +16,7 @@ export const seedArticles: JournalArticle[] = [
     title: 'The Inspiration Behind Lantana',
     subtitle: 'An architectural reverie in handloom Chanderi silks and delicate pastel botanicals.',
     excerpt:
-      'Lantana began on a sun-drenched morning in Jaipur, observing how delicate wildflowers bloom fearlessly between centuries-old sandstone arches. The collection translates that quiet strength into soft pastel Chanderi silhouettes with hand-scalloped lace trims.',
+      'Lantana began on a sun-drenched morning in Jalandher, observing how delicate wildflowers bloom fearlessly between centuries-old sandstone arches. The collection translates that quiet strength into soft pastel Chanderi silhouettes with hand-scalloped lace trims.',
     category: 'Designer Notes',
     author: 'Jyoti Sharma',
     readTime: '4 min read',
