@@ -453,7 +453,7 @@ export default function CollectionsPage() {
                 <div
                   onClick={() =>
                     setSelectedImage({
-                      url: '/images/neel-pushp/IMG_6736.jpeg',
+                      url: '/images/neel-pushp/model-2-royal-blue-striped.jpg',
                       title: 'Royal Blue Striped Suit',
                       subtitle: 'Look 02 · Majestic royal blue handloom silk with metallic zari pin-stripes, sweeping farshi trousers & sheer dupatta. ₹38,500',
                     })
@@ -461,7 +461,7 @@ export default function CollectionsPage() {
                   className="relative h-[440px] sm:h-[480px] lg:h-[720px] overflow-hidden cursor-pointer group bg-neutral-900 border border-white/10"
                 >
                   <img
-                    src="/images/neel-pushp/IMG_6736.jpeg"
+                    src="/images/neel-pushp/model-2-royal-blue-striped.jpg"
                     alt="Royal Blue Striped Suit"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     style={{ objectPosition: '50% 15%' }}
@@ -506,7 +506,7 @@ export default function CollectionsPage() {
                 <div
                   onClick={() =>
                     setSelectedImage({
-                      url: '/images/neel-pushp/IMG_6720.jpeg',
+                      url: '/images/neel-pushp/model-3-teal-blue-printed.jpg',
                       title: 'Teal Blue Printed Suit',
                       subtitle: 'Look 03 · Artisanal teal blue tissue silk kurti adorned with hand-carved heritage floral prints, gold-flecked borders & fluid mul farshi trousers. ₹35,000',
                     })
@@ -514,7 +514,7 @@ export default function CollectionsPage() {
                   className="relative h-[440px] sm:h-[480px] lg:h-[720px] overflow-hidden cursor-pointer group bg-neutral-900 border border-white/10"
                 >
                   <img
-                    src="/images/neel-pushp/IMG_6720.jpeg"
+                    src="/images/neel-pushp/model-3-teal-blue-printed.jpg"
                     alt="Teal Blue Printed Suit"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     style={{ objectPosition: '50% 15%' }}
@@ -1300,7 +1300,7 @@ export default function CollectionsPage() {
               <div
                 onClick={() =>
                   setSelectedImage({
-                    url: '/images/neel-pushp/IMG_6736.jpeg',
+                    url: '/images/neel-pushp/model-2-royal-blue-striped.jpg',
                     title: 'Royal Blue Striped Suit',
                     subtitle: 'Look 02 · Luminous royal blue silk with metallic zari pin-stripes, bell sleeves & floret tassels.',
                   })
@@ -1309,7 +1309,7 @@ export default function CollectionsPage() {
               >
                 <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
                   <img
-                    src="/images/neel-pushp/IMG_6736.jpeg"
+                    src="/images/neel-pushp/model-2-royal-blue-striped.jpg"
                     alt="Royal Blue Striped Suit Standing Silhouette"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
@@ -1339,7 +1339,7 @@ export default function CollectionsPage() {
               <div
                 onClick={() =>
                   setSelectedImage({
-                    url: '/images/neel-pushp/IMG_6720.jpeg',
+                    url: '/images/neel-pushp/model-3-teal-blue-printed.jpg',
                     title: 'Teal Blue Printed Suit',
                     subtitle: 'Look 03 · Heritage botanical vine motifs and sheer silk kurti with scalloped lace hem in luminous teal blue.',
                   })
@@ -1348,7 +1348,7 @@ export default function CollectionsPage() {
               >
                 <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
                   <img
-                    src="/images/neel-pushp/IMG_6720.jpeg"
+                    src="/images/neel-pushp/model-3-teal-blue-printed.jpg"
                     alt="Teal Blue Printed Suit Model View"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />

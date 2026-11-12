@@ -886,12 +886,12 @@
       ],
       "images": [
         {
-          "url": "/images/neel-pushp/IMG_6736.jpeg",
+          "url": "/images/neel-pushp/model-2-royal-blue-striped.jpg",
           "alt": "Royal Blue Striped Suit - Model Front View with Bouquet",
           "isPrimary": true
         },
         {
-          "url": "/images/neel-pushp/IMG_6740.jpeg",
+          "url": "/images/neel-pushp/model-2-striped-detail.jpg",
           "alt": "Royal Blue Striped Suit - Draped Bell Sleeve Silhouette"
         },
         {
@@ -947,7 +947,7 @@
         {
           "name": "Royal Blue",
           "hex": "#24426B",
-          "image": "/images/neel-pushp/IMG_6736.jpeg"
+          "image": "/images/neel-pushp/model-2-royal-blue-striped.jpg"
         }
       ],
       "tags": [
@@ -1025,12 +1025,12 @@
       ],
       "images": [
         {
-          "url": "/images/neel-pushp/IMG_6720.jpeg",
+          "url": "/images/neel-pushp/model-3-teal-blue-printed.jpg",
           "alt": "Teal Blue Printed Suit - Model Standing with Bouquet",
           "isPrimary": true
         },
         {
-          "url": "/images/neel-pushp/IMG_6724.jpeg",
+          "url": "/images/neel-pushp/model-3-printed-detail.jpg",
           "alt": "Teal Blue Printed Suit - Full Silhouette Sunlit View"
         },
         {
@@ -1086,7 +1086,7 @@
         {
           "name": "Teal Blue",
           "hex": "#2B5F6D",
-          "image": "/images/neel-pushp/IMG_6720.jpeg"
+          "image": "/images/neel-pushp/model-3-teal-blue-printed.jpg"
         }
       ],
       "tags": [

@@ -850,9 +850,13 @@ export const products: Product[] = [
     ],
     "images": [
       {
-        "url": "/images/neel-pushp/IMG_6736.jpeg",
-        "alt": "Royal Blue Striped Suit - Model Front View with Bouquet",
+        "url": "/images/neel-pushp/model-2-royal-blue-striped.jpg",
+        "alt": "Royal Blue Striped Suit - Model Front View",
         "isPrimary": true
+      },
+      {
+        "url": "/images/neel-pushp/model-2-striped-detail.jpg",
+        "alt": "Royal Blue Striped Suit - Metallic Zari Weave & Silhouette"
       },
       {
         "url": "/images/neel-pushp/IMG_6740.jpeg",
@@ -887,7 +891,7 @@ export const products: Product[] = [
       {
         "name": "Royal Blue",
         "hex": "#24426B",
-        "image": "/images/neel-pushp/IMG_6736.jpeg"
+        "image": "/images/neel-pushp/model-2-royal-blue-striped.jpg"
       }
     ],
     "tags": [
@@ -935,9 +939,17 @@ export const products: Product[] = [
     ],
     "images": [
       {
-        "url": "/images/neel-pushp/IMG_6720.jpeg",
-        "alt": "Teal Blue Printed Suit - Model Standing with Bouquet",
+        "url": "/images/neel-pushp/model-3-teal-blue-printed.jpg",
+        "alt": "Teal Blue Printed Suit - Model Front View",
         "isPrimary": true
+      },
+      {
+        "url": "/images/neel-pushp/model-3-printed-detail.jpg",
+        "alt": "Teal Blue Printed Suit - Artisan Floral Prints & Fabric Drape"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6720.jpeg",
+        "alt": "Teal Blue Printed Suit - Lawn Seated Silhouette"
       },
       {
         "url": "/images/neel-pushp/IMG_6724.jpeg",
@@ -972,7 +984,7 @@ export const products: Product[] = [
       {
         "name": "Teal Blue",
         "hex": "#2B5F6D",
-        "image": "/images/neel-pushp/IMG_6720.jpeg"
+        "image": "/images/neel-pushp/model-3-teal-blue-printed.jpg"
       }
     ],
     "tags": [

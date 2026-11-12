@@ -22,7 +22,7 @@ const footerLinks = {
   ],
   help: [
     { label: 'Size Guide', to: '/size-guide' },
-    { label: 'Shipping & Returns', to: '/shipping' },
+    { label: 'Shipping & Replacement Policy', to: '/replacement-policy' },
     { label: 'Care Instructions', to: '/care' },
     { label: 'Bespoke Tailoring', to: '/bespoke' },
     { label: 'Contact Us', to: '/contact' },

@@ -12,6 +12,7 @@ import CartPage from '@/pages/CartPage'
 import WishlistPage from '@/pages/WishlistPage'
 import JournalPage from '@/pages/JournalPage'
 import JournalArticlePage from '@/pages/JournalArticlePage'
+import ReplacementPolicyPage from '@/pages/ReplacementPolicyPage'
 import NotFoundPage from '@/pages/NotFoundPage'
 
 // Customer Authentication & Account Pages
@@ -80,6 +81,7 @@ export default function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/replacement-policy" element={<ReplacementPolicyPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/journal" element={<JournalPage />} />

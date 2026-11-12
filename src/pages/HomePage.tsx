@@ -14,6 +14,11 @@ import { formatPrice } from '@/data/products'
 import { useWishlistStore, useCartStore, useCatalogStore } from '@/store'
 import type { Product } from '@/types'
 import { siteImages } from '@/config/images'
+import CircularCategoryNav from '@/components/home/CircularCategoryNav'
+import EarlyAccessBanner from '@/components/home/EarlyAccessBanner'
+import ZamyaaFavouritesBanner from '@/components/home/ZamyaaFavouritesBanner'
+import CustomerBenefitsStrip from '@/components/home/CustomerBenefitsStrip'
+import ArchivalEditionsShowcase from '@/components/home/ArchivalEditionsShowcase'
 
 // ── Hero & Marquee CSS injected once ──
 const marqueeStyle = `
@@ -392,6 +397,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── PHASE 1: Circular Category Navigation (Silhouette & Capsule Discovery) ── */}
+      <CircularCategoryNav />
+
       {/* ── SECTION 2: Marquee Ticker ── */}
       <section
         className="py-5 overflow-hidden"
@@ -483,14 +491,14 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {/* Category 1: Farshi Suit-Set */}
             <div
-              className={`collection-card-showcase group relative overflow-hidden block aspect-[1.18/1] sm:aspect-[1.18/1] md:aspect-[1.18/1] lg:aspect-[1.2/1] rounded-2xl bg-neutral-900 text-white shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer select-none`}
+              className="collection-card-showcase group relative overflow-hidden block aspect-[1.22/1] sm:aspect-[1.32/1] md:aspect-[1.38/1] lg:aspect-[1.45/1] rounded-2xl bg-neutral-900 text-white shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer select-none"
               onClick={() => handleCardInteraction('farshi', '/collections?category=farshi-suit-set')}
             >
               <img
                 src="/images/lantana/IMG_6642.jpeg"
                 alt="Farshi Suit-Set"
                 className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                style={{ objectPosition: '50% 22%' }}
+                style={{ objectPosition: '50% 20%' }}
               />
 
               {/* Default ambient gradient for clean title contrast */}
@@ -567,14 +575,14 @@ export default function HomePage() {
 
             {/* Category 2: Skirt Top (Atelier Silhouette 02 - The Boho Flare Affair) */}
             <div
-              className={`collection-card-showcase group relative overflow-hidden block aspect-[1.18/1] sm:aspect-[1.18/1] md:aspect-[1.18/1] lg:aspect-[1.2/1] rounded-2xl bg-neutral-900 text-white shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer select-none`}
+              className="collection-card-showcase group relative overflow-hidden block aspect-[1.22/1] sm:aspect-[1.32/1] md:aspect-[1.38/1] lg:aspect-[1.45/1] rounded-2xl bg-neutral-900 text-white shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer select-none"
               onClick={() => handleCardInteraction('skirt', '/collections/the-boho-flare-affair')}
             >
               <img
                 src="/images/the-boho-flare-affair/IMG_6681.jpeg"
                 alt="The Boho Flare Affair Skirt Top Silhouette"
                 className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                style={{ objectPosition: '50% 28%' }}
+                style={{ objectPosition: '50% 25%' }}
               />
 
               {/* Default ambient gradient for clean title contrast */}
@@ -655,41 +663,13 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Quick Collection Switcher Ribbon */}
-          <div className="mt-16 pt-10 border-t border-black/10">
-            <p className="text-center font-mono text-[11px] uppercase tracking-widest text-neutral-500 mb-6">
-              Curated Capsules & Archival Editions
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-2.5">
-              {collections.map((c) => {
-                const isLive = !c.isComingSoon || c.slug === 'lantana' || c.slug === 'the-boho-flare-affair' || c.slug === 'neel-pushp'
-                return (
-                  <Link
-                    key={c.slug}
-                    to={`/collections/${c.slug}`}
-                    className={`px-4 py-2 text-xs uppercase tracking-wider font-semibold border transition-all rounded-full flex items-center gap-1.5 ${
-                      isLive
-                        ? 'bg-black text-white border-black'
-                        : 'border-neutral-300 hover:border-black text-neutral-700 bg-white/50'
-                    }`}
-                  >
-                    {c.title}
-                    {isLive ? (
-                      <span className="text-[9px] px-1.5 py-0.5 rounded-full uppercase font-mono tracking-wider bg-amber-400 text-black font-bold">
-                        Live
-                      </span>
-                    ) : (
-                      <span className="text-[9px] opacity-60 font-mono">
-                        (Soon)
-                      </span>
-                    )}
-                  </Link>
-                )
-              })}
-            </div>
-          </div>
+          {/* ── Image-Led Archival Editions Repertoire Showcase ── */}
+          <ArchivalEditionsShowcase />
         </div>
       </section>
+
+      {/* ── PHASE 2: Early Access Campaign Banner (The Zamyaa Inner Circle) ── */}
+      <EarlyAccessBanner />
 
       {/* ── SECTION 5: Product Grid — New Arrivals ── */}
       <section className="py-20 lg:py-24" style={{ background: 'var(--color-surface-container-lowest)' }}>
@@ -769,6 +749,9 @@ export default function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ── PHASE 3: ZAMYAA Favourites Campaign Banner (Curated For You) ── */}
+      <ZamyaaFavouritesBanner />
 
       {/* ── SECTION 7: Craft Story / Values ── */}
       <section className="py-20 lg:py-24" style={{ background: 'var(--color-surface-container-low)' }}>
@@ -866,6 +849,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── PHASE 4 & 5: Customer Benefits & Service Strip (Peter England Inspired, Luxury Palette) ── */}
+      <CustomerBenefitsStrip />
 
       {/* ── Newsletter strip ── */}
       <section
