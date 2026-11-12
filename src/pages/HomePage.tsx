@@ -518,7 +518,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2.5">
               {collections.map((c) => {
-                const isLive = c.slug === 'lantana' || c.slug === 'the-boho-flare-affair'
+                const isLive = !c.isComingSoon || c.slug === 'lantana' || c.slug === 'the-boho-flare-affair' || c.slug === 'neel-pushp'
                 return (
                   <Link
                     key={c.slug}

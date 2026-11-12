@@ -198,11 +198,14 @@ export default function CollectionsPage() {
               {collections.map((col) => {
                 const isColLantana = col.slug === 'lantana'
                 const isColBoho = col.slug === 'the-boho-flare-affair'
-                const isLive = isColLantana || isColBoho
+                const isColNeelPushp = col.slug === 'neel-pushp'
+                const isLive = isColLantana || isColBoho || isColNeelPushp || !col.isComingSoon
                 const cover = isColLantana
                   ? '/images/lantana/IMG_6642.jpeg'
                   : isColBoho
                   ? '/images/the-boho-flare-affair/IMG_6681.jpeg'
+                  : isColNeelPushp
+                  ? '/images/neel-pushp/IMG_6726.jpeg'
                   : col.heroImage || '/homescreen/campaign-models.png'
 
                 return (
@@ -221,7 +224,7 @@ export default function CollectionsPage() {
                         <div className="absolute top-4 left-4">
                           {isLive ? (
                             <span className="px-2.5 py-1 text-[9px] font-mono uppercase tracking-widest bg-black text-white font-bold shadow-xs">
-                              Live · {isColLantana ? 'Farshi Suit' : 'Skirt Top'}
+                              Live · {isColLantana || isColNeelPushp ? 'Farshi Suit' : 'Skirt Top'}
                             </span>
                           ) : (
                             <span className="px-2.5 py-1 text-[9px] font-mono uppercase tracking-widest bg-white/90 text-black font-semibold backdrop-blur-sm">
@@ -370,7 +373,13 @@ export default function CollectionsPage() {
                     SHOP THIS COLLECTION →
                   </a>
                   <a
-                    href={isBoho ? '#boho-editorial' : '#lantana-editorial'}
+                    href={
+                      activeCollectionSlug === 'neel-pushp'
+                        ? '#neel-pushp-editorial'
+                        : isBoho
+                        ? '#boho-editorial'
+                        : '#lantana-editorial'
+                    }
                     className="h-12 px-7 flex items-center justify-center gap-2 text-xs tracking-[0.2em] uppercase font-semibold font-body border transition-colors hover:bg-black/5"
                     style={{
                       borderColor: 'var(--color-primary)',
@@ -390,10 +399,18 @@ export default function CollectionsPage() {
                 onClick={() =>
                   setSelectedImage({
                     url: mosaicImages[0],
-                    title: isBoho ? 'The Boho Flare Affair — Duo Look' : 'The Timeless Elegance Campaign',
-                    subtitle: isBoho
-                      ? 'Twin silhouettes in sculpted crop tops and tiered gathered maxi skirts.'
-                      : 'Soft hues of lilac and lemon yellow in pure Chanderi silk with ombre dupattas.',
+                    title:
+                      activeCollectionSlug === 'neel-pushp'
+                        ? 'Neel Pushp — Dual Silhouette Atelier Look'
+                        : isBoho
+                        ? 'The Boho Flare Affair — Duo Look'
+                        : 'The Timeless Elegance Campaign',
+                    subtitle:
+                      activeCollectionSlug === 'neel-pushp'
+                        ? 'Twin silhouettes in Cerulean Indigo and Citron Olive handloom Chanderi silks with farshi trousers.'
+                        : isBoho
+                        ? 'Twin silhouettes in sculpted crop tops and tiered gathered maxi skirts.'
+                        : 'Soft hues of lilac and lemon yellow in pure Chanderi silk with ombre dupattas.',
                   })
                 }
                 className="relative h-[360px] lg:h-[720px] overflow-hidden cursor-pointer group"
@@ -406,13 +423,17 @@ export default function CollectionsPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-95 transition-opacity" />
                 <div className="absolute bottom-4 left-4 right-4 p-4 text-white border border-white/20 backdrop-blur-md bg-black/30">
                   <span className="font-serif italic text-sm md:text-base block">
-                    {isBoho
+                    {activeCollectionSlug === 'neel-pushp'
+                      ? '“Indigo Blooms & Twilight Silks”'
+                      : isBoho
                       ? '“Sculpted bodices & billowing bohemian flare”'
                       : '“For the girls who love timeless elegance”'}
                   </span>
                   <span className="text-[10px] uppercase font-mono tracking-widest text-amber-200 mt-1 flex items-center gap-1.5">
                     <Sparkles size={11} />{' '}
-                    {isBoho
+                    {activeCollectionSlug === 'neel-pushp'
+                      ? 'Neel Pushp · Dual Farshi Capsule'
+                      : isBoho
                       ? 'The Boho Flare Affair · Skirt Top Capsule'
                       : 'Lantana Pret Edition · Click to Expand'}
                   </span>
@@ -426,10 +447,18 @@ export default function CollectionsPage() {
                   onClick={() =>
                     setSelectedImage({
                       url: mosaicImages[1],
-                      title: isBoho ? 'Design 01 · Teardrop Booti Scoop Neck' : 'Soft Hues & Scalloped Lace Detail',
-                      subtitle: isBoho
-                        ? 'Scoop neck crop top paired with three-tier pleated printed flared skirt.'
-                        : 'French scalloped cotton lace trims along kurti hems with pleated salwar trousers.',
+                      title:
+                        activeCollectionSlug === 'neel-pushp'
+                          ? 'Design 01 · Cerulean Indigo Farshi Suit'
+                          : isBoho
+                          ? 'Design 01 · Teardrop Booti Scoop Neck'
+                          : 'Soft Hues & Scalloped Lace Detail',
+                      subtitle:
+                        activeCollectionSlug === 'neel-pushp'
+                          ? 'Sky-tone Chanderi silk kurti with delicate buti weaves and flowing farshi trousers.'
+                          : isBoho
+                          ? 'Scoop neck crop top paired with three-tier pleated printed flared skirt.'
+                          : 'French scalloped cotton lace trims along kurti hems with pleated salwar trousers.',
                     })
                   }
                   className="relative overflow-hidden cursor-pointer group"
@@ -442,10 +471,18 @@ export default function CollectionsPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
                   <div className="absolute bottom-3 left-3 right-3 p-3 text-white border border-white/20 backdrop-blur-md bg-black/30">
                     <span className="font-serif italic text-xs md:text-sm block">
-                      {isBoho ? 'Design 01 · Scoop Neck' : 'Soft hues 🌸✨🌼'}
+                      {activeCollectionSlug === 'neel-pushp'
+                        ? 'Cerulean Indigo 💙'
+                        : isBoho
+                        ? 'Design 01 · Scoop Neck'
+                        : 'Soft hues 🌸✨🌼'}
                     </span>
                     <span className="text-[9px] uppercase font-mono tracking-widest text-white/80 mt-0.5 block">
-                      {isBoho ? 'Teardrop Booti Tiered Skirt Set' : 'Textile & Lace Craftsmanship'}
+                      {activeCollectionSlug === 'neel-pushp'
+                        ? 'Cerulean Farshi Suit-Set'
+                        : isBoho
+                        ? 'Teardrop Booti Tiered Skirt Set'
+                        : 'Textile & Lace Craftsmanship'}
                     </span>
                   </div>
                 </div>
@@ -455,10 +492,18 @@ export default function CollectionsPage() {
                   onClick={() =>
                     setSelectedImage({
                       url: mosaicImages[2],
-                      title: isBoho ? 'Design 02 · Mandala Jaal Halter Neck' : 'Garden Atelier Shoot Grid',
-                      subtitle: isBoho
-                        ? 'Regal halter neck crop top with back tie-ups and coordinating tiered flare skirt.'
-                        : 'Archival 32-shot contact sheet documenting the outdoor summer campaign.',
+                      title:
+                        activeCollectionSlug === 'neel-pushp'
+                          ? 'Design 02 · Citron Olive Zari Farshi Suit'
+                          : isBoho
+                          ? 'Design 02 · Mandala Jaal Halter Neck'
+                          : 'Garden Atelier Shoot Grid',
+                      subtitle:
+                        activeCollectionSlug === 'neel-pushp'
+                          ? 'Antique mustard and citron olive handloom weaves with gold zari booti motifs.'
+                          : isBoho
+                          ? 'Regal halter neck crop top with back tie-ups and coordinating tiered flare skirt.'
+                          : 'Archival 32-shot contact sheet documenting the outdoor summer campaign.',
                     })
                   }
                   className="relative overflow-hidden cursor-pointer group"
@@ -471,10 +516,19 @@ export default function CollectionsPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
                   <div className="absolute bottom-3 left-3 right-3 p-3 text-white border border-white/20 backdrop-blur-md bg-black/30">
                     <span className="font-serif text-xs md:text-sm block">
-                      {isBoho ? 'Design 02 · Halter Neck' : 'Atelier Campaign Contact Sheet'}
+                      {activeCollectionSlug === 'neel-pushp'
+                        ? 'Citron Olive Zari ✨'
+                        : isBoho
+                        ? 'Design 02 · Halter Neck'
+                        : 'Atelier Campaign Contact Sheet'}
                     </span>
                     <span className="text-[9px] uppercase font-mono tracking-widest text-white/80 mt-0.5 flex items-center gap-1">
-                      <Eye size={11} /> {isBoho ? 'Mandala Jaal Tiered Skirt Set' : '32 Archival Angles'}
+                      <Eye size={11} />{' '}
+                      {activeCollectionSlug === 'neel-pushp'
+                        ? 'Citron Olive Farshi Suit-Set'
+                        : isBoho
+                        ? 'Mandala Jaal Tiered Skirt Set'
+                        : '32 Archival Angles'}
                     </span>
                   </div>
                 </div>
@@ -1034,6 +1088,232 @@ export default function CollectionsPage() {
                     <ChevronRight size={14} />
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── EXCLUSIVE NEEL PUSHP CAMPAIGN GALLERY ── */}
+      {activeCollectionSlug === 'neel-pushp' && (
+        <section
+          id="neel-pushp-editorial"
+          className="w-full py-20 px-6 md:px-16 border-t"
+          style={{
+            backgroundColor: 'var(--color-surface-container-low)',
+            borderColor: 'var(--color-outline-variant)',
+          }}
+        >
+          <div className="max-w-7xl mx-auto space-y-12">
+            <div className="text-center max-w-3xl mx-auto space-y-3">
+              <span className="text-[0.6875rem] tracking-[0.3em] uppercase font-semibold text-neutral-500 font-mono">
+                EDITORIAL CAMPAIGN · SPRING-SUMMER 2026
+              </span>
+              <h2 className="font-display text-3xl md:text-5xl font-light text-neutral-900 tracking-tight">
+                Neel Pushp Lookbook
+              </h2>
+              <p className="font-serif italic text-lg md:text-xl text-neutral-600">
+                &ldquo;Indigo Twilight &amp; Citron Zari · The Jaipur Heritage Archive&rdquo;
+              </p>
+              <p className="font-body text-sm text-neutral-600 max-w-xl mx-auto leading-relaxed pt-1">
+                A visual chronicle of 29 architectural photographs exploring fluid farshi suit-sets. Captured across ancient Jaipur courtyards and open sky terraces in cerulean indigo handlooms and antique citron olive zari silks.
+              </p>
+            </div>
+
+            {/* Featured 3-Card Curated Editorial Mosaic */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Card 1: Dual Model Courtyard Showcase */}
+              <div
+                onClick={() =>
+                  setSelectedImage({
+                    url: '/images/neel-pushp/IMG_6726.jpeg',
+                    title: 'Dual Silhouette Heritage Showcase',
+                    subtitle: 'Both models in royal architectural courtyard setting, presenting the harmonious dialogue between Cerulean Indigo and Citron Olive.',
+                  })
+                }
+                className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
+                  <img
+                    src="/images/neel-pushp/IMG_6726.jpeg"
+                    alt="Neel Pushp Dual Models in Jaipur Courtyard"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
+                    Look 01 · Group
+                  </div>
+                </div>
+                <div className="p-6 space-y-2">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
+                    Courtyard Composition
+                  </span>
+                  <h3 className="font-serif text-xl font-normal text-neutral-900">
+                    Dual Silhouette Showcase
+                  </h3>
+                  <p className="text-xs text-neutral-500 leading-relaxed">
+                    Captured against hand-carved heritage doorways showcasing both farshi silhouettes in natural daylight.
+                  </p>
+                  <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
+                    <span>Inspect High-Res View</span>
+                    <ChevronRight size={14} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 2: Cerulean Sky Terrace Portrait */}
+              <div
+                onClick={() =>
+                  setSelectedImage({
+                    url: '/images/neel-pushp/IMG_6732.jpeg',
+                    title: 'Cerulean Indigo Sky Terrace',
+                    subtitle: 'Single model portrait in delicate blue floral buti Chanderi silk kurti against open sky.',
+                  })
+                }
+                className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
+                  <img
+                    src="/images/neel-pushp/IMG_6732.jpeg"
+                    alt="Cerulean Indigo Terrace Portrait"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
+                    Look 02 · Solo
+                  </div>
+                </div>
+                <div className="p-6 space-y-2">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
+                    Single Model Portrait
+                  </span>
+                  <h3 className="font-serif text-xl font-normal text-neutral-900">
+                    Cerulean Indigo Silhouette
+                  </h3>
+                  <p className="text-xs text-neutral-500 leading-relaxed">
+                    Sheer handloom Chanderi silk kurta adorned with Persian butis and handcrafted scalloped neckline.
+                  </p>
+                  <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
+                    <span>Inspect High-Res View</span>
+                    <ChevronRight size={14} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 3: Citron Olive & Gold Zari Dialogue */}
+              <div
+                onClick={() =>
+                  setSelectedImage({
+                    url: '/images/neel-pushp/IMG_6741.jpeg',
+                    title: 'Citron Olive & Antique Zari',
+                    subtitle: 'Dual silhouettes in intimate dialogue, emphasizing the contrasting textile textures.',
+                  })
+                }
+                className="bg-white border border-neutral-200 overflow-hidden group cursor-pointer shadow-xs hover:shadow-md transition-shadow"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
+                  <img
+                    src="/images/neel-pushp/IMG_6741.jpeg"
+                    alt="Citron Olive and Cerulean Zari Dialogue"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-black">
+                    Look 03 · Narrative
+                  </div>
+                </div>
+                <div className="p-6 space-y-2">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
+                    Textile Dialogue
+                  </span>
+                  <h3 className="font-serif text-xl font-normal text-neutral-900">
+                    Citron Olive &amp; Farshi Flare
+                  </h3>
+                  <p className="text-xs text-neutral-500 leading-relaxed">
+                    The wide flared farshi trouser silhouette tailored to sweep gracefully with every regal step.
+                  </p>
+                  <div className="pt-2 flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-wider group-hover:underline">
+                    <span>Inspect High-Res View</span>
+                    <ChevronRight size={14} />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Extended 29-Shot Archival Photography Gallery */}
+            <div className="pt-10 border-t border-neutral-200 space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-neutral-400 block">
+                    Atelier Shoot Archives
+                  </span>
+                  <h3 className="font-display text-2xl font-light text-neutral-900">
+                    Complete 29-Shot Photographic Collection
+                  </h3>
+                </div>
+                <p className="text-xs font-body text-neutral-500">
+                  Click any frame to inspect full-bleed high resolution craftsmanship.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                {[
+                  { file: 'IMG_6717.jpeg', title: 'Farshi Trousers Hem & Footwear', tag: 'Detail' },
+                  { file: 'IMG_6718.jpeg', title: 'Skyline Silhouette Sweep', tag: 'Detail' },
+                  { file: 'IMG_6719.jpeg', title: 'Scalloped Mul Cotton Border', tag: 'Detail' },
+                  { file: 'IMG_6720.jpeg', title: 'Cerulean Terrace Horizon', tag: 'Solo' },
+                  { file: 'IMG_6721.jpeg', title: 'Antique Citron Zari Kurti', tag: 'Detail' },
+                  { file: 'IMG_6722.jpeg', title: 'Citron Olive Model Profile', tag: 'Solo' },
+                  { file: 'IMG_6723.jpeg', title: 'Chanderi Silk Floral Weave', tag: 'Fabric' },
+                  { file: 'IMG_6724.jpeg', title: 'Twilight Ombre Dupatta Drapes', tag: 'Detail' },
+                  { file: 'IMG_6725.jpeg', title: 'Courtyard Atelier Portrait', tag: 'Solo' },
+                  { file: 'IMG_6726.jpeg', title: 'Dual Silhouette Courtyard Arch', tag: 'Group' },
+                  { file: 'IMG_6727.jpeg', title: 'Terrace Architectural Composition', tag: 'Atmosphere' },
+                  { file: 'IMG_6728.jpeg', title: 'Carved Wood Screen Duo', tag: 'Group' },
+                  { file: 'IMG_6729.jpeg', title: 'Handmade Tassel Finishings', tag: 'Detail' },
+                  { file: 'IMG_6730.jpeg', title: 'Indigo Floral Border Macro', tag: 'Fabric' },
+                  { file: 'IMG_6731.jpeg', title: 'Open Sky Terrace Silhouette', tag: 'Solo' },
+                  { file: 'IMG_6732.jpeg', title: 'Cerulean Farshi Suit Frontal', tag: 'Solo' },
+                  { file: 'IMG_6733.jpeg', title: 'Heritage Brickwork Study', tag: 'Solo' },
+                  { file: 'IMG_6734.jpeg', title: 'Back Neckline & Dori Ties', tag: 'Detail' },
+                  { file: 'IMG_6735.jpeg', title: 'Citron Gold Scalloped Hemline', tag: 'Fabric' },
+                  { file: 'IMG_6736.jpeg', title: 'Terrace Citron Farshi Motion', tag: 'Solo' },
+                  { file: 'IMG_6738.jpeg', title: 'Shadow & Texture Textile Study', tag: 'Macro' },
+                  { file: 'IMG_6739.jpeg', title: 'Twin Models Seated Conversation', tag: 'Group' },
+                  { file: 'IMG_6740.jpeg', title: 'Twilight Silk Shading Close-up', tag: 'Fabric' },
+                  { file: 'IMG_6741.jpeg', title: 'Dual Models Standing Side-by-Side', tag: 'Group' },
+                  { file: 'IMG_6742.jpeg', title: 'Chanderi Weft & Warp Texture', tag: 'Macro' },
+                  { file: 'IMG_6743.jpeg', title: 'Atelier Light & Shadow Portrait', tag: 'Solo' },
+                  { file: 'IMG_6744.png',  title: 'Full-Length Archival Campaign', tag: 'Lookbook' },
+                  { file: 'IMG_6746.jpeg', title: 'Courtyard Intimate Pose', tag: 'Group' },
+                  { file: 'IMG_6747.jpeg', title: 'Dual Regal Composure', tag: 'Group' },
+                ].map((item, idx) => (
+                  <div
+                    key={item.file}
+                    onClick={() =>
+                      setSelectedImage({
+                        url: `/images/neel-pushp/${item.file}`,
+                        title: `${item.title} (Frame ${idx + 1}/29)`,
+                        subtitle: `Neel Pushp Atelier Campaign · ${item.tag} photographic study.`,
+                      })
+                    }
+                    className="group relative aspect-[3/4] bg-neutral-100 overflow-hidden cursor-pointer border border-neutral-200 hover:border-black transition-all"
+                  >
+                    <img
+                      src={`/images/neel-pushp/${item.file}`}
+                      alt={item.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors" />
+                    <span className="absolute top-1.5 left-1.5 bg-black/70 text-white text-[8px] font-mono uppercase px-1.5 py-0.5 tracking-wider backdrop-blur-xs">
+                      {item.tag}
+                    </span>
+                    <span className="absolute bottom-1.5 left-1.5 right-1.5 text-[9px] font-mono text-white truncate drop-shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                      {item.title}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

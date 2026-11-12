@@ -743,6 +743,178 @@ export const products: Product[] = [
         "lowStockThreshold": 2
       }
     ]
+  },
+  {
+    "id": "p-np-1",
+    "slug": "the-neel-pushp-chanderi-farshi-suit-set",
+    "name": "The Neel Pushp Farshi Suit-Set — Cerulean Indigo",
+    "subtitle": "Neel Pushp Capsule · Handloom Chanderi with Floral Butis",
+    "price": 36500,
+    "originalPrice": 45000,
+    "currency": "₹",
+    "collection": "Neel Pushp",
+    "collectionSlug": "neel-pushp",
+    "category": "Farshi Suit-Set",
+    "description": "The quintessential Neel Pushp ensemble. Tailored in luminous handloom Chanderi silk with delicate twilight blue butis and refined artisanal lace trims. Paired with billowy farshi trousers and a shaded handwoven dupatta.",
+    "fabric": "Handloom Chanderi Silk Kurti, Pure Mul Cotton Farshi Trousers, Hand-shaded Chiffon Dupatta with handmade artisan tassels.",
+    "care": [
+      "Dry clean only",
+      "Store flat in pure muslin cover",
+      "Steam iron with reverse protection",
+      "Do not bleach"
+    ],
+    "images": [
+      {
+        "url": "/images/neel-pushp/IMG_6732.jpeg",
+        "alt": "Neel Pushp Farshi Suit-Set - Cerulean Indigo Model Front View",
+        "isPrimary": true
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6726.jpeg",
+        "alt": "Neel Pushp Campaign - Dual Models in Jaipur Atelier Courtyard"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6720.jpeg",
+        "alt": "Neel Pushp Sky Terrace Portrait"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6717.jpeg",
+        "alt": "Neel Pushp Scalloped Hem and Farshi Trouser Silhouette"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6723.jpeg",
+        "alt": "Neel Pushp Handcrafted Chanderi Silk Detail"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6730.jpeg",
+        "alt": "Neel Pushp Twilight Indigo Artisan Dupatta"
+      }
+    ],
+    "sizes": [
+      { "label": "XS", "available": true, "measurements": "Bust: 32 | Waist: 26 | Hip: 36 | Length: 48" },
+      { "label": "S", "available": true, "measurements": "Bust: 34 | Waist: 28 | Hip: 38 | Length: 48" },
+      { "label": "M", "available": true, "measurements": "Bust: 36 | Waist: 30 | Hip: 40 | Length: 48" },
+      { "label": "L", "available": true, "measurements": "Bust: 38 | Waist: 32 | Hip: 42 | Length: 48" },
+      { "label": "XL", "available": true, "measurements": "Bust: 40 | Waist: 34 | Hip: 44 | Length: 48" },
+      { "label": "Custom", "available": true, "measurements": "Tailored to client measurements" }
+    ],
+    "colors": [
+      {
+        "name": "Cerulean Indigo",
+        "hex": "#4A6B82",
+        "image": "/images/neel-pushp/IMG_6732.jpeg"
+      }
+    ],
+    "tags": [
+      "farshi-suit-set",
+      "neel-pushp",
+      "chanderi-silk",
+      "cerulean",
+      "indigo",
+      "bestseller",
+      "new-drop"
+    ],
+    "sku": "ZY-NP-01",
+    "status": "active",
+    "isFeatured": true,
+    "isBestseller": true,
+    "isLimitedEdition": true,
+    "limitedCount": 25,
+    "inStock": true,
+    "badge": "Signature Piece",
+    "inventory": [
+      { "sku": "ZY-NP-01-XS", "color": "Cerulean Indigo", "size": "XS", "stock": 4, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-01-S", "color": "Cerulean Indigo", "size": "S", "stock": 7, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-01-M", "color": "Cerulean Indigo", "size": "M", "stock": 8, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-01-L", "color": "Cerulean Indigo", "size": "L", "stock": 6, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-01-XL", "color": "Cerulean Indigo", "size": "XL", "stock": 3, "lowStockThreshold": 2 }
+    ]
+  },
+  {
+    "id": "p-np-2",
+    "slug": "the-neel-pushp-zari-citron-farshi-suit-set",
+    "name": "The Neel Pushp Farshi Suit-Set — Citron Olive",
+    "subtitle": "Neel Pushp Capsule · Metallic Floral Weaves & Wide Farshi",
+    "price": 38500,
+    "originalPrice": 46000,
+    "currency": "₹",
+    "collection": "Neel Pushp",
+    "collectionSlug": "neel-pushp",
+    "category": "Farshi Suit-Set",
+    "description": "A regal counterpoint to twilight blue. Crafted in antique mustard and citron olive handloom weaves with gold zari booti motifs, scalloped hemline, and paired with fluid farshi trousers.",
+    "fabric": "Pure Handloom Zari Tissue Silk Kurti, Handwoven Mul Farshi Trousers, Sheer Zari Border Dupatta.",
+    "care": [
+      "Dry clean only",
+      "Store flat in pure muslin cover",
+      "Steam iron with reverse protection",
+      "Do not bleach"
+    ],
+    "images": [
+      {
+        "url": "/images/neel-pushp/IMG_6722.jpeg",
+        "alt": "Neel Pushp Citron Olive Model Profile View",
+        "isPrimary": true
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6741.jpeg",
+        "alt": "Neel Pushp Dual Models Side-by-Side in Courtyard"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6736.jpeg",
+        "alt": "Neel Pushp Citron Olive Floral Kurti Silhouette"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6747.jpeg",
+        "alt": "Neel Pushp Dual Silhouette Editorial Composition"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6725.jpeg",
+        "alt": "Neel Pushp Atelier Portrait"
+      },
+      {
+        "url": "/images/neel-pushp/IMG_6735.jpeg",
+        "alt": "Neel Pushp Gold Zari & Scalloped Trim Close-up"
+      }
+    ],
+    "sizes": [
+      { "label": "XS", "available": true, "measurements": "Bust: 32 | Waist: 26 | Hip: 36 | Length: 48" },
+      { "label": "S", "available": true, "measurements": "Bust: 34 | Waist: 28 | Hip: 38 | Length: 48" },
+      { "label": "M", "available": true, "measurements": "Bust: 36 | Waist: 30 | Hip: 40 | Length: 48" },
+      { "label": "L", "available": true, "measurements": "Bust: 38 | Waist: 32 | Hip: 42 | Length: 48" },
+      { "label": "XL", "available": true, "measurements": "Bust: 40 | Waist: 34 | Hip: 44 | Length: 48" },
+      { "label": "Custom", "available": true, "measurements": "Tailored to client measurements" }
+    ],
+    "colors": [
+      {
+        "name": "Citron Olive",
+        "hex": "#8B8A5A",
+        "image": "/images/neel-pushp/IMG_6722.jpeg"
+      }
+    ],
+    "tags": [
+      "farshi-suit-set",
+      "neel-pushp",
+      "zari-silk",
+      "citron",
+      "olive",
+      "gold",
+      "limited-edition"
+    ],
+    "sku": "ZY-NP-02",
+    "status": "active",
+    "isFeatured": true,
+    "isBestseller": false,
+    "isLimitedEdition": true,
+    "limitedCount": 20,
+    "inStock": true,
+    "badge": "Artisanal Edition",
+    "inventory": [
+      { "sku": "ZY-NP-02-XS", "color": "Citron Olive", "size": "XS", "stock": 3, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-02-S", "color": "Citron Olive", "size": "S", "stock": 5, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-02-M", "color": "Citron Olive", "size": "M", "stock": 6, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-02-L", "color": "Citron Olive", "size": "L", "stock": 4, "lowStockThreshold": 2 },
+      { "sku": "ZY-NP-02-XL", "color": "Citron Olive", "size": "XL", "stock": 2, "lowStockThreshold": 2 }
+    ]
   }
 ]
 
@@ -755,27 +927,31 @@ export const collections: Collection[] = ([
     "description": "Inspired by twilight indigo flora and intricate Persian butis hand-woven into lustrous Chanderi and mulberry silks.",
     "season": "Spring-Summer 2026",
     "capsule": "Capsule 01",
-    "heroImage": "",
-    "mosaicImages": [],
-    "status": "coming_soon",
+    "heroImage": "/images/neel-pushp/IMG_6726.jpeg",
+    "mosaicImages": [
+      "/images/neel-pushp/IMG_6726.jpeg",
+      "/images/neel-pushp/IMG_6732.jpeg",
+      "/images/neel-pushp/IMG_6741.jpeg"
+    ],
+    "status": "published",
     "displayOrder": 1,
     "isOld": false,
     "metrics": [
       {
-        "label": "Archival Silhouettes",
-        "value": "10"
+        "label": "Handwoven Silks",
+        "value": "100%"
       },
       {
-        "label": "Mulberry Silk",
-        "value": "100%"
+        "label": "Artisan Hours",
+        "value": "160+"
       },
       {
         "label": "Master Weavers",
         "value": "6"
       }
     ],
-    "productIds": [],
-    "isComingSoon": true
+    "productIds": ["p-np-1", "p-np-2"],
+    "isComingSoon": false
   },
   {
     "id": "c-sunehri-dhoop",

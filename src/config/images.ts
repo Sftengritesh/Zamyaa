@@ -47,8 +47,12 @@ export const siteImages = {
   collections: {
     // 1. Neel Pushp
     neelPushp: {
-      hero: defaultHero,
-      mosaic: [defaultHero, defaultDetail, defaultShootGrid],
+      hero: '/images/neel-pushp/IMG_6726.jpeg',
+      mosaic: [
+        '/images/neel-pushp/IMG_6726.jpeg',
+        '/images/neel-pushp/IMG_6732.jpeg',
+        '/images/neel-pushp/IMG_6741.jpeg',
+      ],
     },
 
     // 2. Sunehri Dhoop
