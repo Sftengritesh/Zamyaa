@@ -435,9 +435,9 @@ export default function HomePage() {
       </section>
 
       {/* ── SECTION 3.5: The Two Signature Categories ── */}
-      <section className="py-20 lg:py-24 border-b border-black/5" style={{ background: 'var(--color-surface)' }}>
+      <section className="py-20 lg:py-28 bg-white border-b border-black/5">
         <div className="max-w-screen-xl mx-auto px-6 lg:px-12">
-          <div className="text-center max-w-xl mx-auto mb-14">
+          <div className="text-center max-w-xl mx-auto mb-14 sm:mb-16">
             <p className="font-body text-xs font-semibold tracking-[0.3em] uppercase mb-3" style={{ color: 'var(--color-secondary)' }}>
               Curated Silhouettes
             </p>
@@ -449,64 +449,77 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {/* Category 1: Farshi Suit-Set */}
             <Link
               to="/collections?category=farshi-suit-set"
-              className="group relative overflow-hidden block aspect-[4/5] bg-neutral-900 text-white shadow-xl"
+              className="group relative overflow-hidden block aspect-[4/3] sm:aspect-[16/11] md:aspect-[4/3] lg:aspect-[16/11] rounded-2xl bg-neutral-900 text-white shadow-lg hover:shadow-2xl transition-all duration-500"
             >
               <img
                 src="/images/lantana/IMG_6642.jpeg"
                 alt="Farshi Suit-Set"
-                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105 opacity-90"
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute bottom-8 left-8 right-8">
-                <span className="text-[10px] tracking-[0.25em] uppercase font-mono text-amber-200 block mb-2">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
+
+              <div className="absolute inset-0 flex flex-col items-center justify-end text-center p-6 sm:p-8 lg:p-10 pb-8 sm:pb-10">
+                <span className="text-[10px] sm:text-[11px] tracking-[0.25em] uppercase font-mono text-amber-200 block mb-2">
                   Atelier Silhouette · 01
                 </span>
-                <h3 className="font-display text-3xl sm:text-4xl font-normal mb-2 text-white">
+                <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-normal mb-2 text-white">
                   Farshi Suit-Set
                 </h3>
-                <p className="font-body text-xs text-neutral-300 max-w-md mb-5 leading-relaxed">
+                <p className="font-body text-xs sm:text-[13px] text-neutral-200 max-w-sm sm:max-w-md mb-5 leading-relaxed">
                   Sweeping, architectural farshi trousers tailored with pure handloom Chanderi silk kurtis and artisan dupattas.
                 </p>
-                <span className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold border-b border-white pb-1 group-hover:gap-3 transition-all">
+                <span className="inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest font-semibold border-b border-white pb-1 group-hover:gap-3 transition-all">
                   Shop Farshi Suits <ArrowRight size={14} />
                 </span>
+              </div>
+
+              {/* Subtle bottom split accent (green & red) */}
+              <div className="absolute bottom-0 left-0 right-0 h-1 flex overflow-hidden z-10">
+                <div className="w-1/2 h-full bg-[#1e7e46]" />
+                <div className="w-1/2 h-full bg-[#b91c1c]" />
               </div>
             </Link>
 
             {/* Category 2: Skirt Top (Atelier Silhouette 02 - The Boho Flare Affair) */}
             <Link
               to="/collections/the-boho-flare-affair"
-              className="group relative overflow-hidden block aspect-[4/5] bg-neutral-900 text-white shadow-xl cursor-pointer"
+              className="group relative overflow-hidden block aspect-[4/3] sm:aspect-[16/11] md:aspect-[4/3] lg:aspect-[16/11] rounded-2xl bg-neutral-900 text-white shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer"
             >
               <img
                 src="/images/the-boho-flare-affair/IMG_6681.jpeg"
                 alt="The Boho Flare Affair Skirt Top Silhouette"
-                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105 opacity-90"
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
 
-              <div className="absolute bottom-8 left-8 right-8">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[10px] tracking-[0.25em] uppercase font-mono text-amber-200">
+              <div className="absolute inset-0 flex flex-col items-center justify-end text-center p-6 sm:p-8 lg:p-10 pb-8 sm:pb-10">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <span className="text-[10px] sm:text-[11px] tracking-[0.25em] uppercase font-mono text-amber-200">
                     Atelier Silhouette · 02
                   </span>
                   <span className="px-2 py-0.5 text-[9px] tracking-widest font-mono uppercase bg-amber-400 text-black font-bold rounded-full">
                     Live
                   </span>
                 </div>
-                <h3 className="font-display text-3xl sm:text-4xl font-normal mb-2 text-white">
+                <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-normal mb-2 text-white">
                   Skirt Top
                 </h3>
-                <p className="font-body text-xs text-neutral-300 max-w-md mb-5 leading-relaxed">
+                <p className="font-body text-xs sm:text-[13px] text-neutral-200 max-w-sm sm:max-w-md mb-5 leading-relaxed">
                   Sculpted corsets, sweetheart bodices, and billowing handwoven skirts adorned with artisanal lace.
                 </p>
-                <span className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold border-b border-white pb-1 group-hover:gap-3 transition-all">
+                <span className="inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest font-semibold border-b border-white pb-1 group-hover:gap-3 transition-all">
                   Shop Skirt Tops <ArrowRight size={14} />
                 </span>
+              </div>
+
+              {/* Subtle bottom split accent (green & red) */}
+              <div className="absolute bottom-0 left-0 right-0 h-1 flex overflow-hidden z-10">
+                <div className="w-1/2 h-full bg-[#1e7e46]" />
+                <div className="w-1/2 h-full bg-[#b91c1c]" />
               </div>
             </Link>
           </div>
